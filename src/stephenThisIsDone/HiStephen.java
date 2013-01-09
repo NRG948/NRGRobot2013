@@ -8,11 +8,9 @@ package stephenThisIsDone;
  *
  * @author ForisKuang
  */
-public class HiStephen 
-{
+public class HiStephen {
     
-    public void hiShank() 
-    {
+    public void hiShank() {
         while (true)
         {
             System.out.println("Hi STEPHEN SHANK!!!!!!");
