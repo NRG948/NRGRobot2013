@@ -12,7 +12,7 @@ package org.usfirst.frc948.NRGRobot2013.subsystems;
 public class ShooterPhysicsImpl implements ShooterPhysics {
     
     /**
-     * 
+     * Calculates the speed and angle of the disc as it leaves the shooter
      * @param distance The distance between the shooter and the target
      * @param platformHeight The height of the robot
      * @param targetHeight The height of the target
