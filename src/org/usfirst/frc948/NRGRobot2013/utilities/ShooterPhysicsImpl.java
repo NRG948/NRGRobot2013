@@ -21,9 +21,16 @@ public class ShooterPhysicsImpl implements ShooterPhysics {
      * @param targetHeight The height of the target
      * @return 
      */
+    
     public ShooterControl calculate(double distance, double platformHeight, double targetHeight) {
         double angle = 0;
         double speed = 0;
+        final double gravity = -9.80;
+        final double densityOfAir = 1.23;
+        final double massOfFrisbee = 0.18;
+        final double areaOfFrisbee = 95.03;
+        final double viscosityOfAir = 0.0000173;
+        final double pressureOfAir = 101325;
         
         
         
