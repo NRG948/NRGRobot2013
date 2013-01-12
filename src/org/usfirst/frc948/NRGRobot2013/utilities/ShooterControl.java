@@ -14,11 +14,11 @@ public class ShooterControl {
         this.speed = speed;
     }
     
-    public double getAngle(double angle) {
+    public double getAngle() {
         return angle;
     }
     
-    public double getSpeed(double speed) {
+    public double getSpeed() {
         return speed;
     }
 }
