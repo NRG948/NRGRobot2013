@@ -13,12 +13,9 @@ public class ShooterControl {
  
     private double angle; //The angle between the shooter platform and the horizontal
     private double speed; //The velocity of the disc leaving the shooter
-
-    public void setAngle(double angle) {
-        this.angle = angle;
-    }    
     
-    public void setSpeed(double speed) {
+    public ShooterControl(double angle, double speed) {
+        this.angle = angle;
         this.speed = speed;
     }
     
