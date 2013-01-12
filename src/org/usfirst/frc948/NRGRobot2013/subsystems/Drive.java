@@ -12,6 +12,7 @@
 package org.usfirst.frc948.NRGRobot2013.subsystems;
 
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
+import org.usfirst.frc948.NRGRobot2013.OI;
 import org.usfirst.frc948.NRGRobot2013.commands.*;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType; import edu.wpi.first.wpilibj.Encoder.PIDSourceParameter;
@@ -36,8 +37,8 @@ public class Drive extends Subsystem
     private Jaguar RIGHT1_MOTOR;
     private Jaguar RIGHT2_MOTOR;
     //joysticks
-    private Joystick leftJoystick;
-    private Joystick rightJoystick;
+    private OI leftJoystick;
+    private OI rightJoystick;
     
     public void Drive() 
     {
