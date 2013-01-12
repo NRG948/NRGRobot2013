@@ -2,7 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.usfirst.frc948.NRGRobot2013.subsystems;
+package org.usfirst.frc948.NRGRobot2013.utilities;
+
+import org.usfirst.frc948.NRGRobot2013.utilities.ShooterPhysics;
+import org.usfirst.frc948.NRGRobot2013.utilities.ShooterControl;
 
 /**
  * Implements the ShooterPhysics interface to set the ShooterControl parameters
