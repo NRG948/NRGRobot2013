@@ -3,16 +3,18 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.OI;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 
 /**
  *
  * @author hoileung
  */
 public class OperatorDriveCommand extends Command {
-    
+    private static final double SUDDEN_CHANGE_CONSTANT = 0.8;
     private OI oi;
     private double leftMotorSpeed;
     private double rightMotorSpeed;
+    
     
     public OperatorDriveCommand(OI oi) {
         this.oi = oi;
@@ -20,13 +22,33 @@ public class OperatorDriveCommand extends Command {
     
     protected void initialize() {
         this.requires(Robot.drive);
+        leftMotorSpeed = 0.0;
+        rightMotorSpeed = 0.0; 
     }
 
     protected void execute() 
     {
+        //If there is a sudden change in the y value of the joystick,
+        //the average between the current motor speed and the targeted motor
+        //speed will be calculated in order to prevent damages to the motors. 
+        if(Math.abs((leftMotorSpeed-oi.getleftJoystick().getY()))>= SUDDEN_CHANGE_CONSTANT)
+        {
+            leftMotorSpeed = MathHelper.average(leftMotorSpeed, oi.getleftJoystick().getY());
+        }
+        else
+        {
         leftMotorSpeed = oi.getleftJoystick().getY();
-        rightMotorSpeed = oi.getrightJoystick().getY();
+        }
         
+        if(Math.abs((rightMotorSpeed-oi.getrightJoystick().getY()))>= SUDDEN_CHANGE_CONSTANT)
+        {
+            rightMotorSpeed = MathHelper.average(rightMotorSpeed, oi.getrightJoystick().getY());
+        }
+        else
+        {
+        rightMotorSpeed = oi.getrightJoystick().getY();
+        }
+        //
         if (Math.abs(leftMotorSpeed) < 0.08) {
             leftMotorSpeed = 0;
         }
@@ -35,12 +57,6 @@ public class OperatorDriveCommand extends Command {
             rightMotorSpeed = 0;
         }
         
-        // TODO: averaging algorithm to compensate for sudden changes
-        //
-        // For instance, if the driver is going full speed forward on both 
-        // joysticks and then suddenly pulls all the way back on both, there is 
-        // the potential to damage the motors if we suddenly drive them the 
-        // opposite way at full speed.
         
         Robot.drive.tankDrive(leftMotorSpeed, rightMotorSpeed);
     }
