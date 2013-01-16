@@ -36,7 +36,9 @@ public class OperatorDriveCommand extends Command {
         //speed will be calculated in order to prevent damages to the motors.
         currentLeftJoystickYValue = -oi.getleftJoystick().getY();
         currentRightJoystickYValue = -oi.getrightJoystick().getY();
-        if(Math.abs(leftMotorSpeed-currentLeftJoystickYValue) < CLOSE_TO_ZERO) {
+        
+
+        if(Math.abs(currentLeftJoystickYValue) < CLOSE_TO_ZERO) {
             leftMotorSpeed = 0;
         }
         else if(Math.abs((leftMotorSpeed-currentLeftJoystickYValue))> SUDDEN_CHANGE_THRESHOLD) {
@@ -46,12 +48,9 @@ public class OperatorDriveCommand extends Command {
         else {
             leftMotorSpeed = currentLeftJoystickYValue;
         }
-
-     
-        if(Math.abs(rightMotorSpeed-currentRightJoystickYValue)<CLOSE_TO_ZERO) {
+        if(Math.abs(currentRightJoystickYValue) < CLOSE_TO_ZERO) {
             rightMotorSpeed = 0; 
-        }
-
+        } 
         else if(Math.abs((rightMotorSpeed-currentRightJoystickYValue))> SUDDEN_CHANGE_THRESHOLD) {
             rightMotorSpeed = MathHelper.average(rightMotorSpeed, currentRightJoystickYValue);
         }
