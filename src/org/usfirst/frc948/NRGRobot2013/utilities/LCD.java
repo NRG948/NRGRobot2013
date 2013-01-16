@@ -1,9 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package org.usfirst.frc948.NRGRobot2013;
-
+package org.usfirst.frc948.NRGRobot2013.utilities;
 
 import edu.wpi.first.wpilibj.DriverStationLCD;
 
@@ -12,23 +7,21 @@ import edu.wpi.first.wpilibj.DriverStationLCD;
  * @author hoileung
  */
 public class LCD {
+
     public static final boolean DRIVE = false;
     public static final boolean AUTONOMOUS = false;
-    public static final boolean JOYSTICK = false; 
+    public static final boolean JOYSTICK = false;
     public static final boolean PID = false;
     private final static DriverStationLCD lcd = DriverStationLCD.getInstance();
-    
+
     //print method for the Driver Station
-    public static void println(boolean flag, int line, String message)
-    {
-        if(flag)
-        {
-            switch(line)
-            {
+    public static void println(boolean flag, int line, String message) {
+        if (flag) {
+            switch (line) {
                 case 1:
                     lcd.println(DriverStationLCD.Line.kUser1, 1, message);
                     break;
-                case 2: 
+                case 2:
                     lcd.println(DriverStationLCD.Line.kUser2, 1, message);
                     break;
                 case 3:
@@ -46,29 +39,27 @@ public class LCD {
             }
         }
     }
-    //Clears screen
-    public static void clear()
-    {
+    
+    // clears screen
+    public static void clear() {
         String clear = "";
-        for(byte i = 0; i< DriverStationLCD.kLineLength;i++)
-        {
+        for (byte i = 0; i < DriverStationLCD.kLineLength; i++) {
             clear += "  ";
         }
-        for(byte i = 1; i<=6; i++)
-        {
-            println(true,i,clear);
+        
+        for (byte i = 1; i <= 6; i++) {
+            println(true, i, clear);
         }
     }
-    //update LCD
-    public static void update()
-    {
+    
+    // update LCD
+    public static void update() {
         clear();
         updateText();
         lcd.updateLCD();
     }
-    //update test on LCD
-    public static void updateText()
-    {
-        
+    
+    // update text on LCD
+    public static void updateText() {
     }
 }

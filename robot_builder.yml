@@ -208,7 +208,7 @@ Children:
           value: '1'
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: None}
+        name: Default Command, type: Command, validators: null, value: OperatorDriveCommand}
   - Name: DiscMagazine
     Base: Subsystem
     Children: []
@@ -348,7 +348,7 @@ Children:
         default: 1
         name: Number
         validators: &id017 [Joystick]
-        value: '1'
+        value: '2'
   - Name: rightJoystick
     Base: Joystick
     Children: []
@@ -358,7 +358,7 @@ Children:
         default: 1
         name: Number
         validators: *id017
-        value: '2'
+        value: '1'
   Properties: {}
 - Name: Commands
   Base: Commands
@@ -371,6 +371,14 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: None}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
+  - Name: OperatorDriveCommand
+    Base: Command
+    Children: []
+    Properties:
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: Drive}
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: false}
   Properties: {}
 Properties:
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
