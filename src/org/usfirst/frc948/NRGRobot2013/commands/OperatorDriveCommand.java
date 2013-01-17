@@ -13,14 +13,13 @@ public class OperatorDriveCommand extends Command {
 
     private static final double SUDDEN_CHANGE_THRESHOLD = 0.6;
     private static final double CLOSE_TO_ZERO = 0.08;
-    private OI oi;
+    private OI oi = Robot.oi;
     private double leftMotorSpeed;
     private double rightMotorSpeed;
     private double currentLeftJoystickYValue;
     private double currentRightJoystickYValue;
     
-    public OperatorDriveCommand(OI oi) {
-        this.oi = oi;
+    public OperatorDriveCommand() {
         requires(Robot.drive);
     }
     
