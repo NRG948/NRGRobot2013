@@ -42,7 +42,9 @@ public class ShooterPhysicsImpl implements ShooterPhysics {
         double speed = 0;
         
         // Initial height of frisbee (at launch)
-        double y0 = 1d; // meters
+        double yP = platformHeight; // meters\
+        
+        double yT = targetHeight;
         
         double alpha = 0d; // angle of attack
         
