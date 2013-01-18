@@ -61,5 +61,6 @@ public class LCD {
     
     // update text on LCD
     public static void updateText() {
+     
     }
 }

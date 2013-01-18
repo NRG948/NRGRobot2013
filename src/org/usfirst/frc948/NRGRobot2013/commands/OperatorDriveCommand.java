@@ -3,6 +3,8 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.OI;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.RobotMap;
+import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 
 /**
@@ -18,16 +20,15 @@ public class OperatorDriveCommand extends Command {
     private double rightMotorSpeed;
     private double currentLeftJoystickYValue;
     private double currentRightJoystickYValue;
-    
+
     public OperatorDriveCommand() {
         requires(Robot.drive);
     }
-    
+
     protected void initialize() {
-        this.requires(Robot.drive);
         leftMotorSpeed = 0.0;
-        rightMotorSpeed = 0.0; 
-}
+        rightMotorSpeed = 0.0;
+    }
 
     protected void execute() {
         //If there is a sudden change in the y value of the joystick,
@@ -35,29 +36,26 @@ public class OperatorDriveCommand extends Command {
         //speed will be calculated in order to prevent damages to the motors.
         currentLeftJoystickYValue = -oi.getleftJoystick().getY();
         currentRightJoystickYValue = -oi.getrightJoystick().getY();
-        
 
-        if(Math.abs(currentLeftJoystickYValue) < CLOSE_TO_ZERO) {
+
+        if (Math.abs(currentLeftJoystickYValue) < CLOSE_TO_ZERO) {
             leftMotorSpeed = 0;
-        }
-        else if(Math.abs((leftMotorSpeed-currentLeftJoystickYValue))> SUDDEN_CHANGE_THRESHOLD) {
+        } else if (Math.abs((leftMotorSpeed - currentLeftJoystickYValue)) > SUDDEN_CHANGE_THRESHOLD) {
             leftMotorSpeed = MathHelper.average(leftMotorSpeed, currentLeftJoystickYValue);
 
-        }
-        else {
+        } else {
             leftMotorSpeed = currentLeftJoystickYValue;
         }
-        if(Math.abs(currentRightJoystickYValue) < CLOSE_TO_ZERO) {
-            rightMotorSpeed = 0; 
-        } 
-        else if(Math.abs((rightMotorSpeed-currentRightJoystickYValue))> SUDDEN_CHANGE_THRESHOLD) {
+        if (Math.abs(currentRightJoystickYValue) < CLOSE_TO_ZERO) {
+            rightMotorSpeed = 0;
+        } else if (Math.abs((rightMotorSpeed - currentRightJoystickYValue)) > SUDDEN_CHANGE_THRESHOLD) {
             rightMotorSpeed = MathHelper.average(rightMotorSpeed, currentRightJoystickYValue);
-        }
-        else {
-            rightMotorSpeed =currentRightJoystickYValue;
+        } else {
+            rightMotorSpeed = currentRightJoystickYValue;
         }
 
         Robot.drive.tankDrive(leftMotorSpeed, rightMotorSpeed);
+        printEncoder();
     }
 
     protected boolean isFinished() {
@@ -70,5 +68,10 @@ public class OperatorDriveCommand extends Command {
 
     protected void interrupted() {
         Robot.drive.tankDrive(0.0, 0.0);
+    }
+
+    public void printEncoder() {
+        LCD.println(true, 1, String.valueOf(RobotMap.driveleftQuadrature.getRaw()));
+        LCD.println(true, 2, String.valueOf(RobotMap.driverightQuadrature.getRaw()));
     }
 }

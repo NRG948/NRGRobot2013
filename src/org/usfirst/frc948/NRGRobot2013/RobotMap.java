@@ -50,12 +50,12 @@ public class RobotMap {
         driverightMotor2 = new Talon(1, 4);
 	LiveWindow.addActuator("Drive", "rightMotor2", (Talon) driverightMotor2);
         
-        driveleftQuadrature = new Encoder(1, 1, 1, 2, false, EncodingType.k4X);
+        driveleftQuadrature = new Encoder(1, 7, 1, 8, false, EncodingType.k4X);
 	LiveWindow.addSensor("Drive", "leftQuadrature", driveleftQuadrature);
         driveleftQuadrature.setDistancePerPulse(1.0);
         driveleftQuadrature.setPIDSourceParameter(PIDSourceParameter.kRate);
         driveleftQuadrature.start();
-        driverightQuadrature = new Encoder(1, 3, 1, 4, false, EncodingType.k4X);
+        driverightQuadrature = new Encoder(1, 9, 1, 10, false, EncodingType.k4X);
 	LiveWindow.addSensor("Drive", "rightQuadrature", driverightQuadrature);
         driverightQuadrature.setDistancePerPulse(1.0);
         driverightQuadrature.setPIDSourceParameter(PIDSourceParameter.kRate);
