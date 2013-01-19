@@ -55,7 +55,6 @@ public class OperatorDriveCommand extends Command {
         }
 
         Robot.drive.tankDrive(leftMotorSpeed, rightMotorSpeed);
-        printEncoder();
     }
 
     protected boolean isFinished() {
@@ -68,10 +67,5 @@ public class OperatorDriveCommand extends Command {
 
     protected void interrupted() {
         Robot.drive.tankDrive(0.0, 0.0);
-    }
-
-    public void printEncoder() {
-        LCD.println(true, 1, String.valueOf(RobotMap.driveleftQuadrature.getRaw()));
-        LCD.println(true, 2, String.valueOf(RobotMap.driverightQuadrature.getRaw()));
     }
 }

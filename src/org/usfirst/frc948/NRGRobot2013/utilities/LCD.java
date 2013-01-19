@@ -8,10 +8,12 @@ import edu.wpi.first.wpilibj.DriverStationLCD;
  */
 public class LCD {
 
+    public static final boolean GYRO = true;
     public static final boolean DRIVE = false;
     public static final boolean AUTONOMOUS = false;
     public static final boolean JOYSTICK = false;
     public static final boolean PID = false;
+    
     private final static DriverStationLCD lcd = DriverStationLCD.getInstance();
 
     //print method for the Driver Station
@@ -54,13 +56,7 @@ public class LCD {
     
     // update LCD
     public static void update() {
-        clear();
-        updateText();
         lcd.updateLCD();
     }
     
-    // update text on LCD
-    public static void updateText() {
-     
-    }
 }
