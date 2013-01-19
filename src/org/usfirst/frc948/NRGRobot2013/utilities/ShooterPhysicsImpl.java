@@ -3,10 +3,12 @@
  * and open the template in the editor.
  */
 package org.usfirst.frc948.NRGRobot2013.utilities;
-
+import org.usfirst.frc948.NRGRobot2013.subsystems.Shooter;
+import java.util.*;
 import org.usfirst.frc948.NRGRobot2013.utilities.ShooterPhysics;
 import org.usfirst.frc948.NRGRobot2013.utilities.ShooterControl;
-
+import java.lang.Math; 
+import org.usfirst.frc948.NRGRobot2013.Robot;
 /**
  * Implements the ShooterPhysics interface to set the ShooterControl parameters
  * 
@@ -36,10 +38,11 @@ public class ShooterPhysicsImpl implements ShooterPhysics {
      * @param targetHeight The height of the target
      * @return 
      */
-        
+        //returns an array of possible angles and pseeds that can reach target. 
     public ShooterControl calculate(double distance, double platformHeight, double targetHeight) {
-        double angle = 0;
-        double speed = 0;
+        double angle = 0d;
+        double speed = 0d;
+        ShooterControl[] a1 = new ShooterControl[45];
         
         // Initial height of frisbee (at launch)
         double yP = platformHeight; // meters\
@@ -50,8 +53,31 @@ public class ShooterPhysicsImpl implements ShooterPhysics {
         double alpha = 0d; // angle of attack
         
         double dt = 0.001d; // seconds (simulation timestep)
+        int i = 0;
+        while(i<45){
+          angle = i+1; 
+          //Calculate speed nessesary for angle i + 1 to hit target. 
+          a1[i]= new ShooterControl(angle, speed);
+            i++;
+          if (speed > 30){
+              a1[i]= null; 
+          }
+        }
+        int c = 0;
+        while(c<45){
+         ShooterControl idealShooterControl = new ShooterControl(0,0);
+         double b = 99;
+         double currentAngle = Robot.shooter.robotShooterControl.getAngle();
+         double nessesaryAngle = a1[i].getAngle();
+         double d = currentAngle-nessesaryAngle;
+         if (Math.abs(d)<b){
+             b = Math.abs(d);
+             idealShooterControl = a1[i];
+         }
+        }
+        return a1[i];
         
-        return new ShooterControl(angle, speed);
+        
     }
     
 }

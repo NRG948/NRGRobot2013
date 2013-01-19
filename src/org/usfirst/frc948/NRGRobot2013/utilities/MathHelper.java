@@ -4,6 +4,7 @@
  */
 package org.usfirst.frc948.NRGRobot2013.utilities;
 import com.sun.squawk.util.MathUtils;
+import java.lang.Math;
 /**
  *
  * @author hoileung
@@ -18,6 +19,14 @@ public class MathHelper {
      * @param min
      * @return 
      */
+    public static double radianToDegree(double a){
+        a = a*180/Math.PI;
+        return a;
+    }
+    public static double degreeToRadian(double b){
+        b = b*Math.PI/180; 
+        return b;
+    }
     public static double clamp(double val,double max,double min)
     {
         if(val>max)
