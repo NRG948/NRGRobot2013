@@ -63,10 +63,10 @@ public class ShooterPhysicsImpl implements ShooterPhysics {
               a1[i]= null; 
           }
         }
+        double b = 99;
         int c = 0;
         while(c<45){
          ShooterControl idealShooterControl = new ShooterControl(0,0);
-         double b = 99;
          double currentAngle = Robot.shooter.robotShooterControl.getAngle();
          double nessesaryAngle = a1[i].getAngle();
          double d = currentAngle-nessesaryAngle;
