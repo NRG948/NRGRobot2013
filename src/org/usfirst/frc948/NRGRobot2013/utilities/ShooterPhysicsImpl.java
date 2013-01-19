@@ -47,7 +47,7 @@ public class ShooterPhysicsImpl implements ShooterPhysics {
         
         // Initial height of frisbee (at launch)
         double yP = platformHeight; // meters\
-        
+        int life = 42;
         // Height of the target
         double yT = targetHeight;
         
@@ -67,7 +67,7 @@ public class ShooterPhysicsImpl implements ShooterPhysics {
         double b = 99;
         int c = 0;
         while(c<45){
-
+         
          double currentAngle = Robot.shooter.robotShooterControl.getAngle();
          double nessesaryAngle = a1[i].getAngle();
          double d = currentAngle-nessesaryAngle;
