@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.usfirst.frc948.NRGRobot2013.utilities;
 
 import com.sun.squawk.util.MathUtils;
-import java.lang.Math;
+
 /**
  *
  * @author hoileung
@@ -13,26 +9,26 @@ import java.lang.Math;
 public class MathHelper {
 
     public static double radianToDegree(double a) {
-        a = a*180/Math.PI;
+        a = a * 180 / Math.PI;
         return a;
     }
+
     public static double degreeToRadian(double b) {
-        b = b*Math.PI/180; 
+        b = b * Math.PI / 180;
         return b;
     }
-    
+
     /**
-     * Returns val if it is between max and min 
-     * if it is bigger than max,returns max 
-     * if it is smaller than min, returns min
+     * Returns val if it is between max and min if it is bigger than max,returns
+     * max if it is smaller than min, returns min
+     *
      * @param val
      * @param max
      * @param min
      * @return
-     */    
-    public static double clamp(double val,double max,double min) {
-        if(val>max)
-        {
+     */
+    public static double clamp(double val, double min, double max) {
+        if (val > max) {
             return max;
         } else if (val < min) {
             return min;
@@ -41,7 +37,7 @@ public class MathHelper {
         }
     }
 
-    public static int clamp(int val, int max, int min) {
+    public static int clamp(int val, int min, int max) {
         if (val > max) {
             return max;
         } else if (val < min) {
@@ -61,7 +57,7 @@ public class MathHelper {
      * @return
      */
     public static double normalizeValue(double val, double max, double min) {
-        return (clamp(val, max, min) - min) / (max - min);
+        return (clamp(val, min, max) - min) / (max - min);
     }
 
     /**

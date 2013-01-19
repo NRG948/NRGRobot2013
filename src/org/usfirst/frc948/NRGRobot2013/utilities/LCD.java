@@ -14,8 +14,17 @@ public class LCD {
     public static final boolean JOYSTICK = false;
     public static final boolean PID = false;
     
+    private static final String emptyLine = emptyLine();
+    private static String emptyLine() {
+        String emptyLine = "";
+        for (byte i = 0; i < DriverStationLCD.kLineLength; i++) {
+            emptyLine += " ";
+        }
+        return emptyLine();
+    }
+    
     private final static DriverStationLCD lcd = DriverStationLCD.getInstance();
-
+    
     //print method for the Driver Station
     public static void println(boolean flag, int line, String message) {
         if (flag) {
@@ -42,15 +51,14 @@ public class LCD {
         }
     }
     
+    public static void clearLine(int line) {
+        println(true, line, emptyLine);
+    }
+    
     // clears screen
     public static void clear() {
-        String clear = "";
-        for (byte i = 0; i < DriverStationLCD.kLineLength; i++) {
-            clear += "  ";
-        }
-        
         for (byte i = 1; i <= 6; i++) {
-            println(true, i, clear);
+            clearLine(i);
         }
     }
     
