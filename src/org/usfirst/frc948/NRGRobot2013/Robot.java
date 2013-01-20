@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc948.NRGRobot2013.commands.*;
 import org.usfirst.frc948.NRGRobot2013.subsystems.*;
 import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
+import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -84,6 +85,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        LCD.update();
     }
 
     public void teleopInit() {
@@ -100,8 +102,9 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         
-        LCD.println(true, 1, String.valueOf(RobotMap.driveleftQuadrature.getRaw()));
-        LCD.println(true, 2, String.valueOf(RobotMap.driverightQuadrature.getRaw()));
+        String leftQuad = String.valueOf(MathHelper.round(RobotMap.driveleftQuadrature.getRaw(), 4));
+        String rightQuad = String.valueOf(MathHelper.round(RobotMap.driverightQuadrature.getRaw(), 4));
+        LCD.println(LCD.DRIVE, 1, "L:" + leftQuad + " R:" + rightQuad);
         LCD.println(LCD.GYRO, 3, "GYRO: " + String.valueOf(Robot.drive.getGyroAngle()));
         LCD.update();
     }
