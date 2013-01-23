@@ -20,7 +20,7 @@ public class LCD {
         for (byte i = 0; i < DriverStationLCD.kLineLength; i++) {
             emptyLine += " ";
         }
-        return emptyLine();
+        return emptyLine;
     }
     
     private final static DriverStationLCD lcd = DriverStationLCD.getInstance();
