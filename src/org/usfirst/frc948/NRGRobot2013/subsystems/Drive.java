@@ -49,6 +49,9 @@ public class Drive extends Subsystem {
     public double getGyroAngle() {
         return gyro.getAngle();
     }
+    public void resetGyro(){
+        gyro.reset();
+    }
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
