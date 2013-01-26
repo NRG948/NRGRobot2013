@@ -32,7 +32,7 @@ public class DriveStraightDistance extends Command{
     }
 
     protected boolean isFinished() {
-        return (Robot.drive.getEncoderDistance() > finalDistance);
+        return (Robot.drive.getEncoderDistance() >= finalDistance);
     }
 
     protected void end() {
