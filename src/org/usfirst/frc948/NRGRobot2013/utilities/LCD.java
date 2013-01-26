@@ -13,6 +13,7 @@ public class LCD {
     public static final boolean AUTONOMOUS = false;
     public static final boolean JOYSTICK = false;
     public static final boolean PID = false;
+    public static final boolean TURNING = false;
     
     private static final String emptyLine = emptyLine();
     private static String emptyLine() {

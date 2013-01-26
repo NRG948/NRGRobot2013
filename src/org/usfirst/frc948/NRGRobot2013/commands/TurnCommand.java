@@ -49,7 +49,6 @@ public class TurnCommand extends PIDCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        System.out.println(power);
         Robot.drive.setDesiredHeading(Robot.drive.getDesiredHeading() + degrees);
         setSetpoint(Robot.drive.getDesiredHeading());
         consecutiveCyclesOnTarget = 0;
@@ -66,8 +65,8 @@ public class TurnCommand extends PIDCommand {
         
         LCD.clearLine(4);
         LCD.clearLine(5);
-        LCD.println(false, 4, "SET:" + setAngle + " ERR:" + errorAngle);
-        LCD.println(false, 5, "  PWR:" + drivePowerStr);
+        LCD.println(LCD.TURNING, 4, "SET:" + setAngle + " ERR:" + errorAngle);
+        LCD.println(LCD.TURNING, 5, "  PWR:" + drivePowerStr);
         
     }
 
@@ -84,7 +83,7 @@ public class TurnCommand extends PIDCommand {
 
     // Called once after isFinished returns true
     protected void end() {
-        Robot.drive.tankDrive(0, 0);
+        Robot.drive.stop();
     }
 
     // Called when another command which requires one or more of the same
