@@ -33,7 +33,7 @@ public class OperatorShooterCommand extends PIDCommand {
     }
     
     protected void initialize() {
-                
+        
     }
 
     protected void execute() {
@@ -41,7 +41,7 @@ public class OperatorShooterCommand extends PIDCommand {
     }
 
     protected boolean isFinished() {
-        return false; //TODO get result from switch
+        return !OI.getShootPressed();
     }
 
     protected void end() {
