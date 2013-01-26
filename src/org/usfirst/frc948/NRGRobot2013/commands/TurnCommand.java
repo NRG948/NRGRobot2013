@@ -1,6 +1,8 @@
 package org.usfirst.frc948.NRGRobot2013.commands;
 
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import org.usfirst.frc948.NRGRobot2013.Debug;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
@@ -11,9 +13,9 @@ import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
  */
 public class TurnCommand extends PIDCommand {
     
-    public static final double kDefaultP = 0.02;
-    public static final double kDefaultI = 0.01;
-    public static final double kDefaultD = 0.0;
+    private static final double kDefaultP = 0.02;
+    private static final double kDefaultI = 0.01;
+    private static final double kDefaultD = 0.0;
     
     private static final double DEGREES_TOLERANCE = 2.0;
     private static final int REQUIRED_CYCLES_ON_TARGET = 20;
@@ -49,6 +51,13 @@ public class TurnCommand extends PIDCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        double p = Preferences.getInstance().getDouble("TurnP", kDefaultP);
+        double i = Preferences.getInstance().getDouble("TurnI", kDefaultI);
+        double d = Preferences.getInstance().getDouble("TurnD", kDefaultD);
+        this.getPIDController().setPID(p, i, d);
+        
+        Debug.println("TurnCommand initializing: " + p + " " + i + " " + d);
+        
         Robot.drive.setDesiredHeading(Robot.drive.getDesiredHeading() + degrees);
         setSetpoint(Robot.drive.getDesiredHeading());
         consecutiveCyclesOnTarget = 0;

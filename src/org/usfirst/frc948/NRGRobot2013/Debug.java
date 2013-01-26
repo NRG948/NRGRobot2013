@@ -14,7 +14,7 @@ public class Debug {
     public static final int IO = 7;
     private static boolean print = false;
 
-    public static void println(int debug, String message) {
+    public static void println(String message) {
         if (print) {
             System.out.println(message);
         }
