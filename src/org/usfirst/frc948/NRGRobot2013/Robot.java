@@ -11,6 +11,7 @@
 
 package org.usfirst.frc948.NRGRobot2013;
 
+import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
