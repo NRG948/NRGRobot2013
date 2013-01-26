@@ -87,6 +87,10 @@ public class Drive extends PIDSubsystem {
     public void resetGyro() {
         gyro.reset();
     }
+    
+    public void setGyroSensitivity(double k) {
+        gyro.setSensitivity(k);
+    }
 
     public static void resetRightEncoder() {
         rightQuadrature.reset();

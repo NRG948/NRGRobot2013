@@ -126,5 +126,6 @@ public class Robot extends IterativeRobot {
         Preferences.getInstance().putDouble("TurnP", 0.01);
         Preferences.getInstance().putDouble("TurnI", 0.001);
         Preferences.getInstance().putDouble("TurnD", 0.0);
+        Preferences.getInstance().putDouble("GyroSensitivity", RobotMap.DEFAULT_GYRO_SENSITIVITY);
     }
 }
