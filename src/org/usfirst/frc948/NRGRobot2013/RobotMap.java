@@ -59,7 +59,7 @@ public class RobotMap {
 	LiveWindow.addSensor("Drive", "rightQuadrature", driverightQuadrature);
         driverightQuadrature.setDistancePerPulse(1.0);
         driverightQuadrature.setPIDSourceParameter(PIDSourceParameter.kRate);
-        driverightQuadrature.setReverseDirection(true);
+        //driverightQuadrature.setReverseDirection(true);
         driverightQuadrature.start();
         drivegyro = new Gyro(1, 1);
 	LiveWindow.addSensor("Drive", "gyro", drivegyro);
