@@ -12,36 +12,25 @@ import org.usfirst.frc948.NRGRobot2013.RobotMap;
  *
  * @author Kevin & Patrick
  */
-public class OperatorShooterCommand extends PIDCommand {
+public class OperatorShooterCommand extends Command {
     // http://lcec.us/javadoc/edu/wpi/first/wpilibj/command/Command.html
 
-    private double shooterSpeed = 0; //Angular velocity of the wheel
-    private Encoder shooterQuadrature = RobotMap.shootershootQuadrature;
-    private static final double P = 0.01; 
-    private static final double I = P/2;
-    private static final double D = 0.0;
+    
     
     public OperatorShooterCommand() {
-        super(P, I, D);
         requires(Robot.shooter);
     }
-    
-    //sets the desireable speed of the wheel
-    public void setSpeed(double speed) {
-        shooterSpeed = speed;
-        this.setSetpoint(speed);
-    }
-    
+
     protected void initialize() {
         
     }
 
     protected void execute() {
-        RobotMap.shootershootMotor.set(shooterSpeed);
+        Robot.shooter.setSpeed(OI.getRawShootSpeed());
     }
 
     protected boolean isFinished() {
-        return !OI.getShootPressed();
+        return false;
     }
 
     protected void end() {
@@ -50,18 +39,5 @@ public class OperatorShooterCommand extends PIDCommand {
 
     protected void interrupted() {
         RobotMap.shootershootMotor.set(0.0);
-    }
-
-    protected double returnPIDInput() {
-        return shooterQuadrature.getRate();
-    }
-
-    protected void usePIDOutput(double d) {
-        
-        if (d > 0) {
-            shooterSpeed *= (1 + d);
-        } else if (d < 0) {
-            shooterSpeed *= (1 - d);
-        }
     }
 }

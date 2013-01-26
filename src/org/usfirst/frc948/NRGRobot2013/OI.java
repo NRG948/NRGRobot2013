@@ -116,12 +116,12 @@ public class OI {
         }
         catch(EnhancedIOException ex)
         {
-            //NRGDebug.println(NRGDebug.IO, ex.getMessage());
+            Debug.println(Debug.IO, ex.getMessage());
         }
         return value;
     }
-    public static double getRawShootSpeed()
-            
+    
+    public static double getRawShootSpeed()    
     {
         double speed = MathHelper.reverseNormalizeValue(getAnalog(ANALOG_SPEED_CHANNEL), MIN_CYPRESS_VOLTAGE, MAX_CYPRESS_VOLTAGE);
         if (speed < SHOOT_SPEED_DEAD_ZONE)
@@ -142,13 +142,9 @@ public class OI {
         try {
             value = io.getDigital(channel);
         } catch (EnhancedIOException ex) {
-            //NRGDebug.println(NRGDebug.IO, ex.getMessage());
+            Debug.println(Debug.IO, ex.getMessage());
         }
         return value;
-    }
-    
-    public static boolean getShootPressed() {
-        return getDigital(SHOOTER);
     }
 }
 
