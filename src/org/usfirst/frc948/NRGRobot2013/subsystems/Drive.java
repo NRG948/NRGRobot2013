@@ -13,7 +13,7 @@ import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.commands.*;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-
+import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 /**
  * @author Charles, Jared
  */
@@ -97,7 +97,7 @@ public class Drive extends PIDSubsystem {
     }
 
     public static double getEncoderDistance() {
-        encoderDistance = (leftQuadrature.getDistance() + rightQuadrature.getDistance()) / 2;
+        encoderDistance = MathHelper.max(Math.abs(leftQuadrature.getDistance()), Math.abs(rightQuadrature.getDistance()));
         return encoderDistance;
     }
     // Put methods for controlling this subsystem

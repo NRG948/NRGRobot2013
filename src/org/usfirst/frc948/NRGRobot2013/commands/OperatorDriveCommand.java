@@ -26,6 +26,7 @@ public class OperatorDriveCommand extends Command {
     }
 
     protected void initialize() {
+       
         leftMotorSpeed = 0.0;
         rightMotorSpeed = 0.0;
     }
