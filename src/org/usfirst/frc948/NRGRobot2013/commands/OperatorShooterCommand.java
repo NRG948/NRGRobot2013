@@ -37,7 +37,7 @@ public class OperatorShooterCommand extends PIDCommand {
     }
 
     protected void execute() {
-        
+        RobotMap.shootershootMotor.set(shooterSpeed);
     }
 
     protected boolean isFinished() {
@@ -63,7 +63,5 @@ public class OperatorShooterCommand extends PIDCommand {
         } else if (d < 0) {
             shooterSpeed *= (1 - d);
         }
-        
-        RobotMap.shootershootMotor.set(shooterSpeed);
     }
 }
