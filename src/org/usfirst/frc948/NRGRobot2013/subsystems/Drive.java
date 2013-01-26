@@ -39,10 +39,14 @@ public class Drive extends PIDSubsystem {
     public Drive(){
         super ("DrivePID", kP, kI, kD);
     }
+    
     public void driveStraightInit(){
-        
+        this.getPIDController().reset();
+        this.getPIDController().enable();
     }
+    
     public void driveStraight(double speed, double heading){
+        
         this.getPIDController().setSetpoint(heading);
         double leftSpeed = speed;
         double rightSpeed = speed - pidOutput;
@@ -75,15 +79,22 @@ public class Drive extends PIDSubsystem {
     public double getGyroAngle() {
         return gyro.getAngle();
     }
+    
     public void resetGyro(){
         gyro.reset();
+    }
+    
+    public static void resetRightEncoder(){
+        rightQuadrature.reset();
+    }
+    
+    public static void resetLeftEncoder(){
+        leftQuadrature.reset();
     }
     public static double getEncoderDistance(){
         encoderDistance = (leftQuadrature.getDistance()+rightQuadrature.getDistance())/2;
         return encoderDistance;
-        
     }
-
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     public void initDefaultCommand() {

@@ -12,7 +12,7 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
  * @author Sean
  */
 public class DriveStraightDistance extends Command{
-    double speed = 0.0;
+    double speed = 0.0; 
     double finalDistance = 0; //in feet
     double distance = 0;
     public DriveStraightDistance(double speed, double distance){
@@ -21,6 +21,9 @@ public class DriveStraightDistance extends Command{
         this.distance = distance;
     }
     protected void initialize() {
+        Robot.drive.resetLeftEncoder();
+        Robot.drive.resetRightEncoder();
+        Robot.drive.driveStraightInit();
         finalDistance = Robot.drive.getEncoderDistance() + distance;
     }
 

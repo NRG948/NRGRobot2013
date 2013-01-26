@@ -23,6 +23,9 @@ public class DriveStraightTime extends Command{
     }
 
     protected void initialize() {
+        Robot.drive.driveStraightInit();
+        Robot.drive.resetLeftEncoder();
+        Robot.drive.resetRightEncoder();
         endTime = System.currentTimeMillis() + time;
     }
 
