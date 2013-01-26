@@ -65,4 +65,7 @@ public class Drive extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
+    public void stop(){
+        tankDrive(0,0);
+    }
 }
