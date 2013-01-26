@@ -17,8 +17,8 @@ public class ShooterPhysicsImpl implements ShooterPhysics {
     private static double y; //The y position of the frisbee.
     private static double vx; //The x velocity of the frisbee.
     private static double vy; //The y velocity of the frisbee.
-    private static final double g = 9.81d; //The acceleration of gravity (m/s^2).
-    private static final double m = 0.175d; //The mass of a standard frisbee in kilograms.
+    private static final double G = 9.81d; //The acceleration of gravity (M_Frisbee/s^2).
+    private static final double M_Frisbee = 0.175d; //The mass of a standard frisbee in kilograms.
     private static final double RHO = 1.23d; //The density of air in kg/m^3.
     private static final double AREA = 0.0568d; //The area of a standard frisbee.
     private static final double CL0 = 0.3331d; // 0.1; //The lift coefficient at alpha = 0.
@@ -36,14 +36,15 @@ public class ShooterPhysicsImpl implements ShooterPhysics {
      * @return
      */
     //returns an array of possible angles and pseeds that can reach target. 
-    public ShooterControl calculate(double distance, double platformHeight, double targetHeight) {
+    public ShooterControl calculate(double distance, double platformHeight, double targetHeight) 
+    {
         double angle = 0d;
         double speed = 0d;
         ShooterControl[] a1 = new ShooterControl[45];
         ShooterControl idealShooterControl = new ShooterControl(0, 0);
 
         // Initial height of frisbee (at launch)
-        double yP = platformHeight; // meters\
+        double yP = platformHeight; // meters
 
         // Height of the target
         double yT = targetHeight;
@@ -52,23 +53,27 @@ public class ShooterPhysicsImpl implements ShooterPhysics {
 
         double dt = 0.001d; // seconds (simulation timestep)
         int i = 0;
-        while (i < 45) {
+        while (i < 45) 
+        {
             angle = i + 1;
             //Calculate speed nessesary for angle i + 1 to hit target. 
             a1[i] = new ShooterControl(angle, speed);
             i++;
-            if (speed > 30) {
+            if (speed > 30)
+            {
                 a1[i] = null;
             }
         }
         double b = 99;
         int c = 0;
-        while (c < 45) {
+        while (c < 45)
+        {
 
             double currentAngle = Robot.shooter.robotShooterControl.getAngle();
             double nessesaryAngle = a1[i].getAngle();
             double d = currentAngle - nessesaryAngle;
-            if (Math.abs(d) < b) {
+            if (Math.abs(d) < b) 
+            {
                 b = Math.abs(d);
                 idealShooterControl = a1[i];
             }
