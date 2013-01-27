@@ -35,7 +35,12 @@ public class DriveStraightDistance extends Command {
 
     protected void execute() {
         distanceRemaining = finalDistance - Math.abs(Robot.drive.getEncoderDistance());
-        Robot.drive.driveStraight(MathHelper.clamp(distanceRemaining / 2, -Math.abs(speed), Math.abs(speed)), Robot.drive.getDesiredHeading());
+        if(speed > 0){
+            Robot.drive.driveStraight(MathHelper.clamp(distanceRemaining / 2, -Math.abs(speed), Math.abs(speed)), Robot.drive.getDesiredHeading());
+        }
+        else if(speed < 0){
+            Robot.drive.driveStraight(MathHelper.clamp(-distanceRemaining / 2, -Math.abs(speed), Math.abs(speed)), Robot.drive.getDesiredHeading());
+        }
 
     }
 
