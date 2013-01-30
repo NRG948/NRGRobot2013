@@ -4,27 +4,33 @@ package org.usfirst.frc948.NRGRobot2013.utilities;
  * 
  * @author Patrick Lin
  */
-public class ShooterControl {
+public class ShooterControl 
+{
  
     private double angle; //The angle between the shooter platform and the horizontal
     private double speed; //The velocity of the disc leaving the shooter
     
-    public ShooterControl(double angle, double speed) {
+    public ShooterControl(double angle, double speed)
+    {
         this.angle = angle;
         this.speed = speed;
     }
     
-    public double getAngle() {
+    public double getAngle() 
+    {
         return angle;
     }
     
-    public double getSpeed() {
+    public double getSpeed() 
+    {
         return speed;
     }
-    public void changeAngle(double angle){
+    public void changeAngle(double angle)
+    {
         this.angle = angle;
     }
-    public void changeSpeed(double speed){
+    public void changeSpeed(double speed)
+    {
         this.speed = speed;
     }
 }
