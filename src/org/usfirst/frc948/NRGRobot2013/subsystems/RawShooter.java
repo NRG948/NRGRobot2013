@@ -5,7 +5,7 @@
 package org.usfirst.frc948.NRGRobot2013.subsystems;
 
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
-
+import org.usfirst.frc948.NRGRobot2013.OI;
 /**
  *
  * @author Patrick
