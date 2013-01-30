@@ -56,7 +56,7 @@ public class TurnCommand extends PIDCommand {
         double d = Preferences.getInstance().getDouble("TurnD", kDefaultD);
         this.getPIDController().setPID(p, i, d);
         
-        Debug.println("TurnCommand initializing: " + p + " " + i + " " + d);
+        Debug.println(Debug.DRIVE, "TurnCommand initializing: " + p + " " + i + " " + d);
         
         Robot.drive.setDesiredHeading(Robot.drive.getDesiredHeading() + degrees);
         setSetpoint(Robot.drive.getDesiredHeading());
