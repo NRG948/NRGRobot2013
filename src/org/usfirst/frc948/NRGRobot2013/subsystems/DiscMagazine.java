@@ -51,18 +51,18 @@ public class DiscMagazine extends Subsystem {
     
     //Returns the state of magPistonOut which corresponds to the state of the piston
     public boolean getState() {
-        return magPistonOut.get(); 
+        return magPistonOut.get();
     }
     
     //sets the state of magPistonOut to the desired state, and sets the state of magPistonIn to the opposite
-    public void release() throws InterruptedException {
-        magPistonOut.set(true); //Shoots the piston out
-        magPistonIn.set(false);
+    public void setState(boolean state) throws InterruptedException {
+        magPistonOut.set(state); //Shoots the piston out
+        magPistonIn.set(!state);
         
         Thread.sleep(1000); //Waits for 1 second
         
-        magPistonOut.set(false); //Pulls the piston back in
-        magPistonIn.set(true);
+        magPistonOut.set(!state); //Pulls the piston back in
+        magPistonIn.set(state);
     }
 }
 
