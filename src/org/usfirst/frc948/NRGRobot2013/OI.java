@@ -123,7 +123,7 @@ public class OI {
         try {
             value = io.getAnalogIn(channel);
         } catch (EnhancedIOException ex) {
-            Debug.println(ex.getMessage());
+            Debug.printException(ex);
         }
         return value;
     }
@@ -144,7 +144,7 @@ public class OI {
         try {
             value = io.getDigital(channel);
         } catch (EnhancedIOException ex) {
-            Debug.println(ex.getMessage());
+            Debug.printException(ex);
         }
         return value;
     }
