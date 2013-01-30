@@ -1,6 +1,6 @@
 package org.usfirst.frc948.NRGRobot2013.utilities;
 
-import org.usfirst.frc948.NRGRobot2013.subsystems.Shooter;
+import org.usfirst.frc948.NRGRobot2013.subsystems.PIDShooter;
 import java.util.*;
 import java.lang.Math;
 import org.usfirst.frc948.NRGRobot2013.Robot;
@@ -10,7 +10,8 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
  *
  * @author Patrick Lin
  */
-public class ShooterPhysicsImpl implements ShooterPhysics {
+public class ShooterPhysicsImpl implements ShooterPhysics 
+{
 
     // Physical parameters for the numerical calculations (in MKS units)
     private static double x; //The x position of the frisbee.
@@ -45,10 +46,10 @@ public class ShooterPhysicsImpl implements ShooterPhysics {
 
         // Initial height of frisbee (at launch)
         double yP = platformHeight; // meters
-
+        
         // Height of the target
         double yT = targetHeight;
-
+        
         double alpha = 0d; // angle of attack
 
         double dt = 0.001d; // seconds (simulation timestep)
