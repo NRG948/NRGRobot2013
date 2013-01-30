@@ -6,7 +6,7 @@ package org.usfirst.frc948.NRGRobot2013.subsystems;
 
 /**
  *
- * @author Work
+ * @author Patrick
  */
 public class RawShooter implements IShooter {
 
