@@ -1,9 +1,6 @@
 package org.usfirst.frc948.NRGRobot2013.commands;
 
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.PIDCommand;
 import org.usfirst.frc948.NRGRobot2013.OI;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
