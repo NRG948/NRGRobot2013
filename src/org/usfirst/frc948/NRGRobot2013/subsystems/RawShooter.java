@@ -7,12 +7,18 @@ package org.usfirst.frc948.NRGRobot2013.subsystems;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.OI;
 /**
- *
+ * A shooter utility without PID 
  * @author Patrick
  */
-public class RawShooter implements IShooter {
+public class RawShooter implements IShooter 
+{
 
-    public void setSpeed(double speed) {
+    /**
+     *
+     * @param speed
+     */
+    public void setSpeed(double speed)
+    {
         RobotMap.shootershootMotor.set(speed);
     }
     

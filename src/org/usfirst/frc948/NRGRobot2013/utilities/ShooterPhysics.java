@@ -20,6 +20,11 @@ public interface ShooterPhysics {
      * @param targetHeight The height of the target
      * @return 
      */
-    public ShooterControl calculate(double distance, double platformHeight, double targetHeight); 
-        
+    public ShooterControl calculate(double distance, double platformHeight, int goalType); 
+    
+    /**
+     * GoalType = 1 = low goal
+     *          = 2 = middle goal 
+     *          = 3 = high goal
+     */
 }
