@@ -70,7 +70,6 @@ public class RobotMap {
         drivegyro.setSensitivity(1.25);
         shootershootMotor = new Jaguar(1, 5);
 	LiveWindow.addActuator("Shooter", "shootMotor", (Jaguar) shootershootMotor);
-        
         shootershootQuadrature = new Encoder(1, 5, 1, 6, false, EncodingType.k4X);
 	LiveWindow.addSensor("Shooter", "shootQuadrature", shootershootQuadrature);
         shootershootQuadrature.setDistancePerPulse(1.0);

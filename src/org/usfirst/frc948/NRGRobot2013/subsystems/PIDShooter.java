@@ -57,25 +57,20 @@ public class PIDShooter extends PIDSubsystem implements IShooter {
     public void setSpeed(double speed)
     {
         shooterSpeed = speed;
-        if(Math.abs(speed - shooterQuadrature.get())> pidDeactivationConstant){
+        if(Math.abs(shooterSpeed - shooterQuadrature.getRate())> pidDeactivationConstant){
             disable();
-            if(shooterSpeed - shooterQuadrature.get() >0){
+            if(shooterSpeed - shooterQuadrature.getRate() >0){
                 shootMotor.set(1.0);
             }
-            else if(shooterSpeed - shooterQuadrature.get() < 0){
-                shootMotor.set(-1.0);
+            else {
+                shootMotor.set(0);
             }
-            while(true){
-                if(Math.abs(shooterSpeed - shooterQuadrature.get()) < pidActivationConstant){
-                    enable();
-                    break;
-                }else{
-                    continue; 
-                }
-            }
-            this.setSetpoint(speed);
+            if(Math.abs(shooterSpeed - shooterQuadrature.getRate()) < pidActivationConstant){
+                enable();
+                this.setSetpoint(shooterSpeed);
+            }  
         }
-        else if(Math.abs(speed - shooterQuadrature.get()) <= pidDeactivationConstant){
+        else if(Math.abs(shooterSpeed - shooterQuadrature.getRate()) <= pidDeactivationConstant){
             this.setSetpoint(speed);
         }
     }
