@@ -22,6 +22,7 @@ public class TurnCommand extends PIDCommand {
 
     private double power;
     private double degrees;
+    private boolean closeToTarget;
     
     private double pidOutput;
     
@@ -32,32 +33,23 @@ public class TurnCommand extends PIDCommand {
         
         requires(Robot.drive);
 
+        this.closeToTarget = false;
         this.power = MathHelper.clamp(power, 0.0, 1.0);
         this.degrees = degreesClockwise;
 
         this.getPIDController().setAbsoluteTolerance(DEGREES_TOLERANCE);
     }
     
-    public TurnCommand(double power, double degreesClockwise, double p, double i, double d) {
-        super(p, i, d);
-        
-        requires(Robot.drive);
-
-        this.power = MathHelper.clamp(power, 0.0, 1.0);
-        this.degrees = degreesClockwise;
-
-        this.getPIDController().setAbsoluteTolerance(DEGREES_TOLERANCE);
-    }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        
         double p = Preferences.getInstance().getDouble("TurnP", kDefaultP);
-        double i = Preferences.getInstance().getDouble("TurnI", kDefaultI);
-        double d = Preferences.getInstance().getDouble("TurnD", kDefaultD);
-        this.getPIDController().setPID(p, i, d);
+        this.getPIDController().setPID(p, 0, 0);
         
-        Debug.println(Debug.DRIVE, "TurnCommand initializing: " + p + " " + i + " " + d);
-        
+        Debug.println(Debug.DRIVE, "TurnCommand intializing w/ only P: " + p);
+       
+
         Robot.drive.setDesiredHeading(Robot.drive.getDesiredHeading() + degrees);
         setSetpoint(Robot.drive.getDesiredHeading());
         consecutiveCyclesOnTarget = 0;
@@ -65,8 +57,18 @@ public class TurnCommand extends PIDCommand {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        if(!closeToTarget && Math.abs(Robot.drive.getGyroAngle()-Robot.drive.getDesiredHeading())<= 40) {
+            closeToTarget = true;
+            double p = Preferences.getInstance().getDouble("TurnP", kDefaultP);
+            double i = Preferences.getInstance().getDouble("TurnI", kDefaultI);
+            double d = Preferences.getInstance().getDouble("TurnD", kDefaultD);
+            
+            Debug.println(Debug.DRIVE, "TurnCommand after 40 degrees within target: " + p + " " + i + " " + d);
+        }
+        
         double drivePower = MathHelper.clamp(pidOutput, -power, power);
         Robot.drive.tankDrive(drivePower, -drivePower);
+        
         
         String setAngle = String.valueOf(MathHelper.round(getSetpoint(), 2));
         String errorAngle = String.valueOf(MathHelper.round(this.getPIDController().getError(), 2));
