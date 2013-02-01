@@ -70,8 +70,8 @@ public class PIDShooter extends PIDSubsystem implements IShooter {
                 this.setSetpoint(shooterSpeed);
             }  
         }
-        else if(Math.abs(shooterSpeed - shooterQuadrature.getRate()) <= pidDeactivationConstant){
-            this.setSetpoint(speed);
+        else {
+            this.setSetpoint(shooterSpeed);
         }
     }
 
