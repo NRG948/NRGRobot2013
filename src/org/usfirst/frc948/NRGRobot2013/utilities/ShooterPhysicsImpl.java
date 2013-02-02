@@ -29,6 +29,7 @@ public class ShooterPhysicsImpl implements ShooterPhysics
     private static final double MIDDLE_GOAL_HEIGHT = 7.38541667d; // in feet; area = 54 in. x 21 in. 
     private static final double HIGH_GOAL_HEIGHT = 8.666667d; //in feet; area = 54 in. x 12 in. 
     private static final double ALLIANCE_LOW_GOAL_HEIGHT = 1.58333d; //in feet; area = 29 in. x 24 in.
+    private static final double MAX_FRISBEE_SPEED = 30d;
     /**
      * Calculates the speed and angle of the disc as it leaves the shooter
      *
@@ -74,11 +75,11 @@ public class ShooterPhysicsImpl implements ShooterPhysics
             angle = i + 1;
             //Calculate speed nessesary for angle i + 1 to hit target. 
             angleArr[i] = new ShooterControl(angle, speed);
-            i++;
-            if (speed > 30)
+            if (speed > MAX_FRISBEE_SPEED)
             {
                 angleArr[i] = null;
             }
+            i++;
         }
         double b = 99;
         int c = 0;

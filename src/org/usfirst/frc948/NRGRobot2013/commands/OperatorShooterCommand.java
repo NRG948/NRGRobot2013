@@ -34,10 +34,10 @@ public class OperatorShooterCommand extends Command {
     protected void interrupted() {
         end();
     }
-
-    public void releaseFrisbee() {
+    
+    protected void releaseFrisbee() {
         try {
-            Robot.discMagazine.setState(true);
+            Robot.discMagazine.releaseFrisbee();
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }

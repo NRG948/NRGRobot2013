@@ -38,8 +38,12 @@ public class RobotMap {
     public static Encoder shooterAngleQuadrature; 
     public static SpeedController climberLeftMotor; //added for climber
     public static SpeedController climberRightMotor;
+
+    public static Solenoid magPiston; //added for DiscMagazine
+
     public static DigitalInput minAngleSwitch; //switches that detect when shooter reaches max angle
     public static DigitalInput maxAngleSwitch;
+
     
     public static final double DEFAULT_GYRO_SENSITIVITY = 0.00685;
     
@@ -99,5 +103,7 @@ public class RobotMap {
     // value pulled from WPIlib: Gyro.kDefaultVoltsPerDegreePerSecond
         drivegyro.setSensitivity(DEFAULT_GYRO_SENSITIVITY);
         drivegyro.reset();
+        
+        magPiston = new Solenoid(0, 1);
     }
 }
