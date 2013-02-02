@@ -43,9 +43,14 @@ public class Climber extends Subsystem {
         RobotMap.climberRightMotor.set(1);
     }
     
-        public void turnCounterClockwise() {
+    public void turnCounterClockwise() {
         RobotMap.climberLeftMotor.set(-1);
         RobotMap.climberRightMotor.set(-1);
+    }
+    
+    public void stop() {
+        RobotMap.climberLeftMotor.set(0);
+        RobotMap.climberRightMotor.set(0);
     }
 }
 

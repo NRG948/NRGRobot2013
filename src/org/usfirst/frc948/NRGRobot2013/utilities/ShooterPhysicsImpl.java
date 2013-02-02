@@ -1,6 +1,5 @@
 package org.usfirst.frc948.NRGRobot2013.utilities;
 
-import org.usfirst.frc948.NRGRobot2013.subsystems.PIDShooter;
 import java.util.*;
 import java.lang.Math;
 import org.usfirst.frc948.NRGRobot2013.Robot;
@@ -85,8 +84,7 @@ public class ShooterPhysicsImpl implements ShooterPhysics
         int c = 0;
         while (c < 45)
         {
-
-            double currentAngle = Robot.shooter.robotShooterControl.getAngle();
+            double currentAngle = Robot.shooter.getRobotShooterControl().getAngle();
             double nessesaryAngle = angleArr[i].getAngle();
             double d = currentAngle - nessesaryAngle;
             if (Math.abs(d) < b) 

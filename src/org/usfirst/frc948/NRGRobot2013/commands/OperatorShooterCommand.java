@@ -15,7 +15,7 @@ public class OperatorShooterCommand extends Command {
     
     
     public OperatorShooterCommand() {
-        requires(Robot.shooter);
+        
     }
 
     protected void initialize() {
@@ -36,5 +36,13 @@ public class OperatorShooterCommand extends Command {
 
     protected void interrupted() {
         RobotMap.shootershootMotor.set(0.0);
+    }
+    
+    public void releaseFrisbee() {
+        try {
+            Robot.discMagazine.setState(true);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
     }
 }
