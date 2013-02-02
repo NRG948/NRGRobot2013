@@ -40,7 +40,9 @@ public class AimSystem extends PIDSubsystem {
     
     SpeedController shooterAngleMotor = RobotMap.shooterAngleMotor;
     Encoder shooterAngleQuadrature =  RobotMap.shooterAngleQuadrature;
-    
+    //TODO: Work limit switches into Aimsystem to prevent over-adjusting
+    DigitalInput minAngleSwitch = RobotMap.minAngleSwitch;
+    DigitalInput maxAngleSwitch = RobotMap.maxAngleSwitch;
     public AimSystem(){
         super ("AnglePID", P, I, D);
         
@@ -75,6 +77,15 @@ public class AimSystem extends PIDSubsystem {
     public void setDesiredAngle(double desiredAngle)
     {
         this.desiredAngle = desiredAngle;
+    }
+    //Digital inputs return true when open, so inverse, right?
+    public boolean isAtMinAngle() 
+    {
+        return !minAngleSwitch.get();
+    }
+    public boolean isAtMaxAngle() 
+    {
+        return !maxAngleSwitch.get();
     }
 
     // Put methods for controlling this subsystem

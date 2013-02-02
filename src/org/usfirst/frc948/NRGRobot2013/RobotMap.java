@@ -38,6 +38,8 @@ public class RobotMap {
     public static Encoder shooterAngleQuadrature; 
     public static SpeedController climberLeftMotor; //added for climber
     public static SpeedController climberRightMotor;
+    public static DigitalInput minAngleSwitch; //switches that detect when shooter reaches max angle
+    public static DigitalInput maxAngleSwitch;
     
     public static final double DEFAULT_GYRO_SENSITIVITY = 0.00685;
     
@@ -88,7 +90,12 @@ public class RobotMap {
     
         climberRightMotor = new Jaguar(0, 0);
     LiveWindow.addActuator("Climber", "climberRightMotor", (Jaguar) climberRightMotor);
-       
+        
+        minAngleSwitch = new DigitalInput(5);
+    LiveWindow.addSensor("Aimsystem", "minAngleSwitch", minAngleSwitch);
+    
+        maxAngleSwitch = new DigitalInput(6);
+    LiveWindow.addSensor("Aimsystem", "maxAngleSwitch", maxAngleSwitch);
     // value pulled from WPIlib: Gyro.kDefaultVoltsPerDegreePerSecond
         drivegyro.setSensitivity(DEFAULT_GYRO_SENSITIVITY);
         drivegyro.reset();
