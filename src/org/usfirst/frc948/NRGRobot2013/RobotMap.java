@@ -105,5 +105,6 @@ public class RobotMap {
         drivegyro.reset();
         
         magPiston = new Solenoid(0, 1);
+    LiveWindow.addActuator("DiscMagazine", "magPiston", magPiston);
     }
 }
