@@ -28,7 +28,7 @@ public class OperatorShooterCommand extends Command {
 
     protected void end() {
         Robot.shooter.stop();
-        RobotMap.shootershootMotor.set(0.0);
+        RobotMap.shooterMotor.set(0.0);
     }
 
     protected void interrupted() {
