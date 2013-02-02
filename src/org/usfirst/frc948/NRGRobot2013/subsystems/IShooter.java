@@ -15,4 +15,6 @@ public interface IShooter {
     public void setSpeed(double speed);
     
     public ShooterControl getRobotShooterControl();
+    
+    public void stop();
 }
