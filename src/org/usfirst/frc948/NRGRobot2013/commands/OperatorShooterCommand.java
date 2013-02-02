@@ -12,14 +12,10 @@ import org.usfirst.frc948.NRGRobot2013.RobotMap;
 public class OperatorShooterCommand extends Command {
     // http://lcec.us/javadoc/edu/wpi/first/wpilibj/command/Command.html
 
-    
-    
     public OperatorShooterCommand() {
-        
     }
 
     protected void initialize() {
-        
     }
 
     protected void execute() {
@@ -31,13 +27,14 @@ public class OperatorShooterCommand extends Command {
     }
 
     protected void end() {
+        Robot.shooter.stop();
         RobotMap.shootershootMotor.set(0.0);
     }
 
     protected void interrupted() {
-        RobotMap.shootershootMotor.set(0.0);
+        end();
     }
-    
+
     public void releaseFrisbee() {
         try {
             Robot.discMagazine.setState(true);

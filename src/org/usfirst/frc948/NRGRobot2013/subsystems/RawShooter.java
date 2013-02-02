@@ -28,5 +28,8 @@ public class RawShooter implements IShooter
     public ShooterControl getRobotShooterControl() {
         return robotShooterControl;
     }
+
+    public void stop() {
+    }
     
 }
