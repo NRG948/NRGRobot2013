@@ -114,6 +114,8 @@ public class Robot extends IterativeRobot {
         String leftQuad = String.valueOf(MathHelper.round(RobotMap.driveleftQuadrature.getRaw(), 4));
         String rightQuad = String.valueOf(MathHelper.round(RobotMap.driverightQuadrature.getRaw(), 4));
         LCD.println(LCD.DRIVE, 1, "L:" + leftQuad + " R:" + rightQuad);
+        LCD.println(LCD.AIM, 2, "MAX:" + (aimSystem.isAtMaxAngle() ? "YES" : "NO") +
+                               " MIN:" + (aimSystem.isAtMinAngle() ? "YES" : "NO") + "   ");
         LCD.println(LCD.GYRO, 3, "GYRO: " + String.valueOf(Robot.drive.getGyroAngle()));
         LCD.update();
     }
