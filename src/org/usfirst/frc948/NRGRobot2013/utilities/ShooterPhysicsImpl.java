@@ -84,7 +84,7 @@ public class ShooterPhysicsImpl implements ShooterPhysics
         int c = 0;
         while (c < 45)
         {
-            double currentAngle = Robot.shooter.getRobotShooterControl().getAngle();
+            double currentAngle = Robot.rawShooter.getRobotShooterControl().getAngle();
             double nessesaryAngle = angleArr[i].getAngle();
             double d = currentAngle - nessesaryAngle;
             if (Math.abs(d) < b) 
