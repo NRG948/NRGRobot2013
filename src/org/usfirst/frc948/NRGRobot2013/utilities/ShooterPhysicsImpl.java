@@ -1,7 +1,5 @@
 package org.usfirst.frc948.NRGRobot2013.utilities;
 
-import java.util.*;
-import java.lang.Math;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 
 /**

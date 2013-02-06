@@ -12,10 +12,8 @@
 package org.usfirst.frc948.NRGRobot2013.subsystems;
 
 import edu.wpi.first.wpilibj.Solenoid;
-import org.usfirst.frc948.NRGRobot2013.RobotMap;
-import org.usfirst.frc948.NRGRobot2013.commands.*;
-
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.usfirst.frc948.NRGRobot2013.RobotMap;
 
 
 /**
