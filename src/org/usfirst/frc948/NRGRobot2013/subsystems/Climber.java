@@ -41,21 +41,25 @@ public class Climber extends Subsystem
     /**
      * using joystick turn clockwise in a certain amount of time 
      */
-    public void turnClockwise() 
+    public void turnClockwise(double leftValue, double rightValue) 
     {
         RobotMap.climberLeftMotor.set(1);
         RobotMap.climberRightMotor.set(1);
         
     }
     
-    public void turnCounterClockwise() {
-        RobotMap.climberLeftMotor.set(-1);
-        RobotMap.climberRightMotor.set(-1);
+    public void turnCounterClockwise(double leftValue, double rightValue) 
+    {
+        RobotMap.climberLeftMotor.set(leftValue);
+        RobotMap.climberRightMotor.set(rightValue);
     }
     
-    public void stop() {
+    public void stop() 
+    {
         RobotMap.climberLeftMotor.set(0);
         RobotMap.climberRightMotor.set(0);
     }
+    
+    
 }
 

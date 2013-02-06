@@ -15,7 +15,7 @@ import org.usfirst.frc948.NRGRobot2013.subsystems.Climber;
  */
 public class ClimberCommand extends Command
 {
-    private double rightJostickClimbValue;
+    private double rightJoystickClimbValue;
     private double leftJoystickClimbValue;
     private Joystick.ButtonType climbButt;
     protected void initialize() 
@@ -26,10 +26,10 @@ public class ClimberCommand extends Command
 
     protected void execute() 
     {
-        rightJostickClimbValue = 1;//Robot.oi.rightJoystick.getButton(Joystick.ButtonType);
+        rightJoystickClimbValue = 1;//Robot.oi.rightJoystick.getButton(Joystick.ButtonType);
         leftJoystickClimbValue = 2;//Robot.oi.leftJoystick.get
         
-        Robot.climber.turnClockwise();
+        Robot.climber.turnClockwise(leftJoystickClimbValue, rightJoystickClimbValue);
     }
 
     protected boolean isFinished() 
@@ -39,11 +39,11 @@ public class ClimberCommand extends Command
 
     protected void end()
     {
+        Robot.climber.stop();
     }
 
     protected void interrupted() 
     {
+        end();
     }
-    
-    
 }

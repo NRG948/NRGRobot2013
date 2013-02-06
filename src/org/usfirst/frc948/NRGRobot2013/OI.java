@@ -85,6 +85,8 @@ public class OI {
         resetGyroButton.whenPressed(new ResetGyroCommand());
         Button readGyroSensitivityButton = new JoystickButton(leftJoystick, 11);
         readGyroSensitivityButton.whenPressed(new ReadGyroSensitivity());
+        Button climbButton = new JoystickButton(rightJoystick, 10);
+        climbButton.whenPressed(new ClimberCommand());
         
         SmartDashboard.putData("Turn 90 CW (0.7)", new TurnCommand(0.7, 90));
         SmartDashboard.putData("DriveStraight 1 sec (0.5)", new DriveStraightTime(0.5, 1000));
