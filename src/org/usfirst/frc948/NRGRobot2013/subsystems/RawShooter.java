@@ -1,5 +1,6 @@
 package org.usfirst.frc948.NRGRobot2013.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.utilities.ShooterControl;
 /**
@@ -18,6 +19,7 @@ public class RawShooter implements IShooter
     public void setSpeed(double speed)
     {
         RobotMap.shooterMotor.set(speed);
+        SmartDashboard.putNumber("Shooting current speed", speed);
     }
 
     public ShooterControl getRobotShooterControl() {
