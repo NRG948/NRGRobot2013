@@ -8,7 +8,6 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in th future.
 
-
 package org.usfirst.frc948.NRGRobot2013;
     
 import edu.wpi.first.wpilibj.*;
@@ -46,7 +45,6 @@ public class RobotMap {
     public static DigitalInput minAngleSwitch; //switches that detect when shooter reaches max angle
     public static DigitalInput maxAngleSwitch;
 
-    
     public static final double DEFAULT_GYRO_SENSITIVITY = 0.00685;
     
     public static void init() {
@@ -78,7 +76,9 @@ public class RobotMap {
         
         drivegyro = new Gyro(1, 1);
 	LiveWindow.addSensor("Drive", "gyro", drivegyro);
-        drivegyro.setSensitivity(1.25);
+        drivegyro.setSensitivity(DEFAULT_GYRO_SENSITIVITY);
+        drivegyro.reset();
+        
         shooterMotor = new Jaguar(1, 5);
 	LiveWindow.addActuator("Shooter", "shootMotor", (Jaguar) shooterMotor);
         shooterQuadrature = new Encoder(1, 5, 1, 6, false, EncodingType.k4X);
@@ -106,9 +106,6 @@ public class RobotMap {
     
         maxAngleSwitch = new DigitalInput(6);
     LiveWindow.addSensor("Aimsystem", "maxAngleSwitch", maxAngleSwitch);
-    // value pulled from WPIlib: Gyro.kDefaultVoltsPerDegreePerSecond
-        drivegyro.setSensitivity(DEFAULT_GYRO_SENSITIVITY);
-        drivegyro.reset();
         
         magPiston = new Solenoid(0, 1);
     LiveWindow.addActuator("DiscMagazine", "magPiston", magPiston);

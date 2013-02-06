@@ -7,7 +7,7 @@ package org.usfirst.frc948.NRGRobot2013.utilities;
 public class Debug {
 
     private static boolean print = false;
-    private static final int FATAL_EXCEPTIONS = -1;
+    
     public static final int ROBOT_ROUTINES = -1;
     public static final int AUTONOMOUS = 0;
     public static final int IR = 1;
@@ -22,9 +22,6 @@ public class Debug {
     public static final int TIMERS = 11;
     private static int toggleIndex = 0;
     private static boolean[] isEnabled = {true, true, true, true, true, true, true, true, true, true, true, true};
-
-    private Debug() {
-    }
 
     public static void enable() {
         print = true;
@@ -80,11 +77,9 @@ public class Debug {
             for (int i = 0; i < s.length(); i++) {
                 char c = s.charAt(i);
                 if (c == '/') {
-                    int numberint = 0;
                     try {
-                        numberint = Integer.parseInt(s.substring(i + 1, i + 2));
-                        double power = MathHelper.pow(10, maxDecimalPlaces);
-                        printString += ((int) (output[numberint] * power)) / power;
+                        printString += MathHelper.round(output[Integer.parseInt(s.substring(i + 1, i + 2))],
+                                maxDecimalPlaces);
                     } catch (Exception e) {
                         printException(e);
                     }

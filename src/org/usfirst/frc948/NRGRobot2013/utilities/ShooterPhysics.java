@@ -1,10 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.usfirst.frc948.NRGRobot2013.utilities;
-
-import org.usfirst.frc948.NRGRobot2013.utilities.ShooterControl;
 
 /**
  * Defines the interface for calculating the ShooterControl parameters.

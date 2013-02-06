@@ -26,14 +26,13 @@ public class AimSystem extends PIDSubsystem {
     private static final double I = 0.01;
     private static final double D = 0.0;
     
-    private double desiredAngle;
     private double maxSpeed = 1.0;
     
     private static final double DEGREE_TOLERANCE = 1.0;
     
     SpeedController shooterAngleMotor = RobotMap.shooterAngleMotor;
     AnalogChannel shooterAnglePotentiometer = RobotMap.shooterAnglePotentiometer;
-    //TODO: Work limit switches into Aimsystem to prevent over-adjusting
+    
     DigitalInput minAngleSwitch = RobotMap.minAngleSwitch;
     DigitalInput maxAngleSwitch = RobotMap.maxAngleSwitch;
 
@@ -47,14 +46,13 @@ public class AimSystem extends PIDSubsystem {
     }
 
     public double getDesiredAngle() {
-        return desiredAngle;
+        return this.getPIDController().getSetpoint();
     }
 
     public void setDesiredAngle(double desiredAngle) {
         this.getPIDController().reset();
-        this.enable();
-        this.desiredAngle = desiredAngle;
         this.setSetpoint(desiredAngle);
+        this.enable();
     }
     
     public void setSpeed(double speed) {
