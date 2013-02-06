@@ -36,9 +36,10 @@ public class ShooterPhysicsImpl implements ShooterPhysics
      * @param targetHeight The height of the target8
      * @return
      */
-    //returns an array of possible angles and pseeds that can reach target.   can we just return the best possiblity 
+    //returns angles of frisbee.   can we just return the best possiblity 
     // via teh program
-    public ShooterControl calculate(double distance, double platformHeight, int goalType) 
+    // do we use meter or feet as length unit 
+    public ShooterControl simuCalculate(double distance, double platformHeight, int goalType) 
     {
         double targetHeight = 0;
         if ( goalType == 1 )
@@ -94,5 +95,24 @@ public class ShooterPhysicsImpl implements ShooterPhysics
         }
         
         return idealShooterControl;
+    }
+
+    public ShooterControl joystickShoot(double distance, double platformHeight, int goalType)
+    {
+        double targetHeight = 0;
+        if ( goalType == 1 )
+        {
+            targetHeight = ShooterPhysicsImpl.ALLIANCE_LOW_GOAL_HEIGHT;
+        }
+        else if ( goalType == 2 )
+        {
+            targetHeight = ShooterPhysicsImpl.MIDDLE_GOAL_HEIGHT;
+        }
+        else 
+        {
+            targetHeight = ShooterPhysicsImpl.HIGH_GOAL_HEIGHT;
+        }
+        return null;
+        
     }
 }
