@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.Servo;
  *
  * @author Sean
  */
-public class NRGCamera extends Subsystem{
+public class Camera extends Subsystem{
     public static Servo servo = RobotMap.cameraServo;
     public static double servoAngle;
     final static double downAngle = 0d;
