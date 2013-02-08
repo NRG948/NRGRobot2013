@@ -25,26 +25,29 @@ public class AimSystem extends PIDSubsystem {
     private static final double P = 0.02;
     private static final double I = 0.01;
     private static final double D = 0.0;
-    
     private double maxSpeed = 1.0;
     
-    private static final double DEGREE_TOLERANCE = 1.0;
+    private double unknownAngle;
     
+    private static final double DEGREE_TOLERANCE = 1.0;
     SpeedController shooterAngleMotor = RobotMap.shooterAngleMotor;
-    AnalogChannel shooterAnglePotentiometer = RobotMap.shooterAnglePotentiometer;
+    Encoder azimuthQuadrature = RobotMap.azimuthQuadrature;
     
     DigitalInput minAngleSwitch = RobotMap.minAngleSwitch;
     DigitalInput maxAngleSwitch = RobotMap.maxAngleSwitch;
 
     public AimSystem() {
         super("AnglePID", P, I, D);
-        this.getPIDController().setAbsoluteTolerance(DEGREE_TOLERANCE);
     }
 
     public double getMotorPower() {
         return shooterAngleMotor.get();
     }
-
+    
+    public void encoderReset()
+    {
+        
+    }
     public double getDesiredAngle() {
         return this.getPIDController().getSetpoint();
     }
@@ -79,7 +82,7 @@ public class AimSystem extends PIDSubsystem {
     }
 
     protected double returnPIDInput() {
-        return shooterAnglePotentiometer.pidGet();
+        return azimuthQuadrature.pidGet();
     }
 
     protected void usePIDOutput(double d) {

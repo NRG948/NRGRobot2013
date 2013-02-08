@@ -18,6 +18,14 @@ public class MathHelper {
         return b;
     }
 
+    public static double linearToRotationalSpeed(double linSpeed, double radius)
+    {
+        double rotSpeed = (linSpeed)/radius;
+        return rotSpeed;
+    }
+    
+    
+    
     /**
      * Returns val if it is between max and min if it is bigger than max,returns
      * max if it is smaller than min, returns min
