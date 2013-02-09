@@ -1,31 +1,30 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package org.usfirst.frc948.NRGRobot2013.commands;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.subsystems.Climber;
-
 /**
  *
- * @author Charles, Patrick, Jared
+ * @author Charles
  */
-public class ClimberCommand extends Command
+public class ClimbDownCommand extends Command 
 {
-    private double rightJoystickClimbValue;
-    private double leftJoystickClimbValue;
-    private Joystick.ButtonType climbButt;
+    private double climbSpeed = 0.5;
     protected void initialize() 
     {
         requires(Robot.climber);
-        //Climber.reset();
+        
     }
 
     protected void execute() 
     {
-        rightJoystickClimbValue = 1;//Robot.oi.rightJoystick.getButton(Joystick.ButtonType);
-        leftJoystickClimbValue = 2;//Robot.oi.leftJoystick.get
+        Robot.climber.turnCounterClockwise(climbSpeed);
         
-        Robot.climber.turnClockwise(leftJoystickClimbValue, rightJoystickClimbValue);
     }
 
     protected boolean isFinished() 
@@ -42,4 +41,5 @@ public class ClimberCommand extends Command
     {
         end();
     }
+    
 }
