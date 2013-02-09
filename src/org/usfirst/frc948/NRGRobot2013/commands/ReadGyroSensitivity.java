@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
+import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
 /**
  *
@@ -12,8 +13,6 @@ import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
  */
 public class ReadGyroSensitivity extends Command {
 
-    public static final String GYRO_SENSITIVITY_KEY = "GyroSensitivity";
-    
     private boolean isFinished = false;
     
     protected void initialize() {
@@ -21,7 +20,7 @@ public class ReadGyroSensitivity extends Command {
     }
 
     protected void execute() {
-        double s = Preferences.getInstance().getDouble(GYRO_SENSITIVITY_KEY, RobotMap.DEFAULT_GYRO_SENSITIVITY);
+        double s = Preferences.getInstance().getDouble(PreferenceKeys.GYRO_SENSITIVITY, RobotMap.DEFAULT_GYRO_SENSITIVITY);
         Robot.drive.setGyroSensitivity(s);
         Debug.println(Debug.GYRO, "Read new gyro sensitivity: " + s);
         isFinished = true;

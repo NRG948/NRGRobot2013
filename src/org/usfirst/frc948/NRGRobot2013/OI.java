@@ -109,10 +109,8 @@ public class OI {
         leftJoyBtn8.whenPressed(new CalibrateAzimuth(false));
         leftJoyBtn12.whenPressed(new CalibrateAzimuth(true));
         leftJoyBtn11.whenPressed(new ReadGyroSensitivity());
-        rightJoyBtn9.whileHeld(new ClimbUpCommand());
         rightJoyBtn10.whileHeld(new ClimbDownCommand());
-        leftJoyBtn1.whileHeld(new OperatorAimCommand(true));
-        leftJoyBtn2.whileHeld(new OperatorAimCommand(false));
+        rightJoyBtn11.whileHeld(new ClimbUpCommand());
         
         
         SmartDashboard.putData("Turn 90 CW (0.7)", new TurnCommand(0.7, 90));
@@ -174,5 +172,17 @@ public class OI {
             Debug.printException(ex);
         }
         return value;
+    }
+    
+    public static int getAimDirection() {
+        if (!getDigital(14)) {
+            return -1;
+        }
+        
+        if (!getDigital(12)) {
+            return 1;
+        }
+        
+        return 0;
     }
 }

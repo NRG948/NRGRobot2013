@@ -12,6 +12,7 @@ package org.usfirst.frc948.NRGRobot2013.subsystems;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import org.usfirst.frc948.NRGRobot2013.commands.ManualAimCommand;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 
 /**
@@ -79,6 +80,7 @@ public class AimSystem extends PIDSubsystem {
 
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new ManualAimCommand());
     }
 
     protected double returnPIDInput() {

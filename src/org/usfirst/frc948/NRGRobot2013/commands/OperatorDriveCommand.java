@@ -36,7 +36,6 @@ public class OperatorDriveCommand extends Command {
         currentLeftJoystickYValue = -oi.getleftJoystick().getY();
         currentRightJoystickYValue = -oi.getrightJoystick().getY();
 
-
         if (Math.abs(currentLeftJoystickYValue) < CLOSE_TO_ZERO) {
             leftMotorSpeed = 0;
         } else if (Math.abs((leftMotorSpeed - currentLeftJoystickYValue)) > SUDDEN_CHANGE_THRESHOLD) {
@@ -65,6 +64,6 @@ public class OperatorDriveCommand extends Command {
     }
 
     protected void interrupted() {
-        Robot.drive.tankDrive(0.0, 0.0);
+        end();
     }
 }

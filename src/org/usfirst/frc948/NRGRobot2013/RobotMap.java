@@ -94,7 +94,7 @@ public class RobotMap {
         shooterAngleMotor = new Jaguar(1, 6);
     LiveWindow.addActuator("Shooter", "shootAngleMotor", (Jaguar) shooterAngleMotor);
     
-        azimuthQuadrature = new Encoder(12, 13);
+        azimuthQuadrature = new Encoder(11, 12);
     LiveWindow.addSensor("Shooter", "shooterAnglePotentiometer", azimuthQuadrature);
         
 //        climberLeftMotor = new Jaguar(0, 0);

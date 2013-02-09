@@ -21,6 +21,7 @@ import org.usfirst.frc948.NRGRobot2013.commands.*;
 import org.usfirst.frc948.NRGRobot2013.subsystems.*;
 import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
+import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -126,12 +127,11 @@ public class Robot extends IterativeRobot {
     }
 
     private void initPreferences() {
-        Preferences.getInstance().putDouble("TurnP", 0.01);
-        Preferences.getInstance().putDouble("TurnI", 0.001);
-        Preferences.getInstance().putDouble("TurnD", 0.0);
-        Preferences.getInstance().putDouble(ReadGyroSensitivity.GYRO_SENSITIVITY_KEY, RobotMap.DEFAULT_GYRO_SENSITIVITY);
-        Preferences.getInstance().putDouble("AngleMotorSpeedUp", .2);
-        Preferences.getInstance().putDouble("AngleMotorSpeedDown", .2);
+        Preferences.getInstance().putDouble(PreferenceKeys.TURN_P, 0.01);
+        Preferences.getInstance().putDouble(PreferenceKeys.TURN_I, 0.001);
+        Preferences.getInstance().putDouble(PreferenceKeys.TURN_D, 0.0);
+        Preferences.getInstance().putDouble(PreferenceKeys.GYRO_SENSITIVITY, RobotMap.DEFAULT_GYRO_SENSITIVITY);
+        Preferences.getInstance().putDouble(PreferenceKeys.AZIMUTH_SPEED, 1.0);
     }
     
     private void printLCD() {
