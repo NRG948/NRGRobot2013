@@ -3,8 +3,6 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.OI;
 import org.usfirst.frc948.NRGRobot2013.Robot;
-import org.usfirst.frc948.NRGRobot2013.RobotMap;
-import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 
 /**
@@ -26,7 +24,7 @@ public class OperatorDriveCommand extends Command {
     }
 
     protected void initialize() {
-       
+
         leftMotorSpeed = 0.0;
         rightMotorSpeed = 0.0;
     }
@@ -43,10 +41,10 @@ public class OperatorDriveCommand extends Command {
             leftMotorSpeed = 0;
         } else if (Math.abs((leftMotorSpeed - currentLeftJoystickYValue)) > SUDDEN_CHANGE_THRESHOLD) {
             leftMotorSpeed = MathHelper.average(leftMotorSpeed, currentLeftJoystickYValue);
-
         } else {
             leftMotorSpeed = currentLeftJoystickYValue;
         }
+        
         if (Math.abs(currentRightJoystickYValue) < CLOSE_TO_ZERO) {
             rightMotorSpeed = 0;
         } else if (Math.abs((rightMotorSpeed - currentRightJoystickYValue)) > SUDDEN_CHANGE_THRESHOLD) {
