@@ -8,24 +8,19 @@ import com.sun.squawk.util.MathUtils;
  */
 public class MathHelper {
 
-    public static double radianToDegree(double a) {
-        a = a * 180 / Math.PI;
-        return a;
+    public static double radianToDegree(double radians) {
+        return radians * 180 / Math.PI;
     }
 
-    public static double degreeToRadian(double b) {
-        b = b * Math.PI / 180;
-        return b;
+    public static double degreeToRadian(double degrees) {
+        return degrees * Math.PI / 180;
     }
 
-    public static double linearToRotationalSpeed(double linSpeed, double radius)
-    {
-        double rotSpeed = (linSpeed)/radius;
+    public static double linearToRotationalSpeed(double linSpeed, double radius) {
+        double rotSpeed = (linSpeed) / radius;
         return rotSpeed;
     }
-    
-    
-    
+
     /**
      * Returns val if it is between max and min if it is bigger than max,returns
      * max if it is smaller than min, returns min

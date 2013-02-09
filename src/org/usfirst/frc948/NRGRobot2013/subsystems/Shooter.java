@@ -3,6 +3,7 @@ package org.usfirst.frc948.NRGRobot2013.subsystems;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.commands.OperatorShooterCommand;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
@@ -41,7 +42,7 @@ public class Shooter extends PIDSubsystem {
             this.enable();
         } else {
             this.disable();
-            RobotMap.shooterMotor.set(speed);
+            Robot.shooter.setSpeed(speed);
             SmartDashboard.putNumber("Shooting current speed", speed);
         }
     }
