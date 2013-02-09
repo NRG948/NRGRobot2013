@@ -80,6 +80,7 @@ public class OI {
            leftJoyBtn10 = new JoystickButton(leftJoystick, 10),
            leftJoyBtn11 = new JoystickButton(leftJoystick, 11),
            leftJoyBtn12 = new JoystickButton(leftJoystick, 12),
+            
            rightJoyBtn1 = new JoystickButton(rightJoystick, 1),
            rightJoyBtn2 = new JoystickButton(rightJoystick, 2),
            rightJoyBtn3 = new JoystickButton(rightJoystick, 3),
@@ -89,7 +90,8 @@ public class OI {
            rightJoyBtn7 = new JoystickButton(rightJoystick, 7),
            rightJoyBtn8 = new JoystickButton(rightJoystick, 8),
            rightJoyBtn9 = new JoystickButton(rightJoystick, 9),
-           rightJoyBtn10 = new JoystickButton(rightJoystick, 10);
+           rightJoyBtn10 = new JoystickButton(rightJoystick, 10),
+           rightJoyBtn11 = new JoystickButton(rightJoystick, 11);
             
 
     public OI() {

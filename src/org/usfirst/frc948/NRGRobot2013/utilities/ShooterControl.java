@@ -1,8 +1,5 @@
 package org.usfirst.frc948.NRGRobot2013.utilities;
 
-import org.usfirst.frc948.NRGRobot2013.Robot;
-import org.usfirst.frc948.NRGRobot2013.RobotMap;
-
 /**
  * Contains the angle and speed at which the platform fires the disc.
  *
@@ -16,8 +13,6 @@ public class ShooterControl {
     public ShooterControl(double angle, double speed) {
         this.angle = angle;
         this.speed = speed;
-        RobotMap.shooterMotor.set(speed);
-        Robot.aimSystem.setDesiredAngle(angle);
     }
 
     public double getAngle() {
@@ -30,11 +25,9 @@ public class ShooterControl {
 
     public void changeAngle(double angle) {
         this.angle = angle;
-        Robot.aimSystem.setDesiredAngle(angle);
     }
 
     public void changeSpeed(double speed) {
         this.speed = speed;
-        RobotMap.shooterMotor.set(speed);
     }
 }
