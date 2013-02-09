@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.OI;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
-import org.usfirst.frc948.NRGRobot2013.utilities.NRGPreferences;
 import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
 /**

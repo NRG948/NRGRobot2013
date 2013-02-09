@@ -4,11 +4,10 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
 
 /**
  * Implements the ShooterPhysics interface to set the ShooterControl parameters
- *
+ * 
  * @author Patrick Lin & Char Chen
  */
-public class ShooterPhysicsImpl implements ShooterPhysics 
-{
+public class ShooterPhysicsImpl implements ShooterPhysics {
 
     // Physical parameters for the numerical calculations (in MKS units)
     private static double x; //The x position of the frisbee.
@@ -39,8 +38,7 @@ public class ShooterPhysicsImpl implements ShooterPhysics
     //returns angles of frisbee.   can we just return the best possiblity 
     // via teh program
     // do we use meter or feet as length unit 
-    public ShooterControl simuCalculate(double distance, double platformHeight, int goalType) 
-    {
+    public ShooterControl simuCalculate(double distance, double platformHeight, int goalType) {
         double targetHeight = 0;
         if ( goalType == 1 )
         {
@@ -69,8 +67,7 @@ public class ShooterPhysicsImpl implements ShooterPhysics
         
         double dt = 0.001d; // seconds (simulation timestep)
         int i = 0;
-        while (i < 45) 
-        {
+        while (i < 45) {
             angle = i + 1;
             //Calculate speed nessesary for angle i + 1 to hit target. 
             angleArr[i] = new ShooterControl(angle, speed);
@@ -82,8 +79,7 @@ public class ShooterPhysicsImpl implements ShooterPhysics
         }
         double b = 99;
         int c = 0;
-        while (c < 45)
-        {
+        while (c < 45) {
             double currentAngle = Robot.rawShooter.getRobotShooterControl().getAngle();
             double nessesaryAngle = angleArr[i].getAngle();
             double d = currentAngle - nessesaryAngle;
@@ -97,8 +93,7 @@ public class ShooterPhysicsImpl implements ShooterPhysics
         return idealShooterControl;
     }
 
-    public ShooterControl joystickShoot(double distance, double platformHeight, int goalType)
-    {
+    public ShooterControl joystickShoot(double distance, double platformHeight, int goalType) {
         double targetHeight = 0;
         if ( goalType == 1 )
         {

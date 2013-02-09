@@ -119,8 +119,7 @@ public class PIDShooter extends PIDSubsystem implements IShooter {
 
     }
     
-    private void setShooterMotorSpeed(double speed)
-    {
+    private void setShooterMotorSpeed(double speed) {
         RobotMap.shooterMotor.set(speed);
         currentMotorSpeed = speed;
         SmartDashboard.putNumber("Shooter speed", speed);

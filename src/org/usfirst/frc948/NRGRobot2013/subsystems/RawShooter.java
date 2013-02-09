@@ -12,8 +12,7 @@ import org.usfirst.frc948.NRGRobot2013.utilities.ShooterControl;
  * A shooter utility without PID 
  * @author Patrick
  */
-public class RawShooter extends Subsystem implements IShooter 
-{
+public class RawShooter extends Subsystem implements IShooter {
     
     private ShooterControl robotShooterControl;
     public RawShooter() {
@@ -23,8 +22,7 @@ public class RawShooter extends Subsystem implements IShooter
      *
      * @param speed
      */
-    public void setSpeed(double speed)
-    {
+    public void setSpeed(double speed) {
 
         robotShooterControl.changeSpeed(speed);
         SmartDashboard.putNumber("Shooting current speed", speed);
