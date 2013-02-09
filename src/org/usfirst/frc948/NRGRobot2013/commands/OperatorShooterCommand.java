@@ -34,7 +34,7 @@ public class OperatorShooterCommand extends Command {
 
      protected void initialize()
      {
-
+         
      }
      
     protected void execute()

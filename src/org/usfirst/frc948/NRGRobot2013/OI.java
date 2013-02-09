@@ -107,8 +107,8 @@ public class OI {
         leftJoyBtn8.whenPressed(new CalibrateAzimuth(false));
         leftJoyBtn12.whenPressed(new CalibrateAzimuth(true));
         leftJoyBtn11.whenPressed(new ReadGyroSensitivity());
-        rightJoyBtn10.whenPressed(new ClimbUpCommand());
-        rightJoyBtn10.whenPressed(new ClimbDownCommand());
+        rightJoyBtn9.whileHeld(new ClimbUpCommand());
+        rightJoyBtn10.whileHeld(new ClimbDownCommand());
         leftJoyBtn1.whileHeld(new OperatorAimCommand(true));
         leftJoyBtn2.whileHeld(new OperatorAimCommand(false));
         

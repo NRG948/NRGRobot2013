@@ -51,6 +51,7 @@ public class Climber extends Subsystem
     {
         RobotMap.climberLeftMotor.set(-climbValue);
         RobotMap.climberRightMotor.set(-climbValue);
+        
     }
     
     public void stop() 

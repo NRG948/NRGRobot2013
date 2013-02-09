@@ -6,6 +6,7 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.subsystems.Climber;
 /**
  *
@@ -13,14 +14,17 @@ import org.usfirst.frc948.NRGRobot2013.subsystems.Climber;
  */
 public class ClimbDownCommand extends Command 
 {
-    private double climbSpeed;
+    private double climbSpeed = 0.5;
     protected void initialize() 
     {
         requires(Robot.climber);
+        
     }
 
     protected void execute() 
     {
+        Robot.climber.turnCounterClockwise(climbSpeed);
+        
     }
 
     protected boolean isFinished() 
@@ -30,10 +34,12 @@ public class ClimbDownCommand extends Command
 
     protected void end()
     {
+        Robot.climber.stop();
     }
 
     protected void interrupted() 
     {
+        end();
     }
     
 }

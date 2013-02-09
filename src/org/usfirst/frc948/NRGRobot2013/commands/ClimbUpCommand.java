@@ -4,8 +4,8 @@
  */
 package org.usfirst.frc948.NRGRobot2013.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc948.NRGRobot2013.OI;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.subsystems.Climber;
 
@@ -15,8 +15,8 @@ import org.usfirst.frc948.NRGRobot2013.subsystems.Climber;
  */
 public class ClimbUpCommand extends Command
 {
-    private double climbSpeed;
-    
+    private double climbSpeed = 0.5;
+    private OI oi = Robot.oi;
     protected void initialize() 
     {
         requires(Robot.climber);
@@ -25,9 +25,9 @@ public class ClimbUpCommand extends Command
 
     protected void execute() 
     {
-        
-        
         Robot.climber.turnClockwise(climbSpeed);
+        //oi.getleftJoystick().getButton();
+        
     }
 
     protected boolean isFinished() 
