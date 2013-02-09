@@ -109,8 +109,8 @@ public class RobotMap {
         maxAngleSwitch = new DigitalInput(6);
     LiveWindow.addSensor("Aimsystem", "maxAngleSwitch", maxAngleSwitch);
         
-//        magPiston = new Solenoid(0, 1);
-//    LiveWindow.addActuator("DiscMagazine", "magPiston", magPiston);
+        magPiston = new Relay(1);
+    LiveWindow.addActuator("DiscMagazine", "magPiston", magPiston);
         
 //        cameraServo = new Servo(3, 0);
 //    LiveWindow.addActuator("NRGCamera", "servo", cameraServo);

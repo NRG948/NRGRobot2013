@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
+import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
 /**
  *
@@ -57,9 +58,9 @@ public class TurnCommand extends PIDCommand {
         if (!closeToTarget && Math.abs(Robot.drive.getGyroAngle() - Robot.drive.getDesiredHeading()) <= DEGREES_CLOSE) {
             closeToTarget = true;
             
-            double p = Preferences.getInstance().getDouble("TurnP", kDefaultP);
-            double i = Preferences.getInstance().getDouble("TurnI", kDefaultI);
-            double d = Preferences.getInstance().getDouble("TurnD", kDefaultD);
+            double p = Preferences.getInstance().getDouble(PreferenceKeys.TURN_P, kDefaultP);
+            double i = Preferences.getInstance().getDouble(PreferenceKeys.TURN_I, kDefaultI);
+            double d = Preferences.getInstance().getDouble(PreferenceKeys.TURN_D, kDefaultD);
 
             Debug.println(Debug.DRIVE, "TurnCommand close to target (" + DEGREES_CLOSE + " degrees)");
             Debug.println(Debug.DRIVE, "TurnCommand adjusting PID constants: " + p + " " + i + " " + d);

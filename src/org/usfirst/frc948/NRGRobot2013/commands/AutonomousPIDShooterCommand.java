@@ -13,7 +13,8 @@ public class AutonomousPIDShooterCommand extends Command {
     private double power;
 
     public AutonomousPIDShooterCommand(double angle, double power) {
-        //requires(Robot.PIDShooter);
+        //requires(Robot.shooter);
+        requires(Robot.aimSystem);
         this.angle = angle;
         this.power = power;
     }
@@ -22,8 +23,8 @@ public class AutonomousPIDShooterCommand extends Command {
     }
 
     protected void execute() {
-        Robot.PIDShooter.getRobotShooterControl().changeAngle(angle);
-        Robot.PIDShooter.getRobotShooterControl().changeSpeed(power);
+        Robot.aimSystem.setDesiredAngle(angle);
+        Robot.shooter.setSpeed(power);
     }
 
     protected boolean isFinished() {
@@ -31,7 +32,7 @@ public class AutonomousPIDShooterCommand extends Command {
     }
 
     protected void end() {
-        Robot.PIDShooter.stop();
+        Robot.shooter.stop();
     }
 
     protected void interrupted() {
