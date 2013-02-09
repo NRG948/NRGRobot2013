@@ -108,6 +108,8 @@ public class OI {
         leftJoyBtn12.whenPressed(new CalibrateAzimuth(true));
         leftJoyBtn11.whenPressed(new ReadGyroSensitivity());
         rightJoyBtn10.whenPressed(new ClimberCommand());
+        leftJoyBtn1.whileHeld(new OperatorAimCommand(true));
+        leftJoyBtn2.whileHeld(new OperatorAimCommand(false));
         
         
         SmartDashboard.putData("Turn 90 CW (0.7)", new TurnCommand(0.7, 90));
