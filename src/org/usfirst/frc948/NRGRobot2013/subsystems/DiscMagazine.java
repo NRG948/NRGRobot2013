@@ -14,6 +14,7 @@ package org.usfirst.frc948.NRGRobot2013.subsystems;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
+import org.usfirst.frc948.NRGRobot2013.Robot;
 
 
 /**
@@ -28,7 +29,7 @@ public class DiscMagazine extends Subsystem {
     // here. Call these from Commands.
     
     //Solenoids controlling the state of the disc magazine piston
-    
+    public double speedUpConstant = 0.05;
     Relay magPiston = RobotMap.magPiston;
         
     public void initDefaultCommand() {
@@ -52,6 +53,7 @@ public class DiscMagazine extends Subsystem {
         Thread.sleep(1000); //Waits for 1 second
         
         magPiston.set(Relay.Value.kOff);
+        Robot.shooter.shooterSpeedUp(speedUpConstant);
     }
     
     /**

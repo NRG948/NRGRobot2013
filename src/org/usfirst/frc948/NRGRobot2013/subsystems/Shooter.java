@@ -86,4 +86,8 @@ public class Shooter extends PIDSubsystem {
         RobotMap.shooterMotor.set(speed);
         currentMotorSpeed = speed;
     }
+    
+    public void shooterSpeedUp(double speedUpConstant){
+        currentMotorSpeed *= (1+speedUpConstant); 
+    }
 }

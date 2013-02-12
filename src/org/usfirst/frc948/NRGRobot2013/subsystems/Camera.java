@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.image.CriteriaCollection;
 import edu.wpi.first.wpilibj.image.NIVision.MeasurementType;
 import edu.wpi.first.wpilibj.image.NIVisionException;
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
+import org.usfirst.frc948.NRGRobot2013.utilities.TargetDistance;
 
 /**
  *
@@ -30,6 +31,7 @@ public class Camera extends Subsystem {
     final int TOL = 15;
     final double IMAGEWIDTH = 320.0;
     final double TANGENT = Math.tan((43.5 / 180.0 * Math.PI));
+    TargetDistance distances; 
 
     protected void initDefaultCommand() {
     }
