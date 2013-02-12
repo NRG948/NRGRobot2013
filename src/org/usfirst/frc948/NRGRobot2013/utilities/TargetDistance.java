@@ -24,8 +24,7 @@ public class TargetDistance {
         checkMiddle=checkMiddleT;
         checkLow=checkLowT;
     }
-
-   
+    
     public double getHighDistance() {
         return highTargetDistance;
     }

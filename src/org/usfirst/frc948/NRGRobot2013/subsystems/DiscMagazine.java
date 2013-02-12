@@ -49,11 +49,12 @@ public class DiscMagazine extends Subsystem {
     //sets the state of magPistonOut to the desired state, and sets the state of magPistonIn to the opposite
     public void releaseFrisbee() throws InterruptedException {
         magPiston.set(Relay.Value.kReverse);
-        
-        Thread.sleep(1000); //Waits for 1 second
+        Thread.sleep(250);
+        Robot.shooter.shooterSpeedUp(speedUpConstant);
+        Thread.sleep(750); //Waits for 1 second
         
         magPiston.set(Relay.Value.kOff);
-        Robot.shooter.shooterSpeedUp(speedUpConstant);
+
     }
     
     /**
