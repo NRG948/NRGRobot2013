@@ -13,6 +13,7 @@ package org.usfirst.frc948.NRGRobot2013.subsystems;
 
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
 
 
@@ -49,7 +50,7 @@ public class DiscMagazine extends Subsystem {
     public void releaseFrisbee() throws InterruptedException {
         magPiston.set(Relay.Value.kReverse);
         Thread.sleep(250);
-        Robot.shooter.shooterSpeedUp(speedUpConstant);
+//        Robot.shooter.shooterSpeedUp(speedUpConstant);
         Thread.sleep(750); //Waits for 1 second
         
         magPiston.set(Relay.Value.kOff);

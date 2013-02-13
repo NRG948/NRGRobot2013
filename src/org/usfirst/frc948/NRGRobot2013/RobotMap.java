@@ -39,8 +39,7 @@ public class RobotMap {
     
     public static Encoder azimuthQuadrature;
     
-    public static SpeedController climberLeftMotor; //added for climber
-    public static SpeedController climberRightMotor;
+    public static SpeedController climberMotor;
 
     public static Relay magPiston; //added for DiscMagazine
 
@@ -81,7 +80,7 @@ public class RobotMap {
         drivegyro.setSensitivity(DEFAULT_GYRO_SENSITIVITY);
         drivegyro.reset();
         
-        shooterMotor = new Jaguar(1, 5);
+        shooterMotor = new Jaguar(1, 8);
 	LiveWindow.addActuator("Shooter", "shootMotor", (Jaguar) shooterMotor);
         shooterQuadrature = new Encoder(1, 4, 1, 14, false, EncodingType.k4X);
 	LiveWindow.addSensor("Shooter", "shootQuadrature", shooterQuadrature);
@@ -97,11 +96,8 @@ public class RobotMap {
         azimuthQuadrature = new Encoder(11, 12);
     LiveWindow.addSensor("Shooter", "shooterAnglePotentiometer", azimuthQuadrature);
         
-//        climberLeftMotor = new Jaguar(0, 0);
-//    LiveWindow.addActuator("Climber", "climberLeftMotor", (Jaguar) climberLeftMotor);
-//    
-//        climberRightMotor = new Jaguar(0, 0);
-//    LiveWindow.addActuator("Climber", "climberRightMotor", (Jaguar) climberRightMotor);
+        climberMotor = new Jaguar(7);
+    LiveWindow.addActuator("Climber", "climberLeftMotor", (Jaguar) climberMotor);
         
         minAngleSwitch = new DigitalInput(5);
     LiveWindow.addSensor("Aimsystem", "minAngleSwitch", minAngleSwitch);
@@ -111,6 +107,8 @@ public class RobotMap {
         
         magPiston = new Relay(1);
     LiveWindow.addActuator("DiscMagazine", "magPiston", magPiston);
+        
+    LiveWindow.addActuator("Unknown", "DIG_CH2", new Relay(2));
         
 //        cameraServo = new Servo(3, 0);
 //    LiveWindow.addActuator("NRGCamera", "servo", cameraServo);
