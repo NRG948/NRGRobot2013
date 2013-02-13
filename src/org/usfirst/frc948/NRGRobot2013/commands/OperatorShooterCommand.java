@@ -19,7 +19,7 @@ public class OperatorShooterCommand extends Command {
     }
 
     protected void execute() {
-        Robot.shooter.setSpeed(OI.getRawShootSpeed());
+        Robot.shooter.setSpeed(-OI.getRawShootSpeed());
     }
 
     protected boolean isFinished() {

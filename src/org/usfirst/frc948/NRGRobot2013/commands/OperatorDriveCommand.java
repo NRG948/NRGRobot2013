@@ -52,7 +52,7 @@ public class OperatorDriveCommand extends Command {
             rightMotorSpeed = currentRightJoystickYValue;
         }
 
-        Robot.drive.tankDrive(leftMotorSpeed, rightMotorSpeed);
+        Robot.drive.tankDrive(-leftMotorSpeed, -rightMotorSpeed);
     }
 
     protected boolean isFinished() {
