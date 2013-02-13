@@ -10,15 +10,19 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
 public class ReleaseFrisbeeCommand extends Command {
 
     public static int count;
+    private boolean finished;
 
     protected void initialize() {
+        finished = false;
     }
 
     protected void execute() {
+        releaseFrisbee();
+        finished = true;
     }
 
     protected boolean isFinished() {
-        return true;
+        return finished;
     }
 
     protected void end() {
@@ -27,7 +31,7 @@ public class ReleaseFrisbeeCommand extends Command {
     protected void interrupted() {
     }
 
-    protected void releaseFrisbee() {
+    private void releaseFrisbee() {
         try {
             Robot.discMagazine.releaseFrisbee();
             count++;
