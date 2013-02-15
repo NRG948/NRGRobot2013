@@ -80,7 +80,7 @@ public class ShooterPhysicsImpl implements ShooterPhysics {
         double b = 99;
         int c = 0;
         while (c < 45) {
-            double currentAngle = Robot.aimSystem.getDesiredAngle();
+            double currentAngle = 13.0; //Robot.aimSystem.getDesiredAngle();
             double nessesaryAngle = angleArr[i].getAngle();
             double d = currentAngle - nessesaryAngle;
             if (Math.abs(d) < b) 

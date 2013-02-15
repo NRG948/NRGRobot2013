@@ -10,12 +10,9 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
 public class Autonomous extends CommandGroup {
     //autonomous starting positions
     private int position;
-    //angle for the shooter durving autonomous
-    //based on position
-    private double angle;
-    //power for the shooter during autonomous
-    //based on position
-    private double power;
+    
+    //TODO: Determine power levels to shoot from positions 0, 1, 2, 3, 4, and 5
+    private double[] powers = {0.5, 0.5, 0.5, 0.5, 0.5, 0.5};
     
     public Autonomous() {
         // Add Commands here:
@@ -34,36 +31,12 @@ public class Autonomous extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-        requires(Robot.aimSystem);
+        //requires(Robot.aimSystem);
         requires(Robot.discMagazine);
         //TODO: set the power and angle for each position
-        switch(position) {
-            case 0:
-                power = 0.5;
-                angle = 45;
-                break;
-            case 1:
-                power = 0.5;
-                angle = 45;
-                break;
-            case 2:
-                power = 0.5;
-                angle = 45;
-                break;
-            case 3:
-                power = 0.5;
-                angle = 45;
-                break;
-            case 4:
-                power = 0.5;
-                angle = 45;
-                break;
-            case 5:
-                power = 0.5;
-                angle = 45;
-                break;    
-        }
-        addSequential(new AutonomousPIDShooterCommand(angle, power));
+        
+       
+        addSequential(new AutonomousPIDShooterCommand(/*angle,*/ powers[position]));
         for(int i = 0; i < 4; i++) {
             addSequential(new ReleaseFrisbeeCommand());
             addSequential(new Delay(100));

@@ -9,13 +9,13 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
  */
 public class AutonomousPIDShooterCommand extends Command {
 
-    private double angle;
+    //private double angle;
     private double power;
 
-    public AutonomousPIDShooterCommand(double angle, double power) {
-        //requires(Robot.shooter);
-        requires(Robot.aimSystem);
-        this.angle = angle;
+    public AutonomousPIDShooterCommand(/*double angle,*/ double power) {
+        requires(Robot.shooter);
+        //requires(Robot.aimSystem);
+        //this.angle = angle;
         this.power = power;
     }
 
@@ -23,7 +23,7 @@ public class AutonomousPIDShooterCommand extends Command {
     }
 
     protected void execute() {
-        Robot.aimSystem.setDesiredAngle(angle);
+        //Robot.aimSystem.setDesiredAngle(angle);
         Robot.shooter.setSpeed(power);
     }
 

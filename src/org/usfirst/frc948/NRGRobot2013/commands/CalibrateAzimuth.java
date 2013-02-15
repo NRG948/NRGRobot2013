@@ -18,11 +18,11 @@ public class CalibrateAzimuth extends Command {
     private boolean done;
     private static final double SPEED = 0.3;
     private int maxSetpoint;
-    DigitalInput minAngleSwitch = RobotMap.minAngleSwitch;
-    DigitalInput maxAngleSwitch = RobotMap.maxAngleSwitch;
+    /*DigitalInput minAngleSwitch = RobotMap.minAngleSwitch;
+    DigitalInput maxAngleSwitch = RobotMap.maxAngleSwitch;*/
 
     public CalibrateAzimuth(boolean maxAndMin) {
-        requires(Robot.aimSystem);
+       /* requires(Robot.aimSystem); */
         this.maxAndMin = maxAndMin;
     }
 
@@ -32,7 +32,7 @@ public class CalibrateAzimuth extends Command {
     }
 
     protected void execute() {
-        if (downMode) {
+       /* if (downMode) {
             if (minAngleSwitch.get()) {
                 RobotMap.shooterAngleMotor.set(0);
                 RobotMap.azimuthQuadrature.reset();
@@ -56,7 +56,7 @@ public class CalibrateAzimuth extends Command {
             {
                 done = true;
             }
-        }
+        }*/
     }
 
     protected boolean isFinished() {
@@ -64,7 +64,7 @@ public class CalibrateAzimuth extends Command {
     }
 
     protected void end() {
-        RobotMap.shooterAngleMotor.set(0);
+        /*RobotMap.shooterAngleMotor.set(0);*/
     }
 
     protected void interrupted() {
