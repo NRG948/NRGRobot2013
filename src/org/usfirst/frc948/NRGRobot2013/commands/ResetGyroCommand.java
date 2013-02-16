@@ -21,6 +21,7 @@ public class ResetGyroCommand extends Command {
 
     protected void execute() {
         Robot.drive.resetGyro();
+        Robot.drive.setDesiredHeading(0);
         isFinished = true;
     }
 
