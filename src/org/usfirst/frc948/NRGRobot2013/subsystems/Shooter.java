@@ -79,11 +79,11 @@ public class Shooter extends PIDSubsystem {
 
                 speed = MathHelper.clamp(speed, 0, 1);
                 if(speedUpActivated){
-                    shooterSpeedUp();
-                    a ++;
-                    if(a >5){
-                        speedUpActivated = false;
-                    }
+//                    shooterSpeedUp();
+ //                   a ++;
+ //                   if(a >5){
+  //                      speedUpActivated = false;
+  //                  }
                 }
 
                 setShooterMotorSpeed(speed);
@@ -101,9 +101,9 @@ public class Shooter extends PIDSubsystem {
         RobotMap.shooterMotor.set(0);
     }
     
-    public void shooterSpeedUp(){
-        speed *= (1+speedUpConstant);
-        speedUpActivated = false;
-        a = 0; 
-    }
+//    public void shooterSpeedUp(){
+//        speed *= (1+speedUpConstant);
+ //       speedUpActivated = false;
+ //       a = 0; 
+//    }
 }
