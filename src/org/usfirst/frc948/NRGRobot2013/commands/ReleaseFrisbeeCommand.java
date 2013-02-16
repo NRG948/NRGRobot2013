@@ -9,7 +9,7 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
  */
 public class ReleaseFrisbeeCommand extends Command {
 
-    public static int count;
+    public static int count = 0;
     private boolean finished;
 
     protected void initialize() {

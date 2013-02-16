@@ -137,6 +137,9 @@ public class Robot extends IterativeRobot {
         LCD.println(LCD.AIM, 2, "MAX:" + (aimSystem.isAtMaxAngle() ? "YES" : "NO") +
                                " MIN:" + (aimSystem.isAtMinAngle() ? "YES" : "NO") + "   ");
         LCD.println(LCD.GYRO, 3, "GYRO: " + String.valueOf(Robot.drive.getGyroAngle()));
+//        LCD.println(LCD.SHOOT, 4, "RAW_SHOOT:" + OI.getRawShootSpeed());
+        LCD.println(true, 5, "SHOOT_SET: " + RobotMap.shooterMotor.get());
+        LCD.println(true, 6, "RELEASED: " + ReleaseFrisbeeCommand.count);
         LCD.update();
     }
 }

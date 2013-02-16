@@ -15,6 +15,7 @@ public class LCD {
     public static final boolean PID = false;
     public static final boolean TURNING = false;
     public static final boolean AIM = true;
+    public static final boolean SHOOT = true;
     
     private static final String emptyLine = emptyLine();
     private static String emptyLine() {
