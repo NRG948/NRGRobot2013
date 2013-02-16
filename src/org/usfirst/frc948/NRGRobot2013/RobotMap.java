@@ -89,12 +89,16 @@ public class RobotMap {
         
         magPiston = new Relay(1);
     LiveWindow.addActuator("DiscMagazine", "magPiston", magPiston);
-//    LiveWindow.addActuator("Climb", "tiltPiston", tiltPiston);
+    
+        tiltPiston = new Relay(3);
+    LiveWindow.addActuator("Climber", "tiltPiston", tiltPiston);
         
 //        cameraServo = new Servo(3, 0);
 //    LiveWindow.addActuator("NRGCamera", "servo", cameraServo);
     
         compressor = new Compressor(6, 2);
     LiveWindow.addActuator("DiscMagazine", "Compressor", compressor);
+    
+//    LiveWindow.addActuator("Compressor", "Relay", new Relay(2));
     }
 }

@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc948.NRGRobot2013.OI;
 import org.usfirst.frc948.NRGRobot2013.Robot;
-import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
 
 /**
  *
@@ -21,7 +20,6 @@ public class OperatorShooterCommand extends Command {
 
     protected void execute() {
         double shootSpeed = -OI.getRawShootSpeed();
-        LCD.println(LCD.SHOOT, 4, "SHOOT_CMD: " + shootSpeed + "   ");
         Robot.shooter.setSpeed(shootSpeed);
     }
 
