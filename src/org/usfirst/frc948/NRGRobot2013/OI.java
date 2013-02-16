@@ -107,8 +107,8 @@ public class OI {
         leftJoyBtn11.whenPressed(new ReadGyroSensitivity());
         
         rightJoyBtn1.whenPressed(new ReleaseFrisbeeCommand());
-        rightJoyBtn10.whileHeld(new ClimbDownCommand());
-        rightJoyBtn11.whileHeld(new ClimbUpCommand(0.5));
+        rightJoyBtn10.whileHeld(new ClimbStopCommand());
+        rightJoyBtn11.whileHeld(new ClimbCommand(0.5));
         
         btnClimbDisengage.whenPressed(new TiltCommand(false));
         btnClimbEngage.whenPressed(new TiltCommand(true));

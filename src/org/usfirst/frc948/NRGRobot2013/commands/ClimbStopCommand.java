@@ -5,12 +5,12 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
  * Descends the Climber
  * @author Charles
  */
-public class ClimbDownCommand extends Command 
+public class ClimbStopCommand extends Command 
 {
-    private double climbSpeed = 0.5;
-    private double timeOfExecution = 10; //in seconds 
-    
-    public ClimbDownCommand(){
+//    private double climbSpeed = 0.5;
+//    private static final long TIME_OF_EXECUTION = 10000; //in seconds 
+//    private long currentTime ;
+    public ClimbStopCommand(){
         
     }
         
@@ -18,7 +18,7 @@ public class ClimbDownCommand extends Command
         
         //initialize
         requires(Robot.climber);
-        
+        Robot.climber.stop();
         
     }
 
@@ -26,12 +26,11 @@ public class ClimbDownCommand extends Command
      *
      */
     protected void execute() {
-        Robot.climber.setClimberMotorPower(-climbSpeed);
-        
+        Robot.climber.stop();   
     }
 
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     /**
