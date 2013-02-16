@@ -39,7 +39,7 @@ public class Drive extends PIDSubsystem {
     private long lastTime;
     private double lastLeftPower = 0.0;
     private double lastRightPower = 0.0;
-    private static final double MAX_CHANGE_RATE = 0.001; //power change per millisecond
+    private static final double MAX_CHANGE_RATE = 0.0015; //power change per millisecond
 
     public Drive() {
         super("DrivePID", kP, kI, kD);
@@ -85,10 +85,10 @@ public class Drive extends PIDSubsystem {
             }
             lastRightPower = rightPower;
         }
-        leftMotor1.set(leftPower);
-        leftMotor2.set(leftPower);
-        rightMotor1.set(-rightPower);
-        rightMotor2.set(-rightPower);
+        leftMotor1.set(-leftPower);
+        leftMotor2.set(-leftPower);
+        rightMotor1.set(rightPower);
+        rightMotor2.set(rightPower);
     }
 
     public void stop() {
