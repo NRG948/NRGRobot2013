@@ -35,6 +35,7 @@ public class Drive extends PIDSubsystem {
     static final double kP = 0.02;
     static final double kI = 0.005;
     static final double kD = 0.001;
+    private boolean RATE_LIMITING_ENABLED = true;
     private long lastTime;
     private double lastLeftPower = 0.0;
     private double lastRightPower = 0.0;
@@ -68,24 +69,26 @@ public class Drive extends PIDSubsystem {
     }
 
     public void tankDrive(double leftPower, double rightPower) {
-        long currentTime = System.currentTimeMillis();
-        // If the robot is disabled and then enabled we don't want this value to be to large
-        double maxPowerDifference = MAX_CHANGE_RATE * MathHelper.min((currentTime - lastTime), 100);
-        lastTime = currentTime;
-        if (Math.abs(leftPower - lastLeftPower) > maxPowerDifference) {
-            leftPower = lastLeftPower + maxPowerDifference;
+        if (RATE_LIMITING_ENABLED) {
+            long currentTime = System.currentTimeMillis();
+            // If the robot is disabled and then enabled we don't want this value to be to large
+            double maxPowerDifference = MAX_CHANGE_RATE * MathHelper.min((currentTime - lastTime), 100);
+            lastTime = currentTime;
+            if ((Math.abs(leftPower - lastLeftPower) > maxPowerDifference)) {
+                double leftPowerChangeSign = ((leftPower - lastLeftPower) < 0.0) ? -1 : 1;
+                leftPower = lastLeftPower + (maxPowerDifference * leftPowerChangeSign);
+            }
+            lastLeftPower = leftPower;
+            if ((Math.abs(rightPower - lastRightPower) > maxPowerDifference)) {
+                double rightPowerChangeSign = ((rightPower - lastRightPower) < 0.0) ? -1 : 1;
+                rightPower = lastRightPower + (maxPowerDifference * rightPowerChangeSign);
+            }
+            lastRightPower = rightPower;
         }
         leftMotor1.set(leftPower);
         leftMotor2.set(leftPower);
-        lastLeftPower = leftPower;
-
-        if (Math.abs(rightPower - lastRightPower) > maxPowerDifference) {
-            rightPower = lastRightPower + maxPowerDifference;
-        }
         rightMotor1.set(-rightPower);
         rightMotor2.set(-rightPower);
-        lastRightPower = rightPower;
-
     }
 
     public void stop() {
