@@ -31,7 +31,6 @@ public class Autonomous extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-        //requires(Robot.aimSystem);
         requires(Robot.discMagazine);
         //TODO: set the power and angle for each position
         
