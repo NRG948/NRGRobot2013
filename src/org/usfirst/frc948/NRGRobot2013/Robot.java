@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.commands.*;
 import org.usfirst.frc948.NRGRobot2013.subsystems.*;
 import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
@@ -81,7 +82,7 @@ public class Robot extends IterativeRobot {
     }
     
     public void disabledPeriodic() {
-        printLCD();
+        periodicAll();
     }
 
     public void autonomousInit() {
@@ -94,7 +95,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-        printLCD();
+        periodicAll();
     }
 
     public void teleopInit() {
@@ -110,7 +111,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        printLCD();
+        periodicAll();
     }
 
     /**
@@ -118,7 +119,7 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
-        printLCD();
+        periodicAll();
     }
 
     private void initPreferences() {
@@ -128,7 +129,7 @@ public class Robot extends IterativeRobot {
         Preferences.getInstance().putDouble(PreferenceKeys.GYRO_SENSITIVITY, RobotMap.DEFAULT_GYRO_SENSITIVITY);
     }
     
-    private void printLCD() {
+    private void periodicAll() {
         String leftQuad = String.valueOf(MathHelper.round(RobotMap.driveleftQuadrature.getRaw(), 4));
         String rightQuad = String.valueOf(MathHelper.round(RobotMap.driverightQuadrature.getRaw(), 4));
         
@@ -136,5 +137,8 @@ public class Robot extends IterativeRobot {
         LCD.println(LCD.GYRO, 2, "GYRO: " + String.valueOf(Robot.drive.getGyroAngle()));
         LCD.println(true, 6, "RELEASED: " + ReleaseFrisbeeCommand.count);
         LCD.update();
+        
+        SmartDashboard.putNumber("shoot RPMs", RobotMap.shooterQuadrature.getRate());
     }
+    
 }

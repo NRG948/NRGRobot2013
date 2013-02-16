@@ -80,6 +80,8 @@ public class RobotMap {
 	LiveWindow.addActuator("Shooter", "shootMotor", (Jaguar) shooterMotor);
         shooterQuadrature = new Encoder(1, 2, 1, 3, false, EncodingType.k4X);
 	LiveWindow.addSensor("Shooter", "shootQuadrature", shooterQuadrature);
+        // 256 counts per revolution, dividing by this gives revolutions
+        // rate calculated as distance per second, multiply by 60 for distance per minute (revolutions)
         shooterQuadrature.setDistancePerPulse(60.0 / 256.0);
         shooterQuadrature.setPIDSourceParameter(PIDSourceParameter.kRate);
         shooterQuadrature.start();

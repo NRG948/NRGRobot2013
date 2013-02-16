@@ -1,6 +1,7 @@
 package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc948.NRGRobot2013.OI;
 import org.usfirst.frc948.NRGRobot2013.Robot;
@@ -20,6 +21,7 @@ public class OperatorShooterCommand extends Command {
 
     protected void execute() {
         double shootSpeed = -OI.getRawShootSpeed();
+        SmartDashboard.putNumber("manual shoot speed", shootSpeed);
         Robot.shooter.setSpeed(shootSpeed);
     }
 
