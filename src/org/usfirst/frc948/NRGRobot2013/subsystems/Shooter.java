@@ -15,6 +15,8 @@ import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 public class Shooter extends PIDSubsystem {
     
     public static final boolean USE_PID = false;
+    
+    public static final double DEFAULT_OVER_REV = 1.10;
 
     private static final double P = 0.01;
     private static final double I = P / 2;
@@ -28,6 +30,7 @@ public class Shooter extends PIDSubsystem {
     private static double speed;
     private static boolean speedUpActivated;
     private static int a;
+    private double overRevFactor = 1.0;
 
     public Shooter() {
         super("Shooter", P, I, D);
@@ -49,7 +52,7 @@ public class Shooter extends PIDSubsystem {
             this.setSetpoint(speed);
             this.enable();
         } else {
-            RobotMap.shooterMotor.set(speed);
+            RobotMap.shooterMotor.set(MathHelper.clamp(speed * overRevFactor, -1.0, 1.0));
         }
     }
 
@@ -113,6 +116,10 @@ public class Shooter extends PIDSubsystem {
     
     public boolean isAtSpeed() {
         return this.onTarget();
+    }
+    
+    public void setOverRev(double d) {
+        overRevFactor = d;
     }
     
 }

@@ -1,7 +1,10 @@
 package org.usfirst.frc948.NRGRobot2013.commands;
 
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.subsystems.Shooter;
+import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
 /**
  *
@@ -16,11 +19,13 @@ public class ReleaseFrisbeeCommand extends Command {
 
     protected void initialize() {
         endTime = System.currentTimeMillis() + DELAY;
-        Robot.discMagazine.openPiston();
         count++;
     }
 
-    protected void execute() {}
+    protected void execute() {
+        Robot.discMagazine.openPiston();
+        Robot.shooter.setOverRev(Preferences.getInstance().getDouble(PreferenceKeys.OVER_REV_FACTOR, Shooter.DEFAULT_OVER_REV));
+    }
 
     protected boolean isFinished() {
         return System.currentTimeMillis() >= endTime;
@@ -28,6 +33,7 @@ public class ReleaseFrisbeeCommand extends Command {
 
     protected void end() {
         Robot.discMagazine.closePiston();
+        Robot.shooter.setOverRev(1.0);
     }
 
     protected void interrupted() {

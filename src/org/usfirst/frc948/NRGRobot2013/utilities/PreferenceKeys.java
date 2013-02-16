@@ -12,4 +12,5 @@ public class PreferenceKeys {
     public static final String GYRO_SENSITIVITY = "GyroSensitivity";
     public static final String AZIMUTH_SPEED = "AzimuthSpeed";
     public static final String MAX_ACCEL = "DriveMaxChange";
+    public static final String OVER_REV_FACTOR = "OverRevFactor";
 }
