@@ -69,7 +69,8 @@ public class Drive extends PIDSubsystem {
 
     public void tankDrive(double leftPower, double rightPower) {
         long currentTime = System.currentTimeMillis();
-        double maxPowerDifference = MAX_CHANGE_RATE * (currentTime - lastTime);
+        // If the robot is disabled and then enabled we don't want this value to be to large
+        double maxPowerDifference = MAX_CHANGE_RATE * MathHelper.min((currentTime - lastTime), 100);
         lastTime = currentTime;
         if (Math.abs(leftPower - lastLeftPower) > maxPowerDifference) {
             leftPower = lastLeftPower + maxPowerDifference;
