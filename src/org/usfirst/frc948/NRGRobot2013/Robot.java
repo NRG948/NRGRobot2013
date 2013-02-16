@@ -127,6 +127,7 @@ public class Robot extends IterativeRobot {
         Preferences.getInstance().putDouble(PreferenceKeys.TURN_I, 0.001);
         Preferences.getInstance().putDouble(PreferenceKeys.TURN_D, 0.0);
         Preferences.getInstance().putDouble(PreferenceKeys.GYRO_SENSITIVITY, RobotMap.DEFAULT_GYRO_SENSITIVITY);
+        Preferences.getInstance().putDouble(PreferenceKeys.MAX_ACCEL, Drive.DEFAULT_MAX_CHANGE);
     }
     
     private void periodicAll() {

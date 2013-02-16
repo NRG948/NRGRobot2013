@@ -14,6 +14,7 @@ import org.usfirst.frc948.NRGRobot2013.commands.*;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
+import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
 /**
  * @author Charles, Jared
@@ -39,7 +40,9 @@ public class Drive extends PIDSubsystem {
     private long lastTime;
     private double lastLeftPower = 0.0;
     private double lastRightPower = 0.0;
-    private static final double MAX_CHANGE_RATE = 0.0015; //power change per millisecond
+    
+    // power change per millisecond
+    public static final double DEFAULT_MAX_CHANGE = 0.0015;
 
     public Drive() {
         super("DrivePID", kP, kI, kD);
@@ -72,7 +75,8 @@ public class Drive extends PIDSubsystem {
         if (RATE_LIMITING_ENABLED) {
             long currentTime = System.currentTimeMillis();
             // If the robot is disabled and then enabled we don't want this value to be to large
-            double maxPowerDifference = MAX_CHANGE_RATE * MathHelper.min((currentTime - lastTime), 100);
+            double maxChange = Preferences.getInstance().getDouble(PreferenceKeys.MAX_ACCEL, DEFAULT_MAX_CHANGE);
+            double maxPowerDifference = maxChange * MathHelper.min((currentTime - lastTime), 100);
             lastTime = currentTime;
             if ((Math.abs(leftPower - lastLeftPower) > maxPowerDifference)) {
                 double leftPowerChangeSign = ((leftPower - lastLeftPower) < 0.0) ? -1 : 1;
