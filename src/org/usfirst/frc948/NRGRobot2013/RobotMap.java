@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType; 
 import edu.wpi.first.wpilibj.Encoder.PIDSourceParameter;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.Servo;
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -39,6 +38,8 @@ public class RobotMap {
 
     public static Relay magPiston; //added for DiscMagazine
     public static Relay tiltPiston; //added for Tilting
+    
+    public static Compressor compressor;
 
     public static final double DEFAULT_GYRO_SENSITIVITY = 0.00685;
     
@@ -76,7 +77,7 @@ public class RobotMap {
         
         shooterMotor = new Jaguar(1, 8);
 	LiveWindow.addActuator("Shooter", "shootMotor", (Jaguar) shooterMotor);
-        shooterQuadrature = new Encoder(1, 4, 1, 14, false, EncodingType.k4X);
+        shooterQuadrature = new Encoder(1, 2, 1, 3, false, EncodingType.k4X);
 	LiveWindow.addSensor("Shooter", "shootQuadrature", shooterQuadrature);
         shooterQuadrature.setDistancePerPulse(1.0);//todo: need to calibrate the ratio
         shooterQuadrature.setPIDSourceParameter(PIDSourceParameter.kRate);
@@ -88,10 +89,12 @@ public class RobotMap {
         
         magPiston = new Relay(1);
     LiveWindow.addActuator("DiscMagazine", "magPiston", magPiston);
-    LiveWindow.addActuator("Climb", "tiltPiston", tiltPiston);
-    LiveWindow.addActuator("Unknown", "DIG_CH2", new Relay(2));
+//    LiveWindow.addActuator("Climb", "tiltPiston", tiltPiston);
         
 //        cameraServo = new Servo(3, 0);
 //    LiveWindow.addActuator("NRGCamera", "servo", cameraServo);
+    
+        compressor = new Compressor(6, 2);
+    LiveWindow.addActuator("DiscMagazine", "Compressor", compressor);
     }
 }

@@ -21,7 +21,7 @@ public class OperatorShooterCommand extends Command {
 
     protected void execute() {
         double shootSpeed = -OI.getRawShootSpeed();
-        LCD.println(LCD.SHOOT, 4, "SHOOT: " + shootSpeed + "   ");
+        LCD.println(LCD.SHOOT, 4, "SHOOT_CMD: " + shootSpeed + "   ");
         Robot.shooter.setSpeed(shootSpeed);
     }
 

@@ -72,6 +72,8 @@ public class Robot extends IterativeRobot {
         Debug.enable();
         initPreferences();
         
+        RobotMap.compressor.start();
+        
     }
     
     public void disabledInit() {
@@ -131,8 +133,8 @@ public class Robot extends IterativeRobot {
         String rightQuad = String.valueOf(MathHelper.round(RobotMap.driverightQuadrature.getRaw(), 4));
         
         LCD.println(LCD.DRIVE, 1, "L:" + leftQuad + " R:" + rightQuad);
-        LCD.println(LCD.GYRO, 3, "GYRO: " + String.valueOf(Robot.drive.getGyroAngle()));
-//        LCD.println(LCD.SHOOT, 4, "RAW_SHOOT:" + OI.getRawShootSpeed());
+        LCD.println(LCD.GYRO, 2, "GYRO: " + String.valueOf(Robot.drive.getGyroAngle()));
+        LCD.println(LCD.SHOOT, 3, "SHOOT_RAW:" + OI.getRawShootSpeed());
         LCD.println(true, 5, "SHOOT_SET: " + RobotMap.shooterMotor.get());
         LCD.println(true, 6, "RELEASED: " + ReleaseFrisbeeCommand.count);
         LCD.update();

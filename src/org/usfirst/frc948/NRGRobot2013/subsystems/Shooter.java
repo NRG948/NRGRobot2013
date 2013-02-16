@@ -106,4 +106,9 @@ public class Shooter extends PIDSubsystem {
  //       speedUpActivated = false;
  //       a = 0; 
 //    }
+    
+    public boolean isAtSpeed() {
+        return this.onTarget();
+    }
+    
 }
