@@ -112,8 +112,10 @@ public class OI {
         shootButton.whenPressed(new ReleaseFrisbeeCommand());
         rightJoyBtn1.whenPressed(new ReleaseFrisbeeCommand());
         
-        rightJoyBtn10.whileHeld(new ClimbStopCommand());
-        rightJoyBtn11.whileHeld(new ClimbCommand(0.5));
+        rightJoyBtn10.whenReleased(new ClimbStopCommand());
+        rightJoyBtn11.whenReleased(new ClimbStopCommand());
+        rightJoyBtn10.whenPressed(new ClimbCommand(0.5)); //climb up
+        rightJoyBtn11.whenPressed(new ClimbCommand(-0.5)); //climb down
         
         btnClimbDisengage.whenPressed(new TiltCommand(false));
         btnClimbEngage.whenPressed(new TiltCommand(true));
