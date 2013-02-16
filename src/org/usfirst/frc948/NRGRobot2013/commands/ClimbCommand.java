@@ -14,7 +14,7 @@ public class ClimbCommand extends Command
     private OI oi = Robot.oi;
     private long timeOfExecution ;
     private static final long TIME_OF_EXECUTION = 10000;
-    private boolean climUp = true;
+    private boolean climbUp = true;
     
     public ClimbCommand(double climbSpeed){
         this.climbSpeed = climbSpeed; 
@@ -22,7 +22,6 @@ public class ClimbCommand extends Command
         
 }
     protected void initialize() {
-        requires(Robot.climber);
         Robot.climber.stop();
         timeOfExecution = System.currentTimeMillis();
     }

@@ -11,15 +11,11 @@ public class ClimbStopCommand extends Command
 //    private static final long TIME_OF_EXECUTION = 10000; //in seconds 
 //    private long currentTime ;
     public ClimbStopCommand(){
-        
+        requires(Robot.climber);
     }
         
     protected void initialize() {
-        
-        //initialize
-        requires(Robot.climber);
         Robot.climber.stop();
-        
     }
 
     /**
