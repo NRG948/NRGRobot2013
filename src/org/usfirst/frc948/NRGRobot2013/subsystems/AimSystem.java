@@ -31,18 +31,18 @@ public class AimSystem extends PIDSubsystem {
     private double unknownAngle;
     
     private static final double DEGREE_TOLERANCE = 1.0;
-    SpeedController shooterAngleMotor = RobotMap.shooterAngleMotor;
+   /* SpeedController shooterAngleMotor = RobotMap.shooterAngleMotor;
     Encoder azimuthQuadrature = RobotMap.azimuthQuadrature;
     
     DigitalInput minAngleSwitch = RobotMap.minAngleSwitch;
-    DigitalInput maxAngleSwitch = RobotMap.maxAngleSwitch;
+    DigitalInput maxAngleSwitch = RobotMap.maxAngleSwitch;*/
 
     public AimSystem() {
         super("AnglePID", P, I, D);
     }
 
     public double getMotorPower() {
-        return shooterAngleMotor.get();
+        return 0.0;//shooterAngleMotor.get();
     }
     
     public void encoderReset()
@@ -65,11 +65,11 @@ public class AimSystem extends PIDSubsystem {
     
     //Digital inputs return true when open, so inverse, right?
     public boolean isAtMinAngle() {
-        return !minAngleSwitch.get();
+        return false;//minAngleSwitch.get();
     }
 
     public boolean isAtMaxAngle() {
-        return !maxAngleSwitch.get();
+        return false;//!maxAngleSwitch.get();
     }
 
     // Put methods for controlling this subsystem
@@ -83,18 +83,18 @@ public class AimSystem extends PIDSubsystem {
     }
 
     protected double returnPIDInput() {
-        return azimuthQuadrature.pidGet();
+        return 0.0;//azimuthQuadrature.pidGet();
     }
 
     protected void usePIDOutput(double d) {
         double speed = MathHelper.clamp(d, -maxSpeed, maxSpeed);
         
         if (speed > 0 && !isAtMaxAngle()) {
-            shooterAngleMotor.set(speed);
+            //shooterAngleMotor.set(speed);
         } else if (speed < 0 && !isAtMinAngle()) {
-            shooterAngleMotor.set(speed);
+            //shooterAngleMotor.set(speed);
         } else {
-            shooterAngleMotor.set(0.0);
+            //shooterAngleMotor.set(0.0);
         }
     }
 }

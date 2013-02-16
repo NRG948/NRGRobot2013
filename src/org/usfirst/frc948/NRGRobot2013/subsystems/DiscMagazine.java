@@ -50,19 +50,12 @@ public class DiscMagazine extends Subsystem {
     public void releaseFrisbee() throws InterruptedException {
         magPiston.set(Relay.Value.kReverse);
         Thread.sleep(250);
-//        Robot.shooter.shooterSpeedUp(speedUpConstant);
+        Robot.shooter.shooterSpeedUp();
         Thread.sleep(750); //Waits for 1 second
         
         magPiston.set(Relay.Value.kOff);
 
     }
     
-    /**
-     * robot leans forward by activating the piston
-     * @throws InterruptedException 
-     */
-    public void activateTilt() throws InterruptedException {
-        magPiston.set(Relay.Value.kForward);
-    }
 }
 

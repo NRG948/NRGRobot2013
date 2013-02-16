@@ -22,7 +22,11 @@ public class Shooter extends PIDSubsystem {
     private double currentMotorSpeed = 0;
     
     private static final double pidOutputScaleValue = 0.1;
-    private static final double pidDeactivationConstant = 0.5;
+    public static final double pidDeactivationConstant = 0.5;
+    private static final double speedUpConstant = 0.05;
+    private static double speed;
+    private static boolean speedUpActivated;
+    private static int a;
 
     public Shooter() {
         super("Shooter", P, I, D);
@@ -71,9 +75,16 @@ public class Shooter extends PIDSubsystem {
             } else {
                 pid.setPID(P, I, D);
 
-                double speed = currentMotorSpeed + output * pidOutputScaleValue;
+                speed = currentMotorSpeed + output * pidOutputScaleValue;
 
                 speed = MathHelper.clamp(speed, 0, 1);
+                if(speedUpActivated){
+                    shooterSpeedUp();
+                    a ++;
+                    if(a >5){
+                        speedUpActivated = false;
+                    }
+                }
 
                 setShooterMotorSpeed(speed);
             }
@@ -88,5 +99,11 @@ public class Shooter extends PIDSubsystem {
     public void stop() {
         this.disable();
         RobotMap.shooterMotor.set(0);
+    }
+    
+    public void shooterSpeedUp(){
+        speed *= (1+speedUpConstant);
+        speedUpActivated = false;
+        a = 0; 
     }
 }

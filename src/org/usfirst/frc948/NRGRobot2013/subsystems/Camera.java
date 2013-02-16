@@ -43,6 +43,7 @@ public class Camera extends Subsystem {
     public void setImage(){
         try{  
         axisImage = axisCamera.getImage(); 
+        
         }
         catch (NIVisionException ex) {
         ex.printStackTrace();
@@ -51,7 +52,7 @@ public class Camera extends Subsystem {
                 System.out.println("Get Image Failed" + e);
 }
     }
-
+   
     public double getDistance(int targetNum, ColorImage image) throws NIVisionException{
         setImage();
         BinaryImage thresholdImage = axisImage.thresholdRGB(0, 45, 25, 255, 0, 47);   // keep only green objects
