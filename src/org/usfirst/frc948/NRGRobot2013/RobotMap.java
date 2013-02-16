@@ -39,6 +39,7 @@ public class RobotMap {
     public static Relay magPiston; //added for DiscMagazine
     public static Relay tiltPiston; //added for Tilting
     
+    public static DigitalInput climbLimitSwitch;
     public static Compressor compressor;
 
     public static final double DEFAULT_GYRO_SENSITIVITY = 0.00685;

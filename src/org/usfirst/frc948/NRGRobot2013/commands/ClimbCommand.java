@@ -8,12 +8,15 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
  * Ascends the Climber
  * @author Charles, Patrick, Jared
  */
-public class ClimbUpCommand extends Command
+public class ClimbCommand extends Command
 {
     private double climbSpeed;
     private OI oi = Robot.oi;
-    private double timeOfExecution = 10;
-    public ClimbUpCommand(double climbSpeed){
+    private long timeOfExecution ;
+    private static final long TIME_OF_EXECUTION = 10000;
+    private boolean climUp = true;
+    
+    public ClimbCommand(double climbSpeed){
         this.climbSpeed = climbSpeed; 
         requires(Robot.climber);
         
@@ -21,13 +24,19 @@ public class ClimbUpCommand extends Command
     protected void initialize() {
         requires(Robot.climber);
         Robot.climber.stop();
+        timeOfExecution = System.currentTimeMillis();
     }
 
+    /**
+     *
+     */
     protected void execute() 
     {
-        Robot.climber.setClimberMotorPower(climbSpeed);
-        //oi.getleftJoystick().getButton();
-        
+        if ( System.currentTimeMillis() - timeOfExecution > TIME_OF_EXECUTION)
+        {
+            Robot.climber.setClimberMotorPower(climbSpeed);
+//            oi.getleftJoystick().getButton(); 
+        }
     }
 
     /**
