@@ -11,7 +11,6 @@ import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
  */
 public class OperatorDriveCommand extends Command {
 
-    private static final double SUDDEN_CHANGE_THRESHOLD = 0.6;
     private static final double CLOSE_TO_ZERO = 0.08;
     private OI oi = Robot.oi;
     private double leftMotorSpeed;
@@ -38,16 +37,12 @@ public class OperatorDriveCommand extends Command {
 
         if (Math.abs(currentLeftJoystickYValue) < CLOSE_TO_ZERO) {
             leftMotorSpeed = 0;
-        } else if (Math.abs((leftMotorSpeed - currentLeftJoystickYValue)) > SUDDEN_CHANGE_THRESHOLD) {
-            leftMotorSpeed = MathHelper.average(leftMotorSpeed, currentLeftJoystickYValue);
         } else {
             leftMotorSpeed = currentLeftJoystickYValue;
         }
         
         if (Math.abs(currentRightJoystickYValue) < CLOSE_TO_ZERO) {
             rightMotorSpeed = 0;
-        } else if (Math.abs((rightMotorSpeed - currentRightJoystickYValue)) > SUDDEN_CHANGE_THRESHOLD) {
-            rightMotorSpeed = MathHelper.average(rightMotorSpeed, currentRightJoystickYValue);
         } else {
             rightMotorSpeed = currentRightJoystickYValue;
         }
