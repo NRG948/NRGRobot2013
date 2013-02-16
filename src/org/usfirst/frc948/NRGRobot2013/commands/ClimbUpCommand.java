@@ -12,7 +12,7 @@ public class ClimbUpCommand extends Command
 {
     private double climbSpeed;
     private OI oi = Robot.oi;
-    
+    private double timeOfExecution = 10;
     public ClimbUpCommand(double climbSpeed){
         this.climbSpeed = climbSpeed; 
         requires(Robot.climber);
@@ -30,6 +30,10 @@ public class ClimbUpCommand extends Command
         
     }
 
+    /**
+     *
+     * @return
+     */
     protected boolean isFinished() 
     {
         return (Robot.oi.rightJoyBtn11.get());

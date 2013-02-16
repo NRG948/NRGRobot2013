@@ -106,7 +106,6 @@ public class OI {
         rightJoyBtn1.whenPressed(new ReleaseFrisbeeCommand());
         rightJoyBtn10.whileHeld(new ClimbDownCommand());
         rightJoyBtn11.whileHeld(new ClimbUpCommand(0.5));
-        rightJoyBtn11.whenReleased(new ClimbStopCommand());
         
         SmartDashboard.putData("Turn 90 CW (0.7)", new TurnCommand(0.7, 90));
         SmartDashboard.putData("DriveStraight 1 sec (0.5)", new DriveStraightTime(0.5, 1000));

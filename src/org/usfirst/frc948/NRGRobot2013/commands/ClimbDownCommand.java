@@ -8,7 +8,7 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
 public class ClimbDownCommand extends Command 
 {
     private double climbSpeed = 0.5;
-    private double timeOfExecution; //in seconds 
+    private double timeOfExecution = 10; //in seconds 
     
     public ClimbDownCommand(){
         
@@ -22,6 +22,9 @@ public class ClimbDownCommand extends Command
         
     }
 
+    /**
+     *
+     */
     protected void execute() {
         Robot.climber.setClimberMotorPower(-climbSpeed);
         
@@ -31,6 +34,9 @@ public class ClimbDownCommand extends Command
         return false;
     }
 
+    /**
+     *
+     */
     protected void end()
     {
         Robot.climber.stop();
