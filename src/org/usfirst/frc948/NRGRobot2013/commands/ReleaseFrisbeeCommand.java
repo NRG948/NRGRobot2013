@@ -9,34 +9,29 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
  */
 public class ReleaseFrisbeeCommand extends Command {
 
+    private static final int DELAY = 1000;
+    
     public static int count = 0;
-    private boolean finished;
+    private long endTime;
 
     protected void initialize() {
-        finished = false;
+        endTime = System.currentTimeMillis() + DELAY;
+        Robot.discMagazine.openPiston();
+        count++;
     }
 
-    protected void execute() {
-        releaseFrisbee();
-        finished = true;
-    }
+    protected void execute() {}
 
     protected boolean isFinished() {
-        return finished;
+        return System.currentTimeMillis() >= endTime;
     }
 
     protected void end() {
+        Robot.discMagazine.closePiston();
     }
 
     protected void interrupted() {
+        end();
     }
 
-    private void releaseFrisbee() {
-        try {
-            Robot.discMagazine.releaseFrisbee();
-            count++;
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
-    }
 }
