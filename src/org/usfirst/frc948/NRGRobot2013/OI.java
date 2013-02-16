@@ -67,7 +67,7 @@ public class OI {
     private static final double SHOOT_SPEED_DEAD_ZONE = 0.1;
     private static final double MINIMUM_SHOOT_SPEED = 0.2;
     
-    Button leftJoyBtn1 = new JoystickButton(leftJoystick, 1),
+    public Button leftJoyBtn1 = new JoystickButton(leftJoystick, 1),
            leftJoyBtn2 = new JoystickButton(leftJoystick, 2),
            leftJoyBtn3 = new JoystickButton(leftJoystick, 3),
            leftJoyBtn4 = new JoystickButton(leftJoystick, 4),
@@ -105,7 +105,8 @@ public class OI {
         
         rightJoyBtn1.whenPressed(new ReleaseFrisbeeCommand());
         rightJoyBtn10.whileHeld(new ClimbDownCommand());
-        rightJoyBtn11.whileHeld(new ClimbUpCommand());
+        rightJoyBtn11.whileHeld(new ClimbUpCommand(0.5));
+        rightJoyBtn11.whenReleased(new ClimbStopCommand());
         
         SmartDashboard.putData("Turn 90 CW (0.7)", new TurnCommand(0.7, 90));
         SmartDashboard.putData("DriveStraight 1 sec (0.5)", new DriveStraightTime(0.5, 1000));

@@ -10,24 +10,29 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
  */
 public class ClimbUpCommand extends Command
 {
-    private double climbSpeed = 0.5;
+    private double climbSpeed;
     private OI oi = Robot.oi;
-    protected void initialize() {
-        
+    
+    public ClimbUpCommand(double climbSpeed){
+        this.climbSpeed = climbSpeed; 
         requires(Robot.climber);
-        //Climber.reset();
+        
+}
+    protected void initialize() {
+        requires(Robot.climber);
+        Robot.climber.stop();
     }
 
     protected void execute() 
     {
-        Robot.climber.turnClockwise(climbSpeed);
+        Robot.climber.setClimberMotorPower(climbSpeed);
         //oi.getleftJoystick().getButton();
         
     }
 
     protected boolean isFinished() 
     {
-        return false;
+        return (Robot.oi.rightJoyBtn11.get());
     }
 
     protected void end()

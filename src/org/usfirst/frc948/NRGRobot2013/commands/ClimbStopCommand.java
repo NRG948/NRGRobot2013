@@ -1,38 +1,30 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package org.usfirst.frc948.NRGRobot2013.commands;
+
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 /**
- * Descends the Climber
- * @author Charles
+ *
+ * @author Sean
  */
-public class ClimbDownCommand extends Command 
-{
-    private double climbSpeed = 0.5;
-    private double timeOfExecution; //in seconds 
-    
-    public ClimbDownCommand(){
-        
-    }
-        
+public class ClimbStopCommand extends Command{
+
     protected void initialize() {
-        
-        //initialize
         requires(Robot.climber);
-        
-        
     }
 
     protected void execute() {
-        Robot.climber.setClimberMotorPower(-climbSpeed);
-        
+       Robot.climber.stop();
     }
 
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
-    protected void end()
-    {
+    protected void end() {
         Robot.climber.stop();
     }
 
