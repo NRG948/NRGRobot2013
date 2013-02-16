@@ -1,10 +1,7 @@
 package org.usfirst.frc948.NRGRobot2013.commands;
 
-import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
-import org.usfirst.frc948.NRGRobot2013.RobotMap;
-import org.usfirst.frc948.NRGRobot2013.subsystems.DiscMagazine;
 
 /**
  * Empty as of RIGHT NOW, we have not determined our mechanism to lean forward
@@ -14,20 +11,29 @@ import org.usfirst.frc948.NRGRobot2013.subsystems.DiscMagazine;
  */
 public class TiltCommand extends Command {
 
+    private boolean tilt;
+    private boolean isFinished;
+    
+    public TiltCommand(boolean tilt) {
+        this.tilt = tilt;
+    }
     
     protected void initialize() {
-      
+        isFinished = false;
     }
 
     protected void execute() {
-        try {
+        if (tilt) {
             Robot.climber.activateTilt();
-        } catch (InterruptedException ex) {
+        } else {
+            Robot.climber.disengage();
         }
+        
+        isFinished = true;
     }
 
     protected boolean isFinished() {
-        return false;
+        return isFinished;
     }
 
     protected void end() {

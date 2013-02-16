@@ -134,8 +134,6 @@ public class Robot extends IterativeRobot {
         
         LCD.println(LCD.DRIVE, 1, "L:" + leftQuad + " R:" + rightQuad);
         LCD.println(LCD.GYRO, 2, "GYRO: " + String.valueOf(Robot.drive.getGyroAngle()));
-        LCD.println(LCD.SHOOT, 3, "SHOOT_RAW:" + OI.getRawShootSpeed());
-        LCD.println(true, 5, "SHOOT_SET: " + RobotMap.shooterMotor.get());
         LCD.println(true, 6, "RELEASED: " + ReleaseFrisbeeCommand.count);
         LCD.update();
     }

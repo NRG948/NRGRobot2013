@@ -2,6 +2,7 @@ package org.usfirst.frc948.NRGRobot2013.subsystems;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.commands.OperatorShooterCommand;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
@@ -57,7 +58,9 @@ public class Shooter extends PIDSubsystem {
     }
 
     protected double returnPIDInput() {
-        return RobotMap.shooterQuadrature.getRate();
+        double rate = RobotMap.shooterQuadrature.getRate();
+        SmartDashboard.putNumber("shooter rate", rate);
+        return rate;
     }
 
     protected void usePIDOutput(double output) {
@@ -92,6 +95,7 @@ public class Shooter extends PIDSubsystem {
     }
     
     private void setShooterMotorSpeed(double speed) {
+        SmartDashboard.putNumber("shooter set", speed);
         RobotMap.shooterMotor.set(speed);
         currentMotorSpeed = speed;
     }
