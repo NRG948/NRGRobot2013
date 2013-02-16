@@ -8,7 +8,9 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
 public class ClimbDownCommand extends Command 
 {
     private double climbSpeed = 0.5;
+    private double timeOfExecution; //in seconds 
     protected void initialize() {
+        
         //initialize
         requires(Robot.climber);
         

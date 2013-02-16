@@ -42,7 +42,7 @@ public class RobotMap {
     public static SpeedController climberMotor;
 
     public static Relay magPiston; //added for DiscMagazine
-
+    public static Relay tiltPiston; //added for Tilting
    /* public static DigitalInput minAngleSwitch; //switches that detect when shooter reaches max angle
     public static DigitalInput maxAngleSwitch;*/
 
@@ -110,6 +110,7 @@ public class RobotMap {
         
     LiveWindow.addActuator("Unknown", "DIG_CH2", new Relay(2));
         
+  
 //        cameraServo = new Servo(3, 0);
 //    LiveWindow.addActuator("NRGCamera", "servo", cameraServo);
     }

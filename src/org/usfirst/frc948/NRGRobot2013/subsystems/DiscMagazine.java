@@ -57,12 +57,5 @@ public class DiscMagazine extends Subsystem {
 
     }
     
-    /**
-     * robot leans forward by activating the piston
-     * @throws InterruptedException 
-     */
-    public void activateTilt() throws InterruptedException {
-        magPiston.set(Relay.Value.kForward);
-    }
 }
 
