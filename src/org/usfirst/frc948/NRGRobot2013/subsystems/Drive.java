@@ -82,19 +82,25 @@ public class Drive extends PIDSubsystem {
                 double leftPowerChangeSign = ((leftPower - lastLeftPower) < 0.0) ? -1 : 1;
                 leftPower = lastLeftPower + (maxPowerDifference * leftPowerChangeSign);
             }
-            lastLeftPower = leftPower;
             if ((Math.abs(rightPower - lastRightPower) > maxPowerDifference)) {
                 double rightPowerChangeSign = ((rightPower - lastRightPower) < 0.0) ? -1 : 1;
                 rightPower = lastRightPower + (maxPowerDifference * rightPowerChangeSign);
             }
-            lastRightPower = rightPower;
         }
+        
+        rawTankDrive(leftPower, rightPower);
+    }
+
+    public void rawTankDrive(double leftPower, double rightPower) {
+        lastLeftPower = leftPower;
+        lastRightPower = rightPower;
+        
         leftMotor1.set(-leftPower);
         leftMotor2.set(-leftPower);
         rightMotor1.set(rightPower);
         rightMotor2.set(rightPower);
     }
-
+    
     public void stop() {
         try {
             while (Math.abs(lastLeftPower) > 0.2 || Math.abs(lastRightPower) > 0.2) {
