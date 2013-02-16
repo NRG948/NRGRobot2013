@@ -59,7 +59,7 @@ public class MathHelper {
      * @param min
      * @return
      */
-    public static double normalizeValue(double val, double max, double min) {
+    public static double normalizeValue(double val, double min, double max) {
         return (clamp(val, min, max) - min) / (max - min);
     }
 
@@ -71,8 +71,8 @@ public class MathHelper {
      * @param min
      * @return
      */
-    public static double reverseNormalizeValue(double val, double max, double min) {
-        return 1 - normalizeValue(val, max, min);
+    public static double reverseNormalizeValue(double val, double min, double max) {
+        return 1 - normalizeValue(val, min, max);
     }
 
     /**
