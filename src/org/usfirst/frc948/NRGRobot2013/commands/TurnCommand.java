@@ -2,8 +2,10 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
@@ -19,7 +21,7 @@ public class TurnCommand extends PIDCommand {
     
     private static final double DEGREES_CLOSE = 30.0;
     private static final double DEGREES_TOLERANCE = 2.0;
-    private static final int REQUIRED_CYCLES_ON_TARGET = 20;
+    private static final int REQUIRED_CYCLES_ON_TARGET = 3;
     
     private double power;
     private double degrees;
@@ -43,9 +45,10 @@ public class TurnCommand extends PIDCommand {
     // Called just before this Command runs the first time
     protected void initialize() {
         //double p = Preferences.getInstance().getDouble("InitialTurnP", kDefaultP);
-        double p = 1.0;
+        double p = 0.015;
         this.getPIDController().setPID(p, 0.0, 0.0);
-
+        this.closeToTarget = false;
+        
         Debug.println(Debug.DRIVE, "TurnCommand intializing w/ only P: " + p);
 
         Robot.drive.setDesiredHeading(Robot.drive.getDesiredHeading() + degrees);
@@ -64,10 +67,16 @@ public class TurnCommand extends PIDCommand {
 
             Debug.println(Debug.DRIVE, "TurnCommand close to target (" + DEGREES_CLOSE + " degrees)");
             Debug.println(Debug.DRIVE, "TurnCommand adjusting PID constants: " + p + " " + i + " " + d);
+            
+            this.getPIDController().setPID(p, i, d);
         }
+        
+        SmartDashboard.putNumber("Turn ERR", this.getPIDController().getError());
 
         double drivePower = MathHelper.clamp(pidOutput, -power, power);
-        Robot.drive.tankDrive(drivePower, -drivePower);
+        Robot.drive.rawTankDrive(drivePower, -drivePower);
+        
+        SmartDashboard.putNumber("Turn SET", drivePower);
 
 
 //        String setAngle = String.valueOf(MathHelper.round(getSetpoint(), 2));

@@ -129,6 +129,7 @@ public class Robot extends IterativeRobot {
         Preferences.getInstance().putDouble(PreferenceKeys.GYRO_SENSITIVITY, RobotMap.DEFAULT_GYRO_SENSITIVITY);
         Preferences.getInstance().putDouble(PreferenceKeys.MAX_ACCEL, Drive.DEFAULT_MAX_CHANGE);
         Preferences.getInstance().putDouble(PreferenceKeys.OVER_REV_FACTOR, Shooter.DEFAULT_OVER_REV);
+        Preferences.getInstance().putDouble(PreferenceKeys.SHOOT_DELAY, ReleaseFrisbeeCommand.DEFAULT_DELAY);
     }
     
     private void periodicAll() {
@@ -137,6 +138,8 @@ public class Robot extends IterativeRobot {
         
         LCD.println(LCD.DRIVE, 1, "L:" + leftQuad + " R:" + rightQuad);
         LCD.println(LCD.GYRO, 2, "GYRO: " + String.valueOf(Robot.drive.getGyroAngle()));
+        LCD.println(LCD.GYRO, 3, "TARGET:" + Robot.drive.getDesiredHeading());
+        LCD.println(LCD.SHOOT, 4, "SHOOT MOTOR:" + RobotMap.shooterMotor.get());
         LCD.println(true, 6, "RELEASED: " + ReleaseFrisbeeCommand.count);
         LCD.update();
         
