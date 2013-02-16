@@ -88,7 +88,7 @@ public class RobotMap {
         
         magPiston = new Relay(1);
     LiveWindow.addActuator("DiscMagazine", "magPiston", magPiston);
-        
+    LiveWindow.addActuator("Climb", "tiltPiston", tiltPiston);
     LiveWindow.addActuator("Unknown", "DIG_CH2", new Relay(2));
         
 //        cameraServo = new Servo(3, 0);
