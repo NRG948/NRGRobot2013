@@ -14,10 +14,10 @@ public class ClimbCommand extends Command
     private OI oi = Robot.oi;
     private long timeOfExecution ;
     private static final long TIME_OF_EXECUTION = 10000;
-    private boolean climbUp = true;
     
     public ClimbCommand(double climbSpeed){
         this.climbSpeed = climbSpeed; 
+        
         requires(Robot.climber);
         
 }
@@ -27,10 +27,11 @@ public class ClimbCommand extends Command
     }
 
     /**
-     *
+     *the fire was red
      */
     protected void execute() 
     {
+        
         if ( System.currentTimeMillis() - timeOfExecution > TIME_OF_EXECUTION)
         {
             Robot.climber.setClimberMotorPower(climbSpeed);
@@ -39,7 +40,9 @@ public class ClimbCommand extends Command
     }
 
     /**
-     *
+     *far over
+     * the misty mountain cold
+     * 
      * @return
      */
     protected boolean isFinished() 

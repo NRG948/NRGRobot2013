@@ -66,7 +66,6 @@ public class OI {
     private static final int ANALOG_SPEED_CHANNEL = 6;
     private static final double SHOOT_SPEED_DEAD_ZONE = 0.1;
     private static final double MINIMUM_SHOOT_SPEED = 0.2;
-    
     public Button leftJoyBtn1 = new JoystickButton(leftJoystick, 1),
            leftJoyBtn2 = new JoystickButton(leftJoystick, 2),
            leftJoyBtn3 = new JoystickButton(leftJoystick, 3),
@@ -111,8 +110,10 @@ public class OI {
         shootButton.whenPressed(new ReleaseFrisbeeCommand());
         rightJoyBtn1.whenPressed(new ReleaseFrisbeeCommand());
         
-        rightJoyBtn10.whileHeld(new ClimbStopCommand());
-        rightJoyBtn11.whileHeld(new ClimbCommand(0.5));
+        rightJoyBtn10.whenReleased(new ClimbStopCommand());
+        rightJoyBtn11.whenReleased(new ClimbStopCommand());
+        rightJoyBtn10.whenPressed(new ClimbCommand(0.5)); //climb up
+        rightJoyBtn11.whenPressed(new ClimbCommand(-0.5)); //climb down
         
         btnClimbDisengage.whenPressed(new TiltCommand(false));
         btnClimbEngage.whenPressed(new TiltCommand(true));

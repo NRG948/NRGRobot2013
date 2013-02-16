@@ -41,7 +41,8 @@ public class Climber extends Subsystem {
      */
     //positive param = climb up, negative means climb down
     public void setClimberMotorPower (double climbValue){
-        RobotMap.climberMotor.set(-climbValue);
+        
+        RobotMap.climberMotor.set(climbValue);
     }
     
     public boolean needToReverse()
@@ -54,7 +55,7 @@ public class Climber extends Subsystem {
     }
     
     public void activateTilt() {
-        tiltPiston.set(Relay.Value.kReverse);
+        tiltPiston.set(Relay.Value.kForward);
     }
     
     public void disengage() {
