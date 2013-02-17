@@ -81,7 +81,7 @@ public class RobotMap {
         shooterMotor = new Jaguar(1, 8);
 	LiveWindow.addActuator("Shooter", "shootMotor", (Jaguar) shooterMotor);
     
-        shooterQuadrature = new Encoder(1, 2, 1, 3, false, EncodingType.k1X);
+        shooterQuadrature = new Encoder(1, 2, 1, 3, false, EncodingType.k4X);
 	LiveWindow.addSensor("Shooter", "shootQuadrature", shooterQuadrature);
         // 256 counts per revolution, dividing by this gives revolutions
         // rate calculated as distance per second, multiply by 60 for distance per minute (revolutions)
@@ -96,8 +96,8 @@ public class RobotMap {
     
         tiltPiston = new Relay(3);
     LiveWindow.addActuator("Climber", "tiltPiston", tiltPiston);
-        
-        cameraServo = new Servo(9);
+        cameraServo =        
+        new Servo(9);
         cameraServo.set(0.67);
     LiveWindow.addActuator(" Camera", "servo", cameraServo);
     

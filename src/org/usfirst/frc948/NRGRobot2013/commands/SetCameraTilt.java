@@ -21,6 +21,7 @@ public class SetCameraTilt extends Command{
     {
         requires(Robot.camera);
         useSlider = true;
+        System.out.println("Camera Tilt has been constructed");
     }
     public SetCameraTilt(double servoVal)
     {
@@ -28,7 +29,7 @@ public class SetCameraTilt extends Command{
         useSlider = false;
     }
     protected void initialize() {
-        
+        System.out.println("Camera Tilt is initialized");
     }
 
     protected void execute() {
@@ -38,6 +39,7 @@ public class SetCameraTilt extends Command{
             servoVal = oi.getCameraTilt();
         }
         RobotMap.cameraServo.set(servoVal);
+        System.out.println("Camera Tilt has been executed");
     }
     
     protected boolean isFinished() {
@@ -45,9 +47,11 @@ public class SetCameraTilt extends Command{
     }
 
     protected void end() {
+        System.out.println("Camera Tilt has ended");
     }
 
     protected void interrupted() {
+        System.out.println("Camera Tilt has been interrupted");
         end();
     }
     
