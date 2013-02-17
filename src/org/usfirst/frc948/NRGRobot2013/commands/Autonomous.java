@@ -35,7 +35,7 @@ public class Autonomous extends CommandGroup {
         //TODO: set the power and angle for each position
         
        
-        addSequential(new AutonomousPIDShooterCommand(/*angle,*/ powers[position]));
+        addSequential(new AutonomousPIDShooterCommand(powers[position]));
         for(int i = 0; i < 4; i++) {
             addSequential(new ReleaseFrisbeeCommand());
             addSequential(new Delay(100));

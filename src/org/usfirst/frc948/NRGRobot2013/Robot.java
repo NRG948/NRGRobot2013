@@ -131,6 +131,7 @@ public class Robot extends IterativeRobot {
         Preferences.getInstance().putDouble(PreferenceKeys.OVER_REV_FACTOR, Shooter.DEFAULT_OVER_REV);
         Preferences.getInstance().putDouble(PreferenceKeys.SHOOT_DELAY, ReleaseFrisbeeCommand.DEFAULT_DELAY);
         Preferences.getInstance().putDouble(PreferenceKeys.CLIMBER_POWER, 0.3);
+        Preferences.getInstance().putBoolean(PreferenceKeys.SHOOTER_USE_PID, Shooter.USE_PID);
     }
     
     private void periodicAll() {
@@ -141,7 +142,7 @@ public class Robot extends IterativeRobot {
         LCD.println(LCD.GYRO, 2, "GYRO: " + String.valueOf(Robot.drive.getGyroAngle()));
         LCD.println(LCD.GYRO, 3, "TARGET:" + Robot.drive.getDesiredHeading());
         LCD.println(LCD.SHOOT, 4, "SHOOT MOTOR:" + RobotMap.shooterMotor.get());
-        LCD.println(true, 6, "RELEASED: " + ReleaseFrisbeeCommand.count);
+        LCD.println(true, 6, "RELEASED: " + Robot.discMagazine.getCount());
         LCD.update();
         
         SmartDashboard.putNumber("shoot RPMs", RobotMap.shooterQuadrature.getRate());

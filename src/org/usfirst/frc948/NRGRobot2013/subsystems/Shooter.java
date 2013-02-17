@@ -1,11 +1,15 @@
 package org.usfirst.frc948.NRGRobot2013.subsystems;
 
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.commands.OperatorShooterCommand;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
+import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
 /**
  * A shooter utility without PID
@@ -13,17 +17,14 @@ import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
  * @author Patrick
  */
 public class Shooter extends PIDSubsystem {
-    
-    public static final boolean USE_PID = false;
-    
-    public static final double DEFAULT_OVER_REV = 1.10;
 
+    public static final boolean USE_PID = false;
+    public static final double DEFAULT_OVER_REV = 1.10;
+    public static final long SHOOT_DELAY_TIME = 3000;
     private static final double P = 0.01;
     private static final double I = P / 2;
     private static final double D = 0.0;
-    
     private double currentMotorSpeed = 0;
-    
     private static final double pidOutputScaleValue = 0.1;
     public static final double pidDeactivationConstant = 0.5;
     private static final double speedUpConstant = 0.05;
@@ -41,9 +42,10 @@ public class Shooter extends PIDSubsystem {
             this.disable();
         }
     }
-    
+
     /**
      * set speed for manual control
+     *
      * @param speed
      */
     public void setSpeed(double speed) {
@@ -84,42 +86,45 @@ public class Shooter extends PIDSubsystem {
                 speed = currentMotorSpeed + output * pidOutputScaleValue;
 
                 speed = MathHelper.clamp(speed, 0, 1);
-                if(speedUpActivated){
+                if (speedUpActivated) {
 //                    shooterSpeedUp();
- //                   a ++;
- //                   if(a >5){
-  //                      speedUpActivated = false;
-  //                  }
+                    //                   a ++;
+                    //                   if(a >5){
+                    //                      speedUpActivated = false;
+                    //                  }
                 }
 
                 setShooterMotorSpeed(speed);
             }
         }
     }
-    
+
     private void setShooterMotorSpeed(double speed) {
         SmartDashboard.putNumber("shooter set", speed);
         RobotMap.shooterMotor.set(speed);
         currentMotorSpeed = speed;
     }
-    
+
     public void stop() {
         this.disable();
         RobotMap.shooterMotor.set(0);
     }
-    
+
 //    public void shooterSpeedUp(){
 //        speed *= (1+speedUpConstant);
- //       speedUpActivated = false;
- //       a = 0; 
+    //       speedUpActivated = false;
+    //       a = 0; 
 //    }
-    
     public boolean isAtSpeed() {
-        return this.onTarget();
+        if (Preferences.getInstance().getBoolean(PreferenceKeys.SHOOTER_USE_PID, USE_PID)) {
+            return this.onTarget();
+        } else {
+            return (System.currentTimeMillis() - Robot.discMagazine.getTimeOfLastShot()) > SHOOT_DELAY_TIME;
+        }
+
     }
-    
+
     public void setOverRev(double d) {
         overRevFactor = d;
     }
-    
 }

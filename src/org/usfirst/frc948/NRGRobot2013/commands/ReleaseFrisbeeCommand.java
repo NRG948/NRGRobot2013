@@ -13,13 +13,10 @@ import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 public class ReleaseFrisbeeCommand extends Command {
 
     public static final int DEFAULT_DELAY = 1000;
-    
-    public static int count = 0;
     private long endTime;
 
     protected void initialize() {
         endTime = (long) (System.currentTimeMillis() + Preferences.getInstance().getDouble(PreferenceKeys.SHOOT_DELAY, DEFAULT_DELAY));
-        count++;
     }
 
     protected void execute() {
@@ -39,5 +36,4 @@ public class ReleaseFrisbeeCommand extends Command {
     protected void interrupted() {
         end();
     }
-
 }
