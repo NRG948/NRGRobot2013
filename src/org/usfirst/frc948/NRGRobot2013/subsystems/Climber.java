@@ -36,7 +36,7 @@ public class Climber extends Subsystem {
      */
     //positive param = climb up, negative means climb down
     public void setClimberMotorPower(double climbValue) {
-        RobotMap.climberMotor.set(climbValue);
+        RobotMap.climberMotor.set(-climbValue);
     }
 
     public void stop() {

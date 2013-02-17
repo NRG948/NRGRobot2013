@@ -7,15 +7,17 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
  *
  * @author irving
  */
-public class RawTankDrive extends Command {
+public class RawSeparateTankDrive extends Command {
 
-    private double speed;
+    private double leftSpeed;
+    private double rightSpeed;
     private long time;
     private long start;
     
-    public RawTankDrive(double speed, long milliseconds) {
+    public RawSeparateTankDrive(double leftSpeed, double rightSpeed, long milliseconds) {
         requires(Robot.drive);
-        this.speed = speed;
+        this.leftSpeed = leftSpeed;
+        this.rightSpeed = rightSpeed;
         this.time = milliseconds;
     }
     
@@ -24,7 +26,7 @@ public class RawTankDrive extends Command {
     }
 
     protected void execute() {
-        Robot.drive.rawTankDrive(speed, speed);
+        Robot.drive.rawTankDrive(leftSpeed, rightSpeed);
     }
 
     protected boolean isFinished() {

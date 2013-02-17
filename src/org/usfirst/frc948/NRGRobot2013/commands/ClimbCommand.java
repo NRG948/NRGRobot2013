@@ -1,7 +1,9 @@
 package org.usfirst.frc948.NRGRobot2013.commands;
 
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
 /**
  * Ascends the Climber
@@ -10,30 +12,23 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
  */
 public class ClimbCommand extends Command {
 
-    private double climbSpeed;
-    private long timeOfExecution;
-    private static final long TIME_OF_EXECUTION = 10000;
-
-    public ClimbCommand(double climbSpeed) {
-        this.climbSpeed = climbSpeed;
-
+    private int direction;
+    
+    public ClimbCommand(int direction) {
+        this.direction = direction;
         requires(Robot.climber);
-
     }
 
     protected void initialize() {
         Robot.climber.stop();
-        timeOfExecution = System.currentTimeMillis();
     }
 
     protected void execute() {
-        if (System.currentTimeMillis() - timeOfExecution > TIME_OF_EXECUTION) {
-            Robot.climber.setClimberMotorPower(climbSpeed);
-        }
+        Robot.climber.setClimberMotorPower(direction * Preferences.getInstance().getDouble(PreferenceKeys.CLIMBER_POWER, 0.3));
     }
 
     protected boolean isFinished() {
-        return (Robot.oi.rightJoyBtn11.get());
+        return false;
     }
 
     protected void end() {

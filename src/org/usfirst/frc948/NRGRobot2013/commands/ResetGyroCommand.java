@@ -2,6 +2,7 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.subsystems.Drive;
 
 /**
  *
@@ -22,6 +23,8 @@ public class ResetGyroCommand extends Command {
     protected void execute() {
         Robot.drive.resetGyro();
         Robot.drive.setDesiredHeading(0);
+        Drive.resetLeftEncoder();
+        Drive.resetRightEncoder();
         isFinished = true;
     }
 

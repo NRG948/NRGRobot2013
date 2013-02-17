@@ -1,6 +1,7 @@
 package org.usfirst.frc948.NRGRobot2013.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.subsystems.Drive;
 
 /**
  *
@@ -20,8 +21,8 @@ public class DriveStraightTime extends Command{
 
     protected void initialize() {
         Robot.drive.driveStraightInit();
-        Robot.drive.resetLeftEncoder();
-        Robot.drive.resetRightEncoder();
+        Drive.resetLeftEncoder();
+        Drive.resetRightEncoder();
         endTime = System.currentTimeMillis() + time;
     }
 
@@ -35,11 +36,12 @@ public class DriveStraightTime extends Command{
     }
 
     protected void end() {
+        Robot.drive.driveStraightEnd();
         Robot.drive.stop();
     }
 
     protected void interrupted() {
-        Robot.drive.stop();
+        end();
     }
     
 }

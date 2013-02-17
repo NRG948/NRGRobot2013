@@ -13,6 +13,7 @@ import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.commands.*;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
@@ -33,9 +34,9 @@ public class Drive extends PIDSubsystem {
     private double pidOutput;
     private double desiredHeading;
     private static double encoderDistance;
-    static final double kP = 0.02;
-    static final double kI = 0.005;
-    static final double kD = 0.001;
+    static final double kP = 0.01;
+    static final double kI = 0.0025;
+    static final double kD = 0.0005;
     private boolean RATE_LIMITING_ENABLED = true;
     private long lastTime;
     private double lastLeftPower = 0.0;
@@ -46,6 +47,7 @@ public class Drive extends PIDSubsystem {
 
     public Drive() {
         super("DrivePID", kP, kI, kD);
+        this.getPIDController().setOutputRange(-0.1, 0.1);
         lastTime = System.currentTimeMillis();
     }
 
@@ -64,11 +66,14 @@ public class Drive extends PIDSubsystem {
             rightSpeed = speed;
         }
 
-        tankDrive(leftSpeed, rightSpeed);
+        rawTankDrive(leftSpeed, rightSpeed);
     }
 
     public void driveStraightEnd() {
-        this.getPIDController().disable();
+        this.getPIDController().reset();
+        pidOutput = 0;
+        SmartDashboard.putNumber("Drive PID output", pidOutput);
+        SmartDashboard.putNumber("Drive PID error", this.getPIDController().getError());
     }
 
     public void tankDrive(double leftPower, double rightPower) {
@@ -163,6 +168,8 @@ public class Drive extends PIDSubsystem {
     }
 
     protected void usePIDOutput(double d) {
+        SmartDashboard.putNumber("Drive PID output", d);
+        SmartDashboard.putNumber("Drive PID error", this.getPIDController().getError());
         pidOutput = d;
     }
 }

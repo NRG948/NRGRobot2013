@@ -6,7 +6,7 @@ package org.usfirst.frc948.NRGRobot2013.utilities;
  */
 public class Debug {
 
-    private static boolean print = true;
+    private static boolean print = false;
     
     public static final int ROBOT_ROUTINES = -1;
     public static final int AUTONOMOUS = 0;
