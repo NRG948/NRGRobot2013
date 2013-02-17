@@ -18,7 +18,8 @@ import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
  */
 public class Shooter extends PIDSubsystem {
 
-    public static final boolean USE_PID = false;
+    public static final boolean DEFAULT_USE_PID = false;
+    private boolean usePID;
     public static final double DEFAULT_OVER_REV = 1.10;
     public static final long SHOOT_DELAY_TIME = 3000;
     private static final double P = 0.01;
@@ -36,7 +37,8 @@ public class Shooter extends PIDSubsystem {
     public Shooter() {
         super("Shooter", P, I, D);
         setAbsoluteTolerance(0.2);
-        if (USE_PID) {
+        usePID = Preferences.getInstance().getBoolean(PreferenceKeys.SHOOTER_USE_PID, DEFAULT_USE_PID);
+        if (usePID) {
             this.enable();
         } else {
             this.disable();
@@ -49,7 +51,7 @@ public class Shooter extends PIDSubsystem {
      * @param speed
      */
     public void setSpeed(double speed) {
-        if (USE_PID) {
+        if (usePID) {
             this.getPIDController().reset();
             this.setSetpoint(speed);
             this.enable();
@@ -69,7 +71,7 @@ public class Shooter extends PIDSubsystem {
     }
 
     protected void usePIDOutput(double output) {
-        if (USE_PID) {
+        if (usePID) {
             PIDController pid = this.getPIDController();
 
             if (Math.abs(pid.getError()) > pidDeactivationConstant) {
@@ -116,7 +118,7 @@ public class Shooter extends PIDSubsystem {
     //       a = 0; 
 //    }
     public boolean isAtSpeed() {
-        if (Preferences.getInstance().getBoolean(PreferenceKeys.SHOOTER_USE_PID, USE_PID)) {
+        if (usePID) {
             return this.onTarget();
         } else {
             return (System.currentTimeMillis() - Robot.discMagazine.getTimeOfLastShot()) > SHOOT_DELAY_TIME;

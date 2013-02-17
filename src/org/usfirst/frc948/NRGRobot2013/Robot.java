@@ -131,7 +131,7 @@ public class Robot extends IterativeRobot {
         Preferences.getInstance().putDouble(PreferenceKeys.OVER_REV_FACTOR, Shooter.DEFAULT_OVER_REV);
         Preferences.getInstance().putDouble(PreferenceKeys.SHOOT_DELAY, ReleaseFrisbeeCommand.DEFAULT_DELAY);
         Preferences.getInstance().putDouble(PreferenceKeys.CLIMBER_POWER, 0.3);
-        Preferences.getInstance().putBoolean(PreferenceKeys.SHOOTER_USE_PID, Shooter.USE_PID);
+        Preferences.getInstance().putBoolean(PreferenceKeys.SHOOTER_USE_PID, Shooter.DEFAULT_USE_PID);
     }
     
     private void periodicAll() {
