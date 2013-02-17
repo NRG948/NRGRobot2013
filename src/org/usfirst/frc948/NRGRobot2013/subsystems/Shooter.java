@@ -2,7 +2,6 @@ package org.usfirst.frc948.NRGRobot2013.subsystems;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Preferences;
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.Robot;
@@ -20,18 +19,18 @@ public class Shooter extends PIDSubsystem {
 
     public static final boolean DEFAULT_USE_PID = false;
     private boolean usePID;
-    public static final double DEFAULT_OVER_REV = 1.10;
-    public static final long SHOOT_DELAY_TIME = 3000;
+    
     private static final double P = 0.01;
     private static final double I = P / 2;
     private static final double D = 0.0;
-    private double currentMotorSpeed = 0;
     private static final double pidOutputScaleValue = 0.1;
-    public static final double pidDeactivationConstant = 0.5;
-    private static final double speedUpConstant = 0.05;
-    private static double speed;
-    private static boolean speedUpActivated;
-    private static int a;
+    private static final double pidDeactivationConstant = 0.5;
+    
+    public static final double DEFAULT_OVER_REV = 1.10;
+    public static final long SHOOT_DELAY_TIME = 3000;
+    
+    private double currentMotorSpeed = 0;
+    private double speed;
     private double overRevFactor = 1.0;
 
     public Shooter() {
@@ -88,13 +87,6 @@ public class Shooter extends PIDSubsystem {
                 speed = currentMotorSpeed + output * pidOutputScaleValue;
 
                 speed = MathHelper.clamp(speed, 0, 1);
-                if (speedUpActivated) {
-//                    shooterSpeedUp();
-                    //                   a ++;
-                    //                   if(a >5){
-                    //                      speedUpActivated = false;
-                    //                  }
-                }
 
                 setShooterMotorSpeed(speed);
             }
@@ -112,11 +104,6 @@ public class Shooter extends PIDSubsystem {
         RobotMap.shooterMotor.set(0);
     }
 
-//    public void shooterSpeedUp(){
-//        speed *= (1+speedUpConstant);
-    //       speedUpActivated = false;
-    //       a = 0; 
-//    }
     public boolean isAtSpeed() {
         if (usePID) {
             return this.onTarget();

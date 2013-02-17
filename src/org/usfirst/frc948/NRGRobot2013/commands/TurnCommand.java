@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import org.usfirst.frc948.NRGRobot2013.Robot;
-import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
@@ -15,6 +14,7 @@ import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
  */
 public class TurnCommand extends PIDCommand {
 
+    private static final double kInitialP = 0.015;
     private static final double kDefaultP = 0.02;
     private static final double kDefaultI = 0.01;
     private static final double kDefaultD = 0.0;
@@ -44,12 +44,10 @@ public class TurnCommand extends PIDCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        //double p = Preferences.getInstance().getDouble("InitialTurnP", kDefaultP);
-        double p = 0.015;
-        this.getPIDController().setPID(p, 0.0, 0.0);
+        this.getPIDController().setPID(kInitialP, 0.0, 0.0);
         this.closeToTarget = false;
         
-        Debug.println(Debug.DRIVE, "TurnCommand intializing w/ only P: " + p);
+        Debug.println(Debug.DRIVE, "TurnCommand intializing w/ only P: " + kInitialP);
 
         Robot.drive.setDesiredHeading(Robot.drive.getDesiredHeading() + degrees);
         setSetpoint(Robot.drive.getDesiredHeading());
@@ -71,22 +69,12 @@ public class TurnCommand extends PIDCommand {
             this.getPIDController().setPID(p, i, d);
         }
         
-        SmartDashboard.putNumber("Turn ERR", this.getPIDController().getError());
+//        SmartDashboard.putNumber("Turn ERR", this.getPIDController().getError());
 
         double drivePower = MathHelper.clamp(pidOutput, -power, power);
         Robot.drive.rawTankDrive(drivePower, -drivePower);
         
-        SmartDashboard.putNumber("Turn SET", drivePower);
-
-
-//        String setAngle = String.valueOf(MathHelper.round(getSetpoint(), 2));
-//        String errorAngle = String.valueOf(MathHelper.round(this.getPIDController().getError(), 2));
-//        String drivePowerStr = String.valueOf(MathHelper.round(drivePower, 2));
-
-//        LCD.clearLine(4);
-//        LCD.clearLine(5);
-//        LCD.println(LCD.TURNING, 4, "SET:" + setAngle + " ERR:" + errorAngle);
-//        LCD.println(LCD.TURNING, 5, "  PWR:" + drivePowerStr);
+//        SmartDashboard.putNumber("Turn SET", drivePower);
     }
 
     // Make this return true when this Command no longer needs to run execute()

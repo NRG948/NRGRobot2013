@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 
 /**
- * Do nothing until the shooter is at the set speed.
+ * Do nothing until the shooter reaches its set speed.
  * @author irving
  */
 public class WaitForShooterSpeed extends Command {

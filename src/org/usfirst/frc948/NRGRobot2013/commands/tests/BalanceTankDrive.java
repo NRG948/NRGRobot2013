@@ -5,7 +5,7 @@ import org.usfirst.frc948.NRGRobot2013.commands.Delay;
 import org.usfirst.frc948.NRGRobot2013.commands.RawSeparateTankDrive;
 
 /**
- *
+ * Drive robot with different raw left/right values.
  * @author irving
  */
 public class BalanceTankDrive extends CommandGroup {

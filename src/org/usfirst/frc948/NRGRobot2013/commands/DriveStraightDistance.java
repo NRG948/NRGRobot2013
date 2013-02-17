@@ -2,6 +2,7 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.subsystems.Drive;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 
 /**
@@ -22,25 +23,24 @@ public class DriveStraightDistance extends Command {
     }
 
     protected void initialize() {
-        Robot.drive.resetLeftEncoder();
-        Robot.drive.resetRightEncoder();
+        Drive.resetLeftEncoder();
+        Drive.resetRightEncoder();
         Robot.drive.driveStraightInit();
-        finalDistance = Math.abs(Robot.drive.getEncoderDistance()) + distance;
+        finalDistance = Math.abs(Drive.getEncoderDistance()) + distance;
     }
 
     protected void execute() {
-        distanceRemaining = finalDistance - Math.abs(Robot.drive.getEncoderDistance());
-        if(speed > 0){
+        distanceRemaining = finalDistance - Math.abs(Drive.getEncoderDistance());
+        if (speed > 0) {
             Robot.drive.driveStraight(MathHelper.clamp(distanceRemaining / 2, -Math.abs(speed), Math.abs(speed)), Robot.drive.getDesiredHeading());
-        }
-        else if(speed < 0){
+        } else if (speed < 0) {
             Robot.drive.driveStraight(MathHelper.clamp(-distanceRemaining / 2, -Math.abs(speed), Math.abs(speed)), Robot.drive.getDesiredHeading());
         }
 
     }
 
     protected boolean isFinished() {
-        return (Math.abs(Robot.drive.getEncoderDistance()) >= finalDistance);
+        return (Math.abs(Drive.getEncoderDistance()) >= finalDistance);
     }
 
     protected void end() {
