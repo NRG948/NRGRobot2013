@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.image.CriteriaCollection;
 import edu.wpi.first.wpilibj.image.NIVision.MeasurementType;
 import edu.wpi.first.wpilibj.image.NIVisionException;
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
-
+import org.usfirst.frc948.NRGRobot2013.commands.SetCameraTilt;
 /**
  *
  * @author Sean
@@ -32,6 +32,7 @@ public class Camera extends Subsystem {
     final double TANGENT = Math.tan((43.5 / 180.0 * Math.PI));
 
     protected void initDefaultCommand() {
+        this.setDefaultCommand(new SetCameraTilt());
     }
 
     public Camera() {
