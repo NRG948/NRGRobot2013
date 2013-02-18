@@ -11,7 +11,7 @@ public class AutonomousDriveCenter extends CommandGroup {
     // TODO: find accurate turning angles and return distances for center location.
     
     public AutonomousDriveCenter() {
-        addSequential(new TurnCommand(0.5, -15));
-        addSequential(new DriveStraightDistance(-0.5, 5));
+        addSequential(new TurnCommand(0.5, -26.5));
+        addSequential(new DriveStraightDistance(-0.5, 10.06));
     }
 }
