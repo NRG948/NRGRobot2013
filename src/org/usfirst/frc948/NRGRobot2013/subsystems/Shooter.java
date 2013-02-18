@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.commands.OperatorShooterCommand;
-import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
@@ -17,10 +16,9 @@ import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
  * @author Patrick
  */
 public class Shooter extends PIDSubsystem {
-
-    public static final boolean DEFAULT_USE_PID = false;
-    private boolean usePID;
     
+    public static final boolean DEFAULT_USE_PID = false;
+
     private static final double P = 0.01;
     private static final double I = P / 2;
     private static final double D = 0.0;
@@ -36,8 +34,8 @@ public class Shooter extends PIDSubsystem {
     
     public Shooter() {
         super("Shooter", P, I, D);
-        setAbsoluteTolerance(0.2);
-        usePID = Preferences.getInstance().getBoolean(PreferenceKeys.SHOOTER_USE_PID, DEFAULT_USE_PID);
+        setPercentTolerance(1.0);
+//        usePID = Preferences.getInstance().getBoolean(PreferenceKeys.SHOOTER_USE_PID, DEFAULT_USE_PID);
 //        if (usePID) {
 //            this.enable();
 //        } else {
@@ -46,16 +44,13 @@ public class Shooter extends PIDSubsystem {
         this.enable();
     }
 
-    /**
-     * set speed for manual control
-     *
-     * @param speed
-     */
     public void setSpeed(double speed) {
-        if (usePID) {
-            this.getPIDController().reset();
-            this.setSetpoint(-speed);
-            this.enable();
+        if (Robot.oi.shooterUsePID()) {
+            if (Math.abs(this.getSetpoint() - speed) / this.getSetpoint() > 0.5) {
+                this.getPIDController().reset();
+                this.enable();
+            }
+            this.setSetpoint(speed);
         } else {
             RobotMap.shooterMotor.set(MathHelper.clamp(-speed * overRevFactor, -1.0, 1.0));
         }
@@ -66,13 +61,11 @@ public class Shooter extends PIDSubsystem {
     }
 
     protected double returnPIDInput() {
-        double rate = Robot.shooterQuadrature.getRPM();
-        SmartDashboard.putNumber("shooter rate", rate);
-        return rate;
+        return RobotMap.shooterQuadrature.getRPM();
     }
 
     protected void usePIDOutput(double output) {
-        if (usePID) {
+        if (Robot.oi.shooterUsePID()) {
             PIDController pid = this.getPIDController();
 
             if (Math.abs(pid.getError()) > pidDeactivationConstant) {
@@ -107,7 +100,7 @@ public class Shooter extends PIDSubsystem {
     }
 
     public boolean isAtSpeed() {
-        if (usePID) {
+        if (Robot.oi.shooterUsePID()) {
             return this.onTarget();
         } else {
             return (System.currentTimeMillis() - Robot.discMagazine.getTimeOfLastShot()) > SHOOT_DELAY_TIME;
