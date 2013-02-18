@@ -158,4 +158,9 @@ public class MathHelper {
     public static double min(double val1, double val2) {
         return val1 < val2 ? val1 : val2;
     }
+    
+    public static double RPMtoPower(double RPM) {
+        if (RPM == 0) return 0;
+        return 0.000264 * RPM + .082243;
+    }
 }
