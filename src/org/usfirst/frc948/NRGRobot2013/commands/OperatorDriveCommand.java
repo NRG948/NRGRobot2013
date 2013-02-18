@@ -13,12 +13,19 @@ import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 public class OperatorDriveCommand extends Command {
 
     private static final double CLOSE_TO_ZERO = 0.08;
+    private static final double DRIVE_SLOW_FACTOR = 0.5;
+    private static final double NORMAL_DRIVE = 1.0;
     private OI oi = Robot.oi;
     
     private boolean prevDriveStraight = false;
     private boolean currDriveStraight = false;
     
     private double driveStraightHeading;
+    
+    private boolean prevDriveSlow = false;
+    private boolean currDriveSlow = false;
+    
+    private double driveFactor = NORMAL_DRIVE;
 
     public OperatorDriveCommand() {
         requires(Robot.drive);
@@ -37,6 +44,23 @@ public class OperatorDriveCommand extends Command {
         prevDriveStraight = currDriveStraight;
         currDriveStraight = oi.getDriveStraight();
         
+        prevDriveSlow = currDriveSlow;
+        currDriveSlow = oi.getDriveSlow();
+        if(currDriveSlow)
+        {
+            if(!prevDriveSlow)
+            {
+                Debug.println(Debug.DRIVE, "Entered slow drive mode");
+                driveFactor = DRIVE_SLOW_FACTOR;
+            }  
+        }
+        else {
+            if(prevDriveSlow){
+                Debug.println(Debug.DRIVE, "Exited drive slow mode");
+                driveFactor = NORMAL_DRIVE;
+            }
+        }
+        
         if (currDriveStraight) {
             if (!prevDriveStraight) {
                 Debug.println(Debug.DRIVE, "Entered drive straight mode");
@@ -46,7 +70,7 @@ public class OperatorDriveCommand extends Command {
             
             double speed = Math.abs(currentRightJoystickYValue) < CLOSE_TO_ZERO ? 0 : currentRightJoystickYValue;
             
-            Robot.drive.driveStraight(speed, driveStraightHeading);
+            Robot.drive.driveStraight(speed * driveFactor, driveStraightHeading);
         } else {
             if (prevDriveStraight) {
                 Debug.println(Debug.DRIVE, "Exited drive straight mode");
@@ -68,7 +92,7 @@ public class OperatorDriveCommand extends Command {
                 rightMotorSpeed = currentRightJoystickYValue;
             }
 
-            Robot.drive.tankDrive(leftMotorSpeed, rightMotorSpeed);            
+            Robot.drive.tankDrive(leftMotorSpeed * driveFactor, rightMotorSpeed * driveFactor);            
         }
     }
 

@@ -181,4 +181,7 @@ public class OI {
     public boolean getDriveStraight() {
         return rightJoyBtn1.get();
     }
+    public boolean getDriveSlow() {
+        return leftJoyBtn1.get();
+    }
 }
