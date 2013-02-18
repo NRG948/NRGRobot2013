@@ -96,8 +96,8 @@ public class RobotMap {
     
         tiltPiston = new Relay(3);
     LiveWindow.addActuator("Climber", "tiltPiston", tiltPiston);
-        cameraServo =        
-        new Servo(9);
+        
+        cameraServo = new Servo(9);
         cameraServo.set(0.67);
     LiveWindow.addActuator(" Camera", "servo", cameraServo);
     

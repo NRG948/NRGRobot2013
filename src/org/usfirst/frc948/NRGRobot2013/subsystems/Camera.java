@@ -37,47 +37,47 @@ public class Camera extends Subsystem {
     }
 
     public Camera() {
-        cc = new CriteriaCollection();      // create the criteria for the particle filter
-        cc.addCriteria(MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 30, 400, false);
-        cc.addCriteria(MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 40, 400, false);
+//        cc = new CriteriaCollection();      // create the criteria for the particle filter
+//        cc.addCriteria(MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 30, 400, false);
+//        cc.addCriteria(MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 40, 400, false);
     }
 
     public void setImage() {
-        try {
-            axisImage = axisCamera.getImage();
-        } catch (NIVisionException ex) {
-            ex.printStackTrace();
-        } catch (Exception e) {
-            System.out.println("Get Image Failed" + e);
-        }
+//        try {
+//            axisImage = axisCamera.getImage();
+//        } catch (NIVisionException ex) {
+//            ex.printStackTrace();
+//        } catch (Exception e) {
+//            System.out.println("Get Image Failed" + e);
+//        }
     }
 
-    public double getDistance(int targetNum, ColorImage image) throws NIVisionException {
-        setImage();
-        BinaryImage thresholdImage = axisImage.thresholdRGB(0, 45, 25, 255, 0, 47);   // keep only green objects
-        BinaryImage bigObjectsImage = thresholdImage.removeSmallObjects(false, 2);  // remove small artifacts
-        BinaryImage convexHullImage = bigObjectsImage.convexHull(false);          // fill in occluded rectangles
-        BinaryImage filteredImage = convexHullImage.particleFilter(cc);           // find filled in rectangles
-        ParticleAnalysisReport[] reports = filteredImage.getOrderedParticleAnalysisReports();  // get list of results
-        for (int i = 0; i < reports.length; i++) {                                // print results
-            ParticleAnalysisReport r = reports[i];
-            double aspect = ((double) r.boundingRectWidth / (double) r.boundingRectHeight);
-            boolean checkHigh = IsWithinTolerance(aspect, highAspect, TOL);
-            boolean checkMiddle = IsWithinTolerance(aspect, middleAspect, TOL);
-            boolean checkLow = IsWithinTolerance(aspect, lowAspect, TOL);
-            if (checkHigh && targetNum == 1) {
-                double distance = (5.16667 * (IMAGEWIDTH / r.boundingRectWidth)) / TANGENT;
-                return (distance);
-            } else if (checkMiddle && targetNum == 2) {
-                double distance = (5.16667 * (IMAGEWIDTH / r.boundingRectWidth)) / TANGENT;
-                return (distance);
-            } else if (checkLow && targetNum == 3) {
-                double distance = (3.08333 * (IMAGEWIDTH / r.boundingRectWidth)) / TANGENT;
-                return (distance);
-            }
-        }
-        return -1; //no target
-    }
+//    public double getDistance(int targetNum, ColorImage image) throws NIVisionException {
+//        setImage();
+//        BinaryImage thresholdImage = axisImage.thresholdRGB(0, 45, 25, 255, 0, 47);   // keep only green objects
+//        BinaryImage bigObjectsImage = thresholdImage.removeSmallObjects(false, 2);  // remove small artifacts
+//        BinaryImage convexHullImage = bigObjectsImage.convexHull(false);          // fill in occluded rectangles
+//        BinaryImage filteredImage = convexHullImage.particleFilter(cc);           // find filled in rectangles
+//        ParticleAnalysisReport[] reports = filteredImage.getOrderedParticleAnalysisReports();  // get list of results
+//        for (int i = 0; i < reports.length; i++) {                                // print results
+//            ParticleAnalysisReport r = reports[i];
+//            double aspect = ((double) r.boundingRectWidth / (double) r.boundingRectHeight);
+//            boolean checkHigh = IsWithinTolerance(aspect, highAspect, TOL);
+//            boolean checkMiddle = IsWithinTolerance(aspect, middleAspect, TOL);
+//            boolean checkLow = IsWithinTolerance(aspect, lowAspect, TOL);
+//            if (checkHigh && targetNum == 1) {
+//                double distance = (5.16667 * (IMAGEWIDTH / r.boundingRectWidth)) / TANGENT;
+//                return (distance);
+//            } else if (checkMiddle && targetNum == 2) {
+//                double distance = (5.16667 * (IMAGEWIDTH / r.boundingRectWidth)) / TANGENT;
+//                return (distance);
+//            } else if (checkLow && targetNum == 3) {
+//                double distance = (3.08333 * (IMAGEWIDTH / r.boundingRectWidth)) / TANGENT;
+//                return (distance);
+//            }
+//        }
+//        return -1; //no target
+//    }
 
     public static void changeServoAngle(double desiredAngle) { //changes the angle of servo to given angle
         servo.setAngle(desiredAngle);
