@@ -2,6 +2,7 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc948.NRGRobot2013.Robot;
 
 /**
  *
@@ -13,6 +14,7 @@ public class SetMotorPower extends Command {
     private double power;
     
     public SetMotorPower(SpeedController m, double p) {
+        requires(Robot.shooter);
         motor = m;
         power = p;
     }

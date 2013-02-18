@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.commands.OperatorShooterCommand;
+import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
@@ -32,16 +33,17 @@ public class Shooter extends PIDSubsystem {
     private double currentMotorSpeed = 0;
     private double speed;
     private double overRevFactor = 1.0;
-
+    
     public Shooter() {
         super("Shooter", P, I, D);
         setAbsoluteTolerance(0.2);
         usePID = Preferences.getInstance().getBoolean(PreferenceKeys.SHOOTER_USE_PID, DEFAULT_USE_PID);
-        if (usePID) {
-            this.enable();
-        } else {
-            this.disable();
-        }
+//        if (usePID) {
+//            this.enable();
+//        } else {
+//            this.disable();
+//        }
+        this.enable();
     }
 
     /**
@@ -52,10 +54,10 @@ public class Shooter extends PIDSubsystem {
     public void setSpeed(double speed) {
         if (usePID) {
             this.getPIDController().reset();
-            this.setSetpoint(speed);
+            this.setSetpoint(-speed);
             this.enable();
         } else {
-            RobotMap.shooterMotor.set(MathHelper.clamp(speed * overRevFactor, -1.0, 1.0));
+            RobotMap.shooterMotor.set(MathHelper.clamp(-speed * overRevFactor, -1.0, 1.0));
         }
     }
 
@@ -64,7 +66,7 @@ public class Shooter extends PIDSubsystem {
     }
 
     protected double returnPIDInput() {
-        double rate = RobotMap.shooterQuadrature.getRate();
+        double rate = Robot.shooterQuadrature.getRPM();
         SmartDashboard.putNumber("shooter rate", rate);
         return rate;
     }

@@ -34,7 +34,7 @@ public class Climber extends Subsystem {
     //positive param = climb up, negative means climb down
     public void setClimberMotorPower(double climbValue) {
         if (RobotMap.tiltPiston.get() == Relay.Value.kOff) {
-            LCD.println(true, 6, "!--ENGAGE CLIMBER--!");
+//            LCD.println(true, 6, "!--ENGAGE CLIMBER--!");
         } else {
             RobotMap.climberMotor1.set(-climbValue);
             RobotMap.climberMotor2.set(-climbValue);

@@ -20,7 +20,7 @@ public class OperatorShooterCommand extends Command {
     }
 
     protected void execute() {
-        double shootSpeed = -OI.getRawShootSpeed();
+        double shootSpeed = OI.getRawShootSpeed();
         SmartDashboard.putNumber("manual shoot speed", shootSpeed);
         Robot.shooter.setSpeed(shootSpeed);
     }
