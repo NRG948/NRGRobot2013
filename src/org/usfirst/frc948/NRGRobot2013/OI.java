@@ -181,4 +181,8 @@ public class OI {
     public boolean getDriveStraight() {
         return rightJoyBtn1.get();
     }
+    
+    public boolean shooterUsePID() {
+        return !getDigital(15);
+    }
 }
