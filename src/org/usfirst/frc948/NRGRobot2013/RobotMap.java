@@ -99,6 +99,7 @@ public class RobotMap {
     LiveWindow.addActuator("Climber", "climberMotor2", (Jaguar) climberMotor2);
     
         tiltPiston = new Relay(3);
+        tiltPiston.setDirection(Relay.Direction.kReverse);
     LiveWindow.addActuator("Climber", "tiltPiston", tiltPiston);
     
         cameraServo = new Servo(9);

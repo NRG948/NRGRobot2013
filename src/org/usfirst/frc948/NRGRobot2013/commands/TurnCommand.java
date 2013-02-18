@@ -2,7 +2,6 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.PIDCommand;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
@@ -14,10 +13,10 @@ import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
  */
 public class TurnCommand extends PIDCommand {
 
-    private static final double kInitialP = 0.015;
-    private static final double kDefaultP = 0.02;
-    private static final double kDefaultI = 0.01;
-    private static final double kDefaultD = 0.0;
+    public static final double kInitialP = 0.015;
+    public static final double kDefaultP = 0.02;
+    public static final double kDefaultI = 0.01;
+    public static final double kDefaultD = 0.0;
     
     private static final double DEGREES_CLOSE = 30.0;
     private static final double DEGREES_TOLERANCE = 2.0;

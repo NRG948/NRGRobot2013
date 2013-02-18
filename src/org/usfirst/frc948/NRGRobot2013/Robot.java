@@ -124,14 +124,14 @@ public class Robot extends IterativeRobot {
     }
 
     private void initPreferences() {
-        Preferences.getInstance().putDouble(PreferenceKeys.TURN_P, 0.01);
-        Preferences.getInstance().putDouble(PreferenceKeys.TURN_I, 0.001);
-        Preferences.getInstance().putDouble(PreferenceKeys.TURN_D, 0.0);
+        Preferences.getInstance().putDouble(PreferenceKeys.TURN_P, TurnCommand.kDefaultP);
+        Preferences.getInstance().putDouble(PreferenceKeys.TURN_I, TurnCommand.kDefaultI);
+        Preferences.getInstance().putDouble(PreferenceKeys.TURN_D, TurnCommand.kDefaultD);
         Preferences.getInstance().putDouble(PreferenceKeys.GYRO_SENSITIVITY, RobotMap.DEFAULT_GYRO_SENSITIVITY);
         Preferences.getInstance().putDouble(PreferenceKeys.MAX_ACCEL, Drive.DEFAULT_MAX_CHANGE);
         Preferences.getInstance().putDouble(PreferenceKeys.OVER_REV_FACTOR, Shooter.DEFAULT_OVER_REV);
         Preferences.getInstance().putDouble(PreferenceKeys.SHOOT_DELAY, ReleaseFrisbeeCommand.DEFAULT_DELAY);
-        Preferences.getInstance().putDouble(PreferenceKeys.CLIMBER_POWER, 0.3);
+        Preferences.getInstance().putDouble(PreferenceKeys.CLIMBER_POWER, Climber.DEFAULT_POWER);
         Preferences.getInstance().putBoolean(PreferenceKeys.SHOOTER_USE_PID, Shooter.DEFAULT_USE_PID);
     }
     
@@ -139,11 +139,12 @@ public class Robot extends IterativeRobot {
         String leftQuad = String.valueOf(MathHelper.round(RobotMap.driveleftQuadrature.getRaw(), 4));
         String rightQuad = String.valueOf(MathHelper.round(RobotMap.driverightQuadrature.getRaw(), 4));
         
+        String gyro = String.valueOf(MathHelper.round(RobotMap.drivegyro.getAngle(), 1));
+        String target = String.valueOf(MathHelper.round(Robot.drive.getDesiredHeading(), 1));
+        
         LCD.println(LCD.DRIVE, 1, "L:" + leftQuad + " R:" + rightQuad);
-        LCD.println(LCD.GYRO, 2, "GYRO: " + String.valueOf(Robot.drive.getGyroAngle()));
-        LCD.println(LCD.GYRO, 3, "TARGET:" + Robot.drive.getDesiredHeading());
-        LCD.println(LCD.SHOOT, 4, "SHOOT MOTOR:" + RobotMap.shooterMotor.get());
-        LCD.println(true, 6, "RELEASED: " + Robot.discMagazine.getCount());
+        LCD.println(LCD.GYRO, 2, "GYRO:" + gyro + " TARG:" + target);
+        LCD.println(LCD.SHOOT, 3, "RELEASED: " + Robot.discMagazine.getCount());
         LCD.update();
         
         SmartDashboard.putNumber("shoot RPMs", RobotMap.shooterQuadrature.getRate());

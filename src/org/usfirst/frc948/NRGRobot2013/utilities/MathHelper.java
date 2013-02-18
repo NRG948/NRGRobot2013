@@ -126,7 +126,7 @@ public class MathHelper {
     }
 
     /**
-     * Rounds the number to x number of digits
+     * rounds given number to specified number of digits after the decimal
      *
      * @param val
      * @param digits
