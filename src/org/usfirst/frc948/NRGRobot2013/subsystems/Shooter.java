@@ -78,9 +78,9 @@ public class Shooter extends PIDSubsystem {
             SmartDashboard.putNumber("Shooter PID out", output);
             SmartDashboard.putNumber("Shooter PID err", this.getPIDController().getError());
             System.out.println("set: " + pid.getSetpoint() + " out: " + output + " err: " + pid.getError());
-            LCD.println(true, 6, "PIDset:"+ (int)this.getPIDController().getSetpoint() 
-                    + " PIDout:" + (int)output
-                    + " PIDerr:" + (int)this.getPIDController().getError());
+            LCD.println(true, 6,(int)this.getPIDController().getSetpoint() 
+                    + " " + MathHelper.round(output, 4)
+                    + " " + (int)this.getPIDController().getError());
             
             if (Math.abs(pid.getError()) > pidDeactivationConstant) {
                 if (pid.getError() > 0) {
