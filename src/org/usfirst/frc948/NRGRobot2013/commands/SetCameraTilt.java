@@ -1,4 +1,4 @@
-/*
+/* 
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -46,7 +46,7 @@ public class SetCameraTilt extends Command {
 
     protected void end() {
     }
-
+    
     protected void interrupted() {
         end();
     }
