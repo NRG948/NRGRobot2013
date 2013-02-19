@@ -30,7 +30,6 @@ public class Shooter extends PIDSubsystem {
     public static final long SHOOT_DELAY_TIME = 3000;
     
     private double currentMotorPower = 0;
-    private double speed;
     private double overRevFactor = 1.0;
     
     public Shooter() {
@@ -85,33 +84,28 @@ public class Shooter extends PIDSubsystem {
             
             if (Math.abs(pid.getError()) > pidDeactivationConstant) {
                 if (pid.getError() > 0) {
-                    setShooterMotorSpeed(1.0);
+                    setRawPower(1.0);
                 } else {
-                    setShooterMotorSpeed(0);
+                    setRawPower(0);
                 }
 
                 pid.setPID(P, 0, 0);
             } else {
                 pid.setPID(P, I, D);
                 
-                speed = currentMotorPower + output * pidOutputScaleValue;
+                double newPower = currentMotorPower + output * pidOutputScaleValue;
 
-                speed = MathHelper.clamp(speed, 0, 1);
+                newPower = MathHelper.clamp(newPower, 0, 1);
 
-                setShooterMotorSpeed(speed);
+                setRawPower(newPower);
+                
             }
         }
     }
 
-    private void setShooterMotorSpeed(double speed) {
-        
-        RobotMap.shooterMotor.set(-speed);
-        currentMotorPower = speed;
-    }
-
     public void stop() {
         this.disable();
-        setShooterMotorSpeed(0);
+        setRawPower(0);
     }
 
     public boolean isAtSpeed() {
