@@ -86,8 +86,10 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
+        RobotMap.drivegyro.reset();
         // schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
+        
     }
 
     /**
@@ -132,6 +134,10 @@ public class Robot extends IterativeRobot {
         Preferences.getInstance().putDouble(PreferenceKeys.SHOOT_DELAY, ReleaseFrisbeeCommand.DEFAULT_DELAY);
         Preferences.getInstance().putDouble(PreferenceKeys.CLIMBER_POWER, Climber.DEFAULT_POWER);
         Preferences.getInstance().putBoolean(PreferenceKeys.SHOOTER_USE_PID, Shooter.DEFAULT_USE_PID);
+        Preferences.getInstance().putDouble(PreferenceKeys.SHOOTER_P, Shooter.kDefaultP);
+        Preferences.getInstance().putDouble(PreferenceKeys.SHOOTER_I, Shooter.kDefaultI);
+        Preferences.getInstance().putDouble(PreferenceKeys.SHOOTER_D, Shooter.kDefaultD);
+        Preferences.getInstance().putDouble(PreferenceKeys.SHOOT_PID_SCALE_FACTOR, Shooter.PID_OUTPUT_SCALE_VALUE);
     }
     
     private void periodicAll() {

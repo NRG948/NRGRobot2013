@@ -16,4 +16,8 @@ public class PreferenceKeys {
     public static final String SHOOT_DELAY = "ShootDelay";
     public static final String CLIMBER_POWER = "ClimbPower";
     public static final String SHOOTER_USE_PID = "ShooterUsePID";
+    public static final String SHOOTER_P = "ShooterP";
+    public static final String SHOOTER_I = "ShooterI";
+    public static final String SHOOTER_D = "ShooterD";
+    public static final String SHOOT_PID_SCALE_FACTOR = "ShooterPIDScaleValue";
 }

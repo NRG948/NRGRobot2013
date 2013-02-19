@@ -42,7 +42,7 @@ public class RobotMap {
     
     public static DigitalInput climbLimitSwitch;
     public static Compressor compressor;
-
+    
     public static final double DEFAULT_GYRO_SENSITIVITY = 0.00685;
     
     public static void init() {
