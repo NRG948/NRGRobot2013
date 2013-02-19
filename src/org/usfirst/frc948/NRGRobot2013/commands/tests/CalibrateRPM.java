@@ -24,10 +24,10 @@ public class CalibrateRPM extends Command {
     protected void execute() {
         
         if((System.currentTimeMillis() - startingTime) >= 30000) {
-            power += 0.05;
             startingTime = System.currentTimeMillis();
             System.out.println(RobotMap.shooterQuadrature.averageRPM());
             System.out.println(power);
+            power += 0.05;
         }
         
         Robot.shooter.setRawPower(power);
