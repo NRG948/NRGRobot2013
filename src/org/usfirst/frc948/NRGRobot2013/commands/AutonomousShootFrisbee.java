@@ -10,8 +10,7 @@ public class AutonomousShootFrisbee extends CommandGroup {
 
     public AutonomousShootFrisbee(int numFrisbee, double shooterRPM) {
         addSequential(new SetShooterRPM(shooterRPM));
-//        addSequential(new ReleaseFrisbeeCommand()); deemed unnecessary at this moment
-        for (int i = 0; i < numFrisbee - 1; i++) {
+        for (int i = 0; i < numFrisbee; i++) {
             addSequential(new WaitForShooterSpeed());
             addSequential(new ReleaseFrisbeeCommand());
         }

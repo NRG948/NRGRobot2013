@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.commands.OperatorShooterSpeed;
-import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
@@ -96,9 +95,6 @@ public class Shooter extends PIDSubsystem {
             SmartDashboard.putNumber("Shooter PID set", this.getSetpoint());
             SmartDashboard.putNumber("Shooter PID out", output);
             SmartDashboard.putNumber("Shooter PID err", currentError);
-            LCD.println(true, 6, (int) desiredRPM
-                    + " " + MathHelper.round(output, 4)
-                    + " " + (int) currentError);
 
             if (Math.abs(currentError) > pidDeactivationConstant) {
                 largeError = true;

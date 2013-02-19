@@ -1,10 +1,7 @@
 package org.usfirst.frc948.NRGRobot2013.commands;
 
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
-import org.usfirst.frc948.NRGRobot2013.subsystems.Shooter;
-import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
 /**
  *
