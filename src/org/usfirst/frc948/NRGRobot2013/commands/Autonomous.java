@@ -5,8 +5,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class Autonomous extends CommandGroup {
 
     public Autonomous() {
-        addSequential(new AutonomousShootFrisbee(3, 1.0));
-        addSequential(new SetShooterRPM(0.3));
+        addSequential(new AutonomousShootFrisbee(3, 3400));
+        addSequential(new SetShooterMotorPower(0.3));
         addSequential(new AutonomousDriveCenter());
     }
 }

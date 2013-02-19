@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutonomousShootFrisbee extends CommandGroup {
 
-    public AutonomousShootFrisbee(int count, double speed) {
-        addSequential(new SetShooterRPM(speed));
+    public AutonomousShootFrisbee(int numFrisbee, double shooterRPM) {
+        addSequential(new SetShooterRPM(shooterRPM));
         addSequential(new ReleaseFrisbeeCommand());
-        for (int i = 0; i < count - 1; i++) {
+        for (int i = 0; i < numFrisbee - 1; i++) {
             addSequential(new WaitForShooterSpeed());
             addSequential(new ReleaseFrisbeeCommand());
         }
