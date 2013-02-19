@@ -82,7 +82,7 @@ public class RobotMap {
         shooterMotor = new Jaguar(1, 8);
 	LiveWindow.addActuator("Shooter", "shootMotor", (Jaguar) shooterMotor);
     
-        shooterQuadrature = new NRGEncoder(1, 2, 1, 3, false, EncodingType.k1X, 400);
+        shooterQuadrature = new NRGEncoder(1, 2, 1, 3, false, EncodingType.k1X, 398);
 	LiveWindow.addSensor("Shooter", "shootQuadrature", shooterQuadrature);
         // 400 counts per revolution, dividing by this gives revolutions
         // rate calculated as distance per second, multiply by 60 for distance per minute (revolutions)
