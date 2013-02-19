@@ -1,15 +1,15 @@
 package org.usfirst.frc948.NRGRobot2013;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import java.util.Stack;
 import java.util.Vector;
 
 /**
  *
  * @author irving
  */
-public class NRGEncoder extends Encoder {
+public class NRGEncoder extends Encoder implements PIDSource {
     
     private final int countsPerRevolution;
     
@@ -53,6 +53,10 @@ public class NRGEncoder extends Encoder {
     
     public double averageRPM() {
         return rpmAverager.getAverage();
+    }
+    
+    public double pidGet() {
+        return getRPM();
     }
     
     private class Averager {
