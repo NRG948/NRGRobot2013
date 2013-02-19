@@ -2,8 +2,6 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import org.usfirst.frc948.NRGRobot2013.OI;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 
 /**
@@ -23,7 +21,7 @@ public class OperatorShooterSpeed extends Command {
     }
 
     protected void execute() {
-        double speedSlider = OI.getRawShootSpeed();
+        double speedSlider = Robot.oi.getRawShootSpeed();
         
         if (Robot.oi.shooterUsePID()) {
             //if using PID for the first time, reset PID

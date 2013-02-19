@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.usfirst.frc948.NRGRobot2013.commands.tests;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -12,12 +8,12 @@ import org.usfirst.frc948.NRGRobot2013.RobotMap;
  *
  * @author holeung
  */
-public class AutonomousTest extends Command {
+public class CalibrateRPM extends Command {
 
     private double power; 
     private double startingTime;
     
-    public AutonomousTest() {
+    public CalibrateRPM() {
         requires(Robot.shooter);
     }
     protected void initialize() {

@@ -65,7 +65,6 @@ public class Shooter extends PIDSubsystem {
         this.enable();
         this.setSetpoint(rpm);
         SmartDashboard.putNumber("Desired RPM", this.getSetpoint());
-        
     }
 
     protected void initDefaultCommand() {
@@ -88,11 +87,12 @@ public class Shooter extends PIDSubsystem {
             this.pidOutput = output;
 
             PIDController pid = this.getPIDController();
+            
             double currentError = pid.getError();
             double desiredRPM = pid.getSetpoint();
             double newPower;
 
-            SmartDashboard.putNumber("Shooter PID set", this.getSetpoint());
+            SmartDashboard.putNumber("Shooter PID set", desiredRPM);
             SmartDashboard.putNumber("Shooter PID out", output);
             SmartDashboard.putNumber("Shooter PID err", currentError);
 
@@ -101,27 +101,30 @@ public class Shooter extends PIDSubsystem {
                 if (currentError > 0) {
                     setRawPower(1.0);
                 } else {
-                    setRawPower(0);
+                    setRawPower(0.0);
                 }
             } else {
+                double approxPower = MathHelper.RPMtoPower(desiredRPM);
+                
                 if (largeError) {
                     // The first time in true PID mode, make a best guess at the desired power.
-                    newPower = MathHelper.RPMtoPower(desiredRPM);
-                }
-                else {
-                    
+                    newPower = approxPower;
+                    largeError = false;
+                } else {
                     newPower = currentMotorPower + output * PID_OUTPUT_SCALE_VALUE;
                 }
-                largeError = false;
-                newPower = MathHelper.clamp(newPower, 0, 1);
-                setRawPower(newPower);
+                
+                newPower = MathHelper.clamp(newPower,
+                        MathHelper.max(approxPower - 0.03, 0.0),
+                        MathHelper.min(approxPower + 0.03, 1.0));
+                
+                setRawPower(newPower + Robot.oi.getShootTrim());
             }
         }
     }
 
     public void stop() {
         this.disable();
-
         setRawPower(0);
     }
 
