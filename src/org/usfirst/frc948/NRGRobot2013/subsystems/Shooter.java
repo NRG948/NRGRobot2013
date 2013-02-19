@@ -6,7 +6,8 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
-import org.usfirst.frc948.NRGRobot2013.commands.OperatorShooterCommand;
+import org.usfirst.frc948.NRGRobot2013.commands.OperatorShooterSpeed;
+import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
@@ -28,7 +29,7 @@ public class Shooter extends PIDSubsystem {
     public static final double DEFAULT_OVER_REV = 1.10;
     public static final long SHOOT_DELAY_TIME = 3000;
     
-    private double currentMotorSpeed = 0;
+    private double currentMotorPower = 0;
     private double speed;
     private double overRevFactor = 1.0;
     
@@ -43,22 +44,26 @@ public class Shooter extends PIDSubsystem {
 //        }
         this.enable();
     }
+        
+    public void setRawPower(double power) {
+        power = MathHelper.clamp(power * overRevFactor, 0, 1.0);
+        RobotMap.shooterMotor.set(-power);
+        currentMotorPower = power;
+    }
     
-    public void setSpeed(double speed) {
-        if (Robot.oi.shooterUsePID()) {
+    public void setDesiredRPM(double rpm) {
 //            if (Math.abs(this.getSetpoint() - speed) / this.getSetpoint() > 0.5) {
-//                this.getPIDController().reset();
+//                this.getPIDController().reset(); //note: reset writes zero to the PIDoutput
 //            }
-            SmartDashboard.putNumber("shooter setSpeed", speed);
+            SmartDashboard.putNumber("shooter setRpm", rpm);
             this.enable();
-            this.setSetpoint(speed);
-        } else {
-            RobotMap.shooterMotor.set(MathHelper.clamp(-speed * overRevFactor, -1.0, 1.0));
-        }
+            this.setSetpoint(rpm);
     }
 
     protected void initDefaultCommand() {
-        setDefaultCommand(new OperatorShooterCommand());
+        setDefaultCommand(new OperatorShooterSpeed());
+        SmartDashboard.putData("Shooter", this);
+        SmartDashboard.putData("ShooterPID", this.getPIDController());
     }
 
     protected double returnPIDInput() {
@@ -66,13 +71,18 @@ public class Shooter extends PIDSubsystem {
     }
 
     protected void usePIDOutput(double output) {
+        System.out.print("entering usePIDoutput: ");
         if (Robot.oi.shooterUsePID()) {
             PIDController pid = this.getPIDController();
             
-            SmartDashboard.putNumber("Shooter PID set", pid.getSetpoint());
+            SmartDashboard.putNumber("Shooter PID set", this.getPIDController().getSetpoint());
             SmartDashboard.putNumber("Shooter PID out", output);
-            SmartDashboard.putNumber("Shooter PID err", pid.getError());
-
+            SmartDashboard.putNumber("Shooter PID err", this.getPIDController().getError());
+            System.out.println("set: " + pid.getSetpoint() + " out: " + output + " err: " + pid.getError());
+            LCD.println(true, 6, "PIDset:"+ (int)this.getPIDController().getSetpoint() 
+                    + " PIDout:" + (int)output
+                    + " PIDerr:" + (int)this.getPIDController().getError());
+            
             if (Math.abs(pid.getError()) > pidDeactivationConstant) {
                 if (pid.getError() > 0) {
                     setShooterMotorSpeed(1.0);
@@ -83,8 +93,8 @@ public class Shooter extends PIDSubsystem {
                 pid.setPID(P, 0, 0);
             } else {
                 pid.setPID(P, I, D);
-
-                speed = currentMotorSpeed + output * pidOutputScaleValue;
+                
+                speed = currentMotorPower + output * pidOutputScaleValue;
 
                 speed = MathHelper.clamp(speed, 0, 1);
 
@@ -96,7 +106,7 @@ public class Shooter extends PIDSubsystem {
     private void setShooterMotorSpeed(double speed) {
         
         RobotMap.shooterMotor.set(-speed);
-        currentMotorSpeed = speed;
+        currentMotorPower = speed;
     }
 
     public void stop() {
@@ -115,5 +125,10 @@ public class Shooter extends PIDSubsystem {
 
     public void setOverRev(double d) {
         overRevFactor = d;
+    }
+    
+    public void reset() {
+        this.getPIDController().reset();
+        this.getPIDController().enable();
     }
 }

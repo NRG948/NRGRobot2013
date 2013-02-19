@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.DriverStationEnhancedIO.EnhancedIOException;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import org.usfirst.frc948.NRGRobot2013.commands.tests.AutonomousTest;
 import org.usfirst.frc948.NRGRobot2013.commands.tests.BalanceTankDrive;
 import org.usfirst.frc948.NRGRobot2013.commands.tests.IncrementalTurn;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
@@ -102,11 +103,11 @@ public class OI {
     public OI() {
         leftJoyBtn7.whenPressed(new ResetGyroCommand());
         leftJoyBtn11.whenPressed(new ReadGyroSensitivity());
+        leftJoyBtn12.whenPressed(new AutonomousTest());
         
         shootButton.whenPressed(new ReleaseFrisbeeCommand());
         
         rightJoyBtn6.whileHeld(new ClimbCommand(1));  // up
-        rightJoyBtn7.whileHeld(new ClimbCommand(-1)); // down
         
         btnClimbDisengage.whenPressed(new TiltCommand(false));
         btnClimbEngage.whenPressed(new TiltCommand(true));
@@ -115,7 +116,6 @@ public class OI {
         SmartDashboard.putData("Turn 90 CW (0.5)", new TurnCommand(0.5, 90));
         SmartDashboard.putData("Turn 1800 CW (0.5)", new TurnCommand(0.5, 1800));
         SmartDashboard.putData("IncrementalTurn", new IncrementalTurn());
-        
 //        SmartDashboard.putData("DriveStraight 5 sec (0.3)", new DriveStraightTime(0.3, 5000));
 //        SmartDashboard.putData("DriveStraight 2 sec (0.5)", new DriveStraightTime(0.5, 2000));
 //        SmartDashboard.putData("DriveStraight 15 sec (0.5)", new DriveStraightTime(0.5, 15000));

@@ -8,39 +8,35 @@ import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
 /**
  *
- * @author irving
+ * @author holeung
  */
-public class SetShooterSpeed extends Command {
+public class SetShooterRPM extends Command {
     
-    private double speed;
-    private long overRevEnd;
+    private double rpm;
     
-    public SetShooterSpeed(double speed) {
+    public SetShooterRPM(double rpm) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.shooter);
-        this.speed = speed;
+        this.rpm = rpm;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        overRevEnd = (long) (System.currentTimeMillis() + 5 * speed * 1000);
-        Robot.shooter.setOverRev(Preferences.getInstance().getDouble(PreferenceKeys.OVER_REV_FACTOR, Shooter.DEFAULT_OVER_REV));
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        Robot.shooter.setSpeed(speed);
+        Robot.shooter.setDesiredRPM(rpm);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return System.currentTimeMillis() >= overRevEnd;
+        return true;
     }
 
     // Called once after isFinished returns true
-    protected void end() {
-        Robot.shooter.setOverRev(1.0);
+    protected void end() {   
     }
 
     // Called when another command which requires one or more of the same
