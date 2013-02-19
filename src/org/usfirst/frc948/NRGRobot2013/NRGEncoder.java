@@ -2,8 +2,7 @@ package org.usfirst.frc948.NRGRobot2013;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import java.util.Stack;
-import java.util.Vector;
+import org.usfirst.frc948.NRGRobot2013.utilities.Averager;
 
 /**
  *
@@ -53,36 +52,5 @@ public class NRGEncoder extends Encoder {
     
     public double averageRPM() {
         return rpmAverager.getAverage();
-    }
-    
-    private class Averager {
-        
-        private int n;
-        private Vector queue;
-        
-        // n - number of data points to average
-        public Averager(int n) {
-            this.n = n;
-            queue = new Vector();
-        }
-        
-        public void add(double n) {
-            queue.addElement(new Double(n));
-            if (queue.size() >= this.n) {
-                queue.removeElementAt(0);
-            }
-        }
-        
-        private double sum() {
-            double s = 0;
-            for (int i = 0; i < queue.size(); i++) {
-                s += ((Double) queue.elementAt(i)).doubleValue();
-            }
-            return s;
-        }
-        
-        public double getAverage() {
-            return (double) sum() / n;
-        }
     }
 }
