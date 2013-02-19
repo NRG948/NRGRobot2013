@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.DriverStationEnhancedIO.EnhancedIOException;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import org.usfirst.frc948.NRGRobot2013.commands.tests.AutonomousTestGroup;
 import org.usfirst.frc948.NRGRobot2013.commands.tests.CalibrateRPM;
 import org.usfirst.frc948.NRGRobot2013.commands.tests.BalanceTankDrive;
 import org.usfirst.frc948.NRGRobot2013.commands.tests.IncrementalTurn;
@@ -133,10 +134,15 @@ public class OI {
 //        SmartDashboard.putData("RawTankDrive 2 sec (0.5)", new RawTankDrive(0.5, 2000));
         
         SmartDashboard.putData("BalanceTankDrive", new BalanceTankDrive());
-        SmartDashboard.putNumber("Servo Value", RobotMap.cameraServo.getAngle());
         
-        SmartDashboard.putData("ShootFrisbees(3, -0.87)", new AutonomousShootFrisbee(3, -0.87));
-        SmartDashboard.putData("Autonomous (shoot+move)", new Autonomous());
+//        SmartDashboard.putNumber("Servo Value", RobotMap.cameraServo.getAngle());
+        
+//        SmartDashboard.putData("ShootFrisbees(3, -0.87)", new AutonomousShootFrisbee(3, -0.87));
+//        SmartDashboard.putData("Autonomous (shoot+move)", new Autonomous());
+        
+        SmartDashboard.putData("Autonomous (Timer)", new AutonomousTestGroup(AutonomousTestGroup.Mode.kTimer));
+        SmartDashboard.putData("Autonomous (Encoder)", new AutonomousTestGroup(AutonomousTestGroup.Mode.kEncoder));
+        SmartDashboard.putData("Autonomous (PID)", new AutonomousTestGroup(AutonomousTestGroup.Mode.kPID));
         
         SmartDashboard.putData("CalibrateRPM", new CalibrateRPM());
     }
