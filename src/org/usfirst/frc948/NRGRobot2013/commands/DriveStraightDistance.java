@@ -11,10 +11,8 @@ import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
  */
 public class DriveStraightDistance extends Command {
 
-    double speed = 0.0;
-    double finalDistance = 0; //in feet
-    double distance = 0;
-    double distanceRemaining;
+    private final double speed;
+    private final double distance;
 
     public DriveStraightDistance(double speed, double distance) {
         requires(Robot.drive);
@@ -26,21 +24,22 @@ public class DriveStraightDistance extends Command {
         Drive.resetLeftEncoder();
         Drive.resetRightEncoder();
         Robot.drive.driveStraightInit();
-        finalDistance = Math.abs(Drive.getEncoderDistance()) + distance;
     }
 
     protected void execute() {
-        distanceRemaining = finalDistance - Math.abs(Drive.getEncoderDistance());
+        double distanceRemaining = distance - Drive.getEncoderDistance();
         if (speed > 0) {
-            Robot.drive.driveStraight(MathHelper.clamp(distanceRemaining / 2, -Math.abs(speed), Math.abs(speed)), Robot.drive.getDesiredHeading());
+            Robot.drive.driveStraight(MathHelper.clamp(distanceRemaining / 2, -Math.abs(speed), Math.abs(speed)),
+                    Robot.drive.getDesiredHeading());
         } else if (speed < 0) {
-            Robot.drive.driveStraight(MathHelper.clamp(-distanceRemaining / 2, -Math.abs(speed), Math.abs(speed)), Robot.drive.getDesiredHeading());
+            Robot.drive.driveStraight(MathHelper.clamp(-distanceRemaining / 2, -Math.abs(speed), Math.abs(speed)),
+                    Robot.drive.getDesiredHeading());
         }
 
     }
 
     protected boolean isFinished() {
-        return (Math.abs(Drive.getEncoderDistance()) >= finalDistance);
+        return Drive.getEncoderDistance() >= distance;
     }
 
     protected void end() {
