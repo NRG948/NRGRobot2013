@@ -18,6 +18,7 @@ public class OperatorShooterSpeed extends Command {
     }
 
     protected void initialize() {
+        System.out.println("[OperatorShooterSpeed] initializing");
     }
 
     protected void execute() {
@@ -28,7 +29,7 @@ public class OperatorShooterSpeed extends Command {
             if(!usingPID) {
                 Robot.shooter.reset();
                 usingPID = true;
-                System.out.println("Switch to PID");
+                System.out.println("[OperatorShooterSpeed] switch to PID");
             }
             SmartDashboard.putNumber("PID target RPM", speedSlider * maxRpm);
             Robot.shooter.setDesiredRPM(speedSlider * maxRpm);
@@ -46,7 +47,7 @@ public class OperatorShooterSpeed extends Command {
     }
 
     protected void end() {
-        System.out.print("OperatorShooterSpeed end called");
+        System.out.println("[OperatorShooterSpeed] ending");
         Robot.shooter.stop();
     }
 
