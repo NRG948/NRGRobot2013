@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -27,7 +23,7 @@ public class SetDesiredHeading extends Command {
     }
 
     protected boolean isFinished() {
-        return Robot.drive.getDesiredHeading() == heading;
+        return true;
     }
 
     protected void end() {
