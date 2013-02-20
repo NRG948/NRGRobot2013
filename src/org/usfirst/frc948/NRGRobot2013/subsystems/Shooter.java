@@ -31,7 +31,6 @@ public class Shooter extends PIDSubsystem {
     private double kI = kDefaultI;
     private double kD = kDefaultD;
     private double pidOutputScaleValue = PID_OUTPUT_SCALE_VALUE;
-    private double pidOutput;
     private boolean pidEnabled = false;
     private boolean largeError = true;
 
@@ -40,7 +39,7 @@ public class Shooter extends PIDSubsystem {
         super("Shooter", kDefaultP, kDefaultI, kDefaultD);
         
         setPercentTolerance(1.0);
-        this.getPIDController().setInputRange(0, 3700);
+        this.getPIDController().setInputRange(0, 3800);
         this.enable();
     }
 
@@ -84,14 +83,11 @@ public class Shooter extends PIDSubsystem {
 
     protected void usePIDOutput(double output) {
         if (pidEnabled) {
-            this.pidOutput = output;
-
             PIDController pid = this.getPIDController();
             
             double currentError = pid.getError();
             double desiredRPM = pid.getSetpoint();
-            double newPower;
-
+            
             SmartDashboard.putNumber("Shooter PID set", desiredRPM);
             SmartDashboard.putNumber("Shooter PID out", output);
             SmartDashboard.putNumber("Shooter PID err", currentError);
@@ -104,14 +100,14 @@ public class Shooter extends PIDSubsystem {
                     setRawPower(0.0);
                 }
             } else {
-                double approxPower = MathHelper.RPMtoPower(desiredRPM);
+                double newPower, approxPower = MathHelper.RPMtoPower(desiredRPM);
                 
                 if (largeError) {
                     // The first time in true PID mode, make a best guess at the desired power.
                     newPower = approxPower;
                     largeError = false;
                 } else {
-                    newPower = currentMotorPower + output * PID_OUTPUT_SCALE_VALUE;
+                    newPower = currentMotorPower + output * pidOutputScaleValue;
                 }
                 
                 newPower = MathHelper.clamp(newPower,
@@ -126,15 +122,6 @@ public class Shooter extends PIDSubsystem {
     public void stop() {
         this.disable();
         setRawPower(0);
-    }
-
-    public boolean isAtSpeed() {
-        if (pidEnabled) {
-            return this.onTarget();
-        } else {
-            return (System.currentTimeMillis() - Robot.discMagazine.getTimeOfLastShot()) > SHOOT_DELAY_TIME;
-        }
-
     }
 
     public void setOverRev(double d) {

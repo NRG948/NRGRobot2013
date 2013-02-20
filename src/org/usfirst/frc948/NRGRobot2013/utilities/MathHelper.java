@@ -161,6 +161,6 @@ public class MathHelper {
     
     public static double RPMtoPower(double RPM) {
         if (RPM == 0) return 0;
-        return 0.000264 * RPM + .082243;
+        return 0.0002470137 * RPM + 0.0014988179;
     }
 }

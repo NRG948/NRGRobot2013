@@ -1,11 +1,11 @@
 package org.usfirst.frc948.NRGRobot2013.commands;
 
-import edu.wpi.first.wpilibj.Watchdog;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 
 /**
- * Do nothing until the shooter reaches its set speed.
+ * Do nothing until the shooter reaches its set speed; PID only.
+ * 
  * @author irving
  */
 public class WaitForShooterSpeed extends Command {
@@ -13,7 +13,6 @@ public class WaitForShooterSpeed extends Command {
     public WaitForShooterSpeed() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(Robot.shooter);
     }
 
     // Called just before this Command runs the first time
@@ -22,12 +21,12 @@ public class WaitForShooterSpeed extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        Watchdog.getInstance().feed();
+        
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.shooter.isAtSpeed();
+        return Robot.shooter.onTarget();
     }
 
     // Called once after isFinished returns true
