@@ -12,7 +12,6 @@ package org.usfirst.frc948.NRGRobot2013.subsystems;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
-import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
 
 /**
  * @Author Patrick, Jared, Charles
@@ -29,16 +28,14 @@ public class Climber extends Subsystem {
     }
 
     /**
-     * pressing a button turn clockwise in a certain amount of time
+     * Sets power on climb motors.
+     * 
+     * @param climbValue power to set on climb motors, positive value climbs up [-1, 1]
      */
-    //positive param = climb up, negative means climb down
     public void setClimberMotorPower(double climbValue) {
-        if (RobotMap.tiltPiston.get() == Relay.Value.kOff) {
-//            LCD.println(true, 6, "!--ENGAGE CLIMBER--!");
-        } else {
+        if (RobotMap.tiltPiston.get() != Relay.Value.kOff) {
             RobotMap.climberMotor1.set(-climbValue);
             RobotMap.climberMotor2.set(-climbValue);
-            LCD.clearLine(6);
         }
     }
 

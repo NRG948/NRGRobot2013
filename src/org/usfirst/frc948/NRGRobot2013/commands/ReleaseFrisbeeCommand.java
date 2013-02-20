@@ -7,12 +7,14 @@ import org.usfirst.frc948.NRGRobot2013.subsystems.Shooter;
 import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
 /**
+ * Command to shoot a frisbee.
  *
  * @author Patrick
  */
 public class ReleaseFrisbeeCommand extends Command {
 
     public static final int DEFAULT_DELAY = 500;
+    
     private long endTime;
     
     public ReleaseFrisbeeCommand() {

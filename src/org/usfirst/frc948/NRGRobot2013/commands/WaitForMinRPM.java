@@ -5,6 +5,7 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
 
 /**
+ * Wait until shooter wheel reaches a minimum RPM.
  *
  * @author Charles
  */

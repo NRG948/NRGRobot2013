@@ -8,6 +8,7 @@ import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
 /**
+ * Uses PID to turn robot based on gyro heading.
  *
  * @author irving
  */

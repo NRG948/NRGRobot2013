@@ -10,20 +10,22 @@ import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
 /**
- * A shooter utility without PID
- *
  * @author Patrick
  */
 public class Shooter extends PIDSubsystem {
+    
+    public static final double MAX_RPM = 3800;
     
     public static final double MIN_RPM_CLOSE_3PT = 2900;
     public static final double MIN_RPM_FAR_3PT = 2400;
     public static final double MIN_RPM_FAR_2PT = 2300;
 
     public static final boolean DEFAULT_USE_PID = false;
+    
     public static final double kDefaultP = 0.001;
     public static final double kDefaultI = kDefaultP / 10;
     public static final double kDefaultD = 0.0;
+    
     public static final double PID_OUTPUT_SCALE_VALUE = 0.01;
     private static final double pidDeactivationConstant = 1000000000;
     public static final double DEFAULT_OVER_REV = 1.10;
@@ -42,7 +44,7 @@ public class Shooter extends PIDSubsystem {
         super("Shooter", kDefaultP, kDefaultI, kDefaultD);
         
         setPercentTolerance(1.0);
-        this.getPIDController().setInputRange(0, 3800);
+        this.getPIDController().setInputRange(0, MAX_RPM);
         this.enable();
     }
 

@@ -7,6 +7,8 @@ import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 
 /**
+ * Gathers data to run a linear regression on RPM-power function.
+ * Function is used to estimate input motor power for given RPM.
  *
  * @author holeung
  */

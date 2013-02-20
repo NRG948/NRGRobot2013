@@ -9,10 +9,14 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
  */
 public class DriveStraightTime extends Command {
 
-    double speed = 0;
-    long time = 0; //in milliseconds
-    long endTime = 0;
+    private double speed = 0;
+    private long time = 0;
+    private long endTime = 0;
 
+    /**
+     * @param speed power to drive at [-1, 1]
+     * @param time time to drive in milliseconds
+     */
     public DriveStraightTime(double speed, long time) {
         requires(Robot.drive);
         this.speed = speed;
@@ -29,8 +33,7 @@ public class DriveStraightTime extends Command {
     }
 
     protected boolean isFinished() {
-        return (System.currentTimeMillis() > endTime);
-
+        return System.currentTimeMillis() >= endTime;
     }
 
     protected void end() {

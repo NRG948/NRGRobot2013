@@ -3,16 +3,17 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.subsystems.Shooter;
 import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 
 /**
- *
+ * Default command for Shooter subsystem.
+ * 
  * @author Kevin & Patrick
  */
 public class OperatorShooterSpeed extends Command {
 
-    private final double maxRpm = 3400;
     private boolean usingPID = false; 
     
     public OperatorShooterSpeed() {
@@ -33,8 +34,9 @@ public class OperatorShooterSpeed extends Command {
                 usingPID = true;
                 System.out.println("[OperatorShooterSpeed] switch to PID");
             }
-            SmartDashboard.putNumber("PID target RPM", speedSlider * maxRpm);
-            Robot.shooter.setDesiredRPM(speedSlider * maxRpm);
+            
+            SmartDashboard.putNumber("PID target RPM", speedSlider * Shooter.MAX_RPM);
+            Robot.shooter.setDesiredRPM(speedSlider * Shooter.MAX_RPM);
             Robot.shooter.setPidState(true);
         } else {
             double speed = speedSlider + Robot.oi.getShootTrim();
@@ -58,5 +60,4 @@ public class OperatorShooterSpeed extends Command {
     protected void interrupted() {
         end();
     }
-    
 }

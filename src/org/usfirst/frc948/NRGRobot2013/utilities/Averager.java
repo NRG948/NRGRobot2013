@@ -16,7 +16,9 @@ public class Averager {
     
     private double average;
 
-    // n - number of data points to average
+    /**
+     * @param n number of values to average over
+     */
     public Averager(int n) {
         max = n;
         count = 0;

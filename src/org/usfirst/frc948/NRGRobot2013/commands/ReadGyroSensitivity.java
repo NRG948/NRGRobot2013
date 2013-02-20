@@ -8,13 +8,12 @@ import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
 /**
- *
+ * Command to read new gyro sensitivity from Preferences table.
+ * 
  * @author irving
  */
 public class ReadGyroSensitivity extends Command {
 
-    private boolean isFinished = false;
-    
     protected void initialize() {
         
     }
@@ -23,11 +22,10 @@ public class ReadGyroSensitivity extends Command {
         double s = Preferences.getInstance().getDouble(PreferenceKeys.GYRO_SENSITIVITY, RobotMap.DEFAULT_GYRO_SENSITIVITY);
         Robot.drive.setGyroSensitivity(s);
         Debug.println(Debug.GYRO, "Read new gyro sensitivity: " + s);
-        isFinished = true;
     }
 
     protected boolean isFinished() {
-        return isFinished;
+        return true;
     }
 
     protected void end() {

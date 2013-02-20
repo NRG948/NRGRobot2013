@@ -1,6 +1,7 @@
 package org.usfirst.frc948.NRGRobot2013.utilities;
 
 /**
+ * This is really dumb. Someone should make a better way to do this.
  *
  * @author irving
  */

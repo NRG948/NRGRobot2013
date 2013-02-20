@@ -4,22 +4,20 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 
 /**
- * Empty as of RIGHT NOW, we have not determined our mechanism to lean forward
- * on the edge
- * UPDATE: PISTON to pump forward
+ * Command to engage/disengage climber piston.
+ * 
  * @author Charles
  */
 public class TiltCommand extends Command {
 
-    private boolean tilt;
-    private boolean isFinished;
+    private final boolean tilt;
     
     public TiltCommand(boolean tilt) {
         this.tilt = tilt;
     }
     
     protected void initialize() {
-        isFinished = false;
+        
     }
 
     protected void execute() {
@@ -28,12 +26,10 @@ public class TiltCommand extends Command {
         } else {
             Robot.climber.disengage();
         }
-        
-        isFinished = true;
     }
 
     protected boolean isFinished() {
-        return isFinished;
+        return true;
     }
 
     protected void end() {

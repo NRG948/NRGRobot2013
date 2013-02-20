@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 
 /**
+ * Command to set desired heading of Drive subsystem.
  *
  * @author holeung
  */

@@ -147,6 +147,10 @@ public class Robot extends IterativeRobot {
         Preferences.getInstance().putDouble(PreferenceKeys.SHOOT_PID_SCALE_FACTOR, Shooter.PID_OUTPUT_SCALE_VALUE);
     }
     
+    /*
+     * Method to be called in all periodic loops.
+     * Good for things like LCD prints or general updates.
+     */
     private void periodicAll() {
         String leftQuad = String.valueOf(MathHelper.round(RobotMap.driveleftQuadrature.getRaw(), 4));
         String rightQuad = String.valueOf(MathHelper.round(RobotMap.driverightQuadrature.getRaw(), 4));
