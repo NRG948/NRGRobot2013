@@ -16,6 +16,8 @@ import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
  * @author Patrick
  */
 public class Shooter extends PIDSubsystem {
+    
+    public static final double MIN_RPM_CLOSE_SHOT = 2850;
 
     public static final boolean DEFAULT_USE_PID = false;
     public static final double kDefaultP = 0.001;
