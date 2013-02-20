@@ -12,7 +12,7 @@ import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
  */
 public class ReleaseFrisbeeCommand extends Command {
 
-    public static final int DEFAULT_DELAY = 1000;
+    public static final int DEFAULT_DELAY = 500;
     private long endTime;
     
     public ReleaseFrisbeeCommand() {
