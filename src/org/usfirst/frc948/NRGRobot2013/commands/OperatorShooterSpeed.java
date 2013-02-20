@@ -3,6 +3,8 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
+import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 
 /**
  *
@@ -35,8 +37,10 @@ public class OperatorShooterSpeed extends Command {
             Robot.shooter.setDesiredRPM(speedSlider * maxRpm);
             Robot.shooter.setPidState(true);
         } else {
-            SmartDashboard.putNumber("manual shoot speed", speedSlider);
-            Robot.shooter.setRawPower(speedSlider);
+            double speed = speedSlider + Robot.oi.getShootTrim();
+            SmartDashboard.putNumber("manual shoot speed", speed);
+            Robot.shooter.setRawPower(speed);
+            LCD.println(true, 6, "RAW:" + MathHelper.round(speed, 3) + " EST:" + MathHelper.round(MathHelper.PowerToRpm(speed), 0));
             usingPID = false;
             Robot.shooter.setPidState(false);
         }

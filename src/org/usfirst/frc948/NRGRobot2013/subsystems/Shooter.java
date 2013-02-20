@@ -4,10 +4,8 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.commands.OperatorShooterSpeed;
-import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
@@ -18,8 +16,9 @@ import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
  */
 public class Shooter extends PIDSubsystem {
     
-    public static final double MIN_RPM_CLOSE_SHOT = 2900;
-    public static final double MIN_RPM_FAR_SHOT = 2350;
+    public static final double MIN_RPM_CLOSE_3PT = 2900;
+    public static final double MIN_RPM_FAR_3PT = 2400;
+    public static final double MIN_RPM_FAR_2PT = 2300;
 
     public static final boolean DEFAULT_USE_PID = false;
     public static final double kDefaultP = 0.001;

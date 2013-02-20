@@ -55,21 +55,21 @@ public class Autonomous extends CommandGroup {
 //            addSequential(new DriveStraightDistance(-0.5, 10.06));
         } else if (mode.mode == Mode.kEncoder_val) {
             addSequential(new SetShooterMotorPower(1.0));
-            addSequential(new WaitForMinRPM(Shooter.MIN_RPM_CLOSE_SHOT));
+            addSequential(new WaitForMinRPM(Shooter.MIN_RPM_CLOSE_3PT));
             addSequential(new ReleaseFrisbeeCommand());
             addSequential(new Delay(600));
-            addSequential(new WaitForMinRPM(Shooter.MIN_RPM_CLOSE_SHOT));
+            addSequential(new WaitForMinRPM(Shooter.MIN_RPM_CLOSE_3PT));
             addSequential(new ReleaseFrisbeeCommand());
             addSequential(new Delay(600));
-            addSequential(new WaitForMinRPM(Shooter.MIN_RPM_CLOSE_SHOT));
+            addSequential(new WaitForMinRPM(Shooter.MIN_RPM_CLOSE_3PT));
             addSequential(new ReleaseFrisbeeCommand());
             addSequential(new Delay(600));
-            addSequential(new WaitForMinRPM(Shooter.MIN_RPM_CLOSE_SHOT));
+            addSequential(new WaitForMinRPM(Shooter.MIN_RPM_CLOSE_3PT));
             addSequential(new ReleaseFrisbeeCommand());
             addSequential(new SetShooterMotorPower(0.0));
-            addSequential(new SetDesiredHeading(-26.5));
+//            addSequential(new SetDesiredHeading(-26.5));
 //            addSequential(new TurnCommand(0.5, -26.5));
-            addSequential(new DriveStraightDistance(-0.5, 10));
+//            addSequential(new DriveStraightDistance(-0.5, 10));
 //            addSequential(new DriveStraightTime(-0.5, 3500));
         } else if (mode.mode == Mode.kPID_val) {
             addSequential(new SetShooterRPM(3400));
@@ -83,5 +83,8 @@ public class Autonomous extends CommandGroup {
 //            addSequential(new TurnCommand(0.5, -26.5));
 //            addSequential(new DriveStraightDistance(-0.5, 10.06));
         }
+        
+        addSequential(new SetDesiredHeading(-26.5));
+        addSequential(new DriveStraightDistance(-0.5, 10));
     }
 }

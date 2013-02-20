@@ -2,6 +2,7 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.subsystems.Drive;
 
 /**
@@ -10,8 +11,6 @@ import org.usfirst.frc948.NRGRobot2013.subsystems.Drive;
  */
 public class ResetGyroCommand extends Command {
 
-    private boolean isFinished = false;
-    
     public ResetGyroCommand() {
         requires(Robot.drive);
     }
@@ -25,11 +24,11 @@ public class ResetGyroCommand extends Command {
         Robot.drive.setDesiredHeading(0);
         Drive.resetLeftEncoder();
         Drive.resetRightEncoder();
-        isFinished = true;
+        RobotMap.shooterQuadrature.reset();
     }
 
     protected boolean isFinished() {
-        return isFinished;
+        return true;
     }
 
     protected void end() {
