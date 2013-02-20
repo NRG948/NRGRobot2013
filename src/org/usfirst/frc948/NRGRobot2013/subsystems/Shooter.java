@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.commands.OperatorShooterSpeed;
+import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
@@ -103,7 +104,7 @@ public class Shooter extends PIDSubsystem {
                     setRawPower(0.0);
                 }
             } else {
-                double newPower, approxPower = MathHelper.RPMtoPower(desiredRPM);
+                double newPower, approxPower = MathHelper.RpmToPower(desiredRPM);
                 
                 if (largeError) {
                     // The first time in true PID mode, make a best guess at the desired power.
@@ -113,11 +114,8 @@ public class Shooter extends PIDSubsystem {
                     newPower = currentMotorPower + output * pidOutputScaleValue;
                 }
                 
-                newPower = MathHelper.clamp(newPower,
-                        MathHelper.max(approxPower - 0.03, 0.0),
-                        MathHelper.min(approxPower + 0.03, 1.0));
-                
-                setRawPower(newPower + Robot.oi.getShootTrim());
+                newPower = MathHelper.clamp(newPower, approxPower - 0.03, approxPower + 0.03);
+                setRawPower(newPower);
             }
         }
     }

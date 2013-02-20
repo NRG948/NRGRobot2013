@@ -159,8 +159,13 @@ public class MathHelper {
         return val1 < val2 ? val1 : val2;
     }
     
-    public static double RPMtoPower(double RPM) {
+    public static double RpmToPower(double RPM) {
         if (RPM == 0) return 0;
         return 0.0002470137 * RPM + 0.0014988179;
+    }
+    
+    public static double PowerToRpm(double power) {
+        if (power == 0) return 0;
+        return 4048.358451 * power - 6.067752;
     }
 }
