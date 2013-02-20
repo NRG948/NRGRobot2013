@@ -6,12 +6,13 @@ import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.subsystems.Drive;
 
 /**
+ * Command to reset all sensors/encoders on the robot.
  *
  * @author irving
  */
-public class ResetGyroCommand extends Command {
+public class ResetSensorsCommand extends Command {
 
-    public ResetGyroCommand() {
+    public ResetSensorsCommand() {
         requires(Robot.drive);
     }
     
