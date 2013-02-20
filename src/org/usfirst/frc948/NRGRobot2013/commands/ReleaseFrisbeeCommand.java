@@ -14,6 +14,10 @@ public class ReleaseFrisbeeCommand extends Command {
 
     public static final int DEFAULT_DELAY = 1000;
     private long endTime;
+    
+    public ReleaseFrisbeeCommand() {
+        requires(Robot.discMagazine);
+    }
 
     protected void initialize() {
         endTime = (long) (System.currentTimeMillis() + Preferences.getInstance().getDouble(PreferenceKeys.SHOOT_DELAY, DEFAULT_DELAY));
