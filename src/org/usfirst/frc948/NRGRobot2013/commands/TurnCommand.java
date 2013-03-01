@@ -23,7 +23,6 @@ public class TurnCommand extends PIDCommand {
     private static final double DEGREES_TOLERANCE = 2.0;
     private static final int REQUIRED_CYCLES_ON_TARGET = 3;
     
-    private double power;
     private double degrees;
     
     private double maxLeftPower;
@@ -39,7 +38,8 @@ public class TurnCommand extends PIDCommand {
         requires(Robot.drive);
 
         this.closeToTarget = false;
-        this.power = MathHelper.clamp(power, 0.0, 1.0);
+        this.maxLeftPower = MathHelper.clamp(power, 0.0, 1.0);
+        this.maxRightPower = maxLeftPower;
         this.degrees = degreesClockwise;
 
         this.getPIDController().setAbsoluteTolerance(DEGREES_TOLERANCE);
@@ -87,8 +87,9 @@ public class TurnCommand extends PIDCommand {
         
 //        SmartDashboard.putNumber("Turn ERR", this.getPIDController().getError());
 
-        double drivePower = MathHelper.clamp(pidOutput, -power, power);
-        Robot.drive.rawTankDrive(drivePower, -drivePower);
+        double leftDrivePower = MathHelper.clamp(pidOutput, -maxLeftPower, maxLeftPower);
+        double rightDrivePower = MathHelper.clamp(pidOutput, -maxRightPower, maxRightPower);
+        Robot.drive.rawTankDrive(leftDrivePower, -rightDrivePower);
         
 //        SmartDashboard.putNumber("Turn SET", drivePower);
     }
