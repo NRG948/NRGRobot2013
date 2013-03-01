@@ -86,4 +86,13 @@ public class MathHelper {
         if (power == 0) return 0;
         return 4048.358451 * power - 6.067752;
     }
+    
+    public static double HeadingToDegrees(double heading) {
+        double degrees = 90 - heading;
+        if(degrees < 0) {
+            return 360 + degrees;
+        } else {
+            return degrees;
+        }
+    }
 }
