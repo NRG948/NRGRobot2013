@@ -26,6 +26,9 @@ public class TurnCommand extends PIDCommand {
     private double power;
     private double degrees;
     
+    private double maxLeftPower;
+    private double maxRightPower;
+    
     private boolean closeToTarget;
     private double pidOutput;
     private int consecutiveCyclesOnTarget;
@@ -37,6 +40,19 @@ public class TurnCommand extends PIDCommand {
 
         this.closeToTarget = false;
         this.power = MathHelper.clamp(power, 0.0, 1.0);
+        this.degrees = degreesClockwise;
+
+        this.getPIDController().setAbsoluteTolerance(DEGREES_TOLERANCE);
+    }
+    
+    public TurnCommand(double maxLeftPower, double maxRightPower, double degreesClockwise) {
+        super(kDefaultP, kDefaultI, kDefaultD);
+        
+        requires(Robot.drive);
+        
+        this.closeToTarget = false;
+        this.maxLeftPower = MathHelper.clamp(maxLeftPower, 0.0, 1.0);
+        this.maxRightPower = MathHelper.clamp(maxRightPower, 0.0, 1.0);
         this.degrees = degreesClockwise;
 
         this.getPIDController().setAbsoluteTolerance(DEGREES_TOLERANCE);
