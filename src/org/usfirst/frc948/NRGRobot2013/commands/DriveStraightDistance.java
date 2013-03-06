@@ -13,7 +13,11 @@ public class DriveStraightDistance extends Command {
 
     private final double speed;
     private final double distance;
-
+    
+    private double leftStartDistance;
+    private double rightStartDistance;
+    private double greaterValue;
+    
     public DriveStraightDistance(double speed, double distance) {
         requires(Robot.drive);
         this.speed = speed;
@@ -21,13 +25,18 @@ public class DriveStraightDistance extends Command {
     }
 
     protected void initialize() {
-        Drive.resetLeftEncoder();
-        Drive.resetRightEncoder();
+        leftStartDistance = Drive.getLeftQuadratureDistance();
+        rightStartDistance = Drive.getRightQuadratureDistance();
+        
         Robot.drive.driveStraightInit();
     }
 
     protected void execute() {
-        double distanceRemaining = distance - Drive.getEncoderDistance();
+        double leftDistanceTraveled = Math.abs(Drive.getLeftQuadratureDistance()-leftStartDistance);
+        double rightDistanceTraveled = Math.abs(Drive.getRightQuadratureDistance()-rightStartDistance);
+
+        greaterValue = Math.max(leftDistanceTraveled, rightDistanceTraveled);
+        double distanceRemaining = distance - greaterValue;
         if (speed > 0) {
             Robot.drive.driveStraight(MathHelper.clamp(distanceRemaining / 2, -Math.abs(speed), Math.abs(speed)),
                     Robot.drive.getDesiredHeading());
@@ -39,7 +48,7 @@ public class DriveStraightDistance extends Command {
     }
 
     protected boolean isFinished() {
-        return Drive.getEncoderDistance() >= distance;
+        return greaterValue >= distance;
     }
 
     protected void end() {
