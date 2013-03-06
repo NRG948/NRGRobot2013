@@ -74,7 +74,8 @@ public class OI {
     
     private static final double SHOOT_SPEED_DEAD_ZONE = 0.1;
     private static final double MINIMUM_SHOOT_SPEED = 0.2;
-    private static final double SHOOT_TRIM_MAX = 0.4;
+    private static final double SHOOT_TRIM_MAX_POWER = 0.1;
+    private static final double SHOOT_TRIM_MAX_RPM = 100;
     
     private Button leftJoyBtn1 = new JoystickButton(leftJoystick, 1),
                    leftJoyBtn2 = new JoystickButton(leftJoystick, 2),
@@ -205,10 +206,13 @@ public class OI {
     
     public void update() {
         shootTrim = MathHelper.reverseNormalizeValue(getAnalog(TRIM_SLIDER_CHANNEL), MIN_CYPRESS_VOLTAGE, MAX_CYPRESS_VOLTAGE);
-        shootTrim = (2 * shootTrim - 1) * SHOOT_TRIM_MAX;
+        shootTrim = (2 * shootTrim - 1); //always between -1 and 1
     }
     
-    public double getShootTrim() {
-        return shootTrim;
+    public double getShootTrimPower() {
+        return shootTrim * SHOOT_TRIM_MAX_POWER;
+    }
+    public double getShootTrimRPM() {
+        return shootTrim * SHOOT_TRIM_MAX_RPM;
     }
 }

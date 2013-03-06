@@ -167,7 +167,7 @@ public class Robot extends IterativeRobot {
         LCD.println(LCD.SHOOT, 3, "RELEASED: " + Robot.discMagazine.getCount());
         LCD.println(true, 4, "AVG RPM:" + RobotMap.shooterQuadrature.averageRPM());
         LCD.println(true, 5, "SHOOT PID:" + oi.shooterUsePID() + "  ");
-//        LCD.println(true, 6, "SHOOT TRIM:" + oi.getShootTrim());
+//        LCD.println(true, 6, "SHOOT TRIM:" + oi.getShootTrimPower());
         LCD.update();
         
         SmartDashboard.putNumber("shooter RPM", RobotMap.shooterQuadrature.getRPM());

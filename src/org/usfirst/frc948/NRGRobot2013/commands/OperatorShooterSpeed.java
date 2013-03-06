@@ -39,7 +39,7 @@ public class OperatorShooterSpeed extends Command {
             Robot.shooter.setDesiredRPM(speedSlider * Shooter.MAX_RPM);
             Robot.shooter.setPidState(true);
         } else {
-            double speed = speedSlider + Robot.oi.getShootTrim();
+            double speed = speedSlider + Robot.oi.getShootTrimPower();
             SmartDashboard.putNumber("manual shoot speed", speed);
             Robot.shooter.setRawPower(speed);
             LCD.println(true, 6, "RAW:" + MathHelper.round(speed, 3) + " EST:" + MathHelper.round(MathHelper.PowerToRpm(speed), 0));

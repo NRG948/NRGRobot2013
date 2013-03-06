@@ -26,7 +26,7 @@ public class WaitForMinRPM extends Command {
     }
 
     protected boolean isFinished() {
-        return RobotMap.shooterQuadrature.averageRPM() >= rpm;
+        return RobotMap.shooterQuadrature.averageRPM() >= rpm + Robot.oi.getShootTrimRPM();
     }
 
     protected void end() {
