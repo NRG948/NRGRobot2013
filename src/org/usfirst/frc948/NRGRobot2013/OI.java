@@ -73,9 +73,9 @@ public class OI {
     private static final int SPEED_SLIDER_CHANNEL = 6;
     
     private static final double SHOOT_SPEED_DEAD_ZONE = 0.1;
-    private static final double MINIMUM_SHOOT_SPEED = 0.2;
-    private static final double SHOOT_TRIM_MAX_POWER = 0.1;
-    private static final double SHOOT_TRIM_MAX_RPM = 100;
+    private static final double MINIMUM_SHOOT_SPEED = 0.0;
+    private static final double SHOOT_TRIM_MAX_POWER = 0.2;
+    private static final double SHOOT_TRIM_MAX_RPM = 200;
     
     private Button leftJoyBtn1 = new JoystickButton(leftJoystick, 1),
                    leftJoyBtn2 = new JoystickButton(leftJoystick, 2),
@@ -133,16 +133,16 @@ public class OI {
         SmartDashboard.putData("Turn 15 CW (0.5)", new TurnCommand(0.5, 15));
         SmartDashboard.putData("Turn 90 CW (0.5)", new TurnCommand(0.5, 90));
         SmartDashboard.putData("Turn 1800 CW (0.5)", new TurnCommand(0.5, 1800));
-        SmartDashboard.putData("IncrementalTurn", new IncrementalTurn());
+        SmartDashboard.putData("IncrementalTurn (0.3, 45, 8)", new IncrementalTurn(0.3, 45, 8));
         
         SmartDashboard.putData("Drive 10 feet (0.5)", new DriveStraightDistance(0.5, 10));
         SmartDashboard.putData("Drive 10 feet (-0.5)", new DriveStraightDistance(-0.5, 10));
         
         SmartDashboard.putData("BalanceTankDrive", new BalanceTankDrive());
         
-        SmartDashboard.putData("Autonomous (Timer)", new Autonomous(Autonomous.Mode.kTimer));
-        SmartDashboard.putData("Autonomous (Encoder)", new Autonomous(Autonomous.Mode.kEncoder));
-        SmartDashboard.putData("Autonomous (PID)", new Autonomous(Autonomous.Mode.kPID));
+        SmartDashboard.putData("Autonomous (Timer)", new Autonomous(Autonomous.ShooterMode.kTimer, Autonomous.StartingPosition.kCenter, Autonomous.TargetPosition.kNone));
+        SmartDashboard.putData("Autonomous (Encoder)", new Autonomous(Autonomous.ShooterMode.kEncoder, Autonomous.StartingPosition.kCenter, Autonomous.TargetPosition.kNone));
+        SmartDashboard.putData("Autonomous (PID)", new Autonomous(Autonomous.ShooterMode.kPID, Autonomous.StartingPosition.kCenter, Autonomous.TargetPosition.kNone));
         
         SmartDashboard.putData("CalibrateRPM", new CalibrateRPM());
     }

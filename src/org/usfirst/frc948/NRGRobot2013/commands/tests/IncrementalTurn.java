@@ -11,9 +11,9 @@ import org.usfirst.frc948.NRGRobot2013.commands.TurnCommand;
  */
 public class IncrementalTurn extends CommandGroup {
     
-    public IncrementalTurn() {
-        for (int i = 0; i < 12; i++) {
-            addSequential(new TurnCommand(0.7, 30));
+    public IncrementalTurn(double speed, double degrees, int n) {
+        for (int i = 0; i < n; i++) {
+            addSequential(new TurnCommand(speed, degrees));
             addSequential(new Delay(1000));
         }
     }

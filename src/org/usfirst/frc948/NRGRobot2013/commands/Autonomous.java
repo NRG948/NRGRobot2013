@@ -13,7 +13,7 @@ public class Autonomous extends CommandGroup {
 
     // WHY ARE NESTED CLASSES SO FUN
     // also why don't we have enums
-    public static class Mode {
+    public static class ShooterMode {
 
         private static final int kTimer_val = 0;
         private static final int kEncoder_val = 1;
@@ -22,69 +22,118 @@ public class Autonomous extends CommandGroup {
         /**
          * mode: no encoder available, run autonomous on time delay alone
          */
-        public static final Mode kTimer = new Mode(Mode.kTimer_val);
+        public static final ShooterMode kTimer = new ShooterMode(ShooterMode.kTimer_val);
         
         /**
          * mode: no PID available, run autonomous on raw motor power and RPM sensor
          */
-        public static final Mode kEncoder = new Mode(Mode.kEncoder_val);
+        public static final ShooterMode kEncoder = new ShooterMode(ShooterMode.kEncoder_val);
         
         /**
          * mode: PID working, run autonomous on PID
          */
-        public static final Mode kPID = new Mode(Mode.kPID_val);
+        public static final ShooterMode kPID = new ShooterMode(ShooterMode.kPID_val);
         
         public final int mode;
 
-        private Mode(int mode) {
+        private ShooterMode(int mode) {
             this.mode = mode;
         }
     }
 
-    public Autonomous(Mode mode) {
-        if (mode.mode == Mode.kTimer_val) {
+    public static class StartingPosition {
+        
+        private static final int kLeft_val = 0;
+        private static final int kCenter_val = 1;
+        private static final int kRight_val = 2;
+        
+        public static final StartingPosition kLeft = new StartingPosition(kLeft_val);
+        public static final StartingPosition kCenter = new StartingPosition(kCenter_val);
+        public static final StartingPosition kRight = new StartingPosition(kRight_val);
+        
+        public final int position;
+        
+        private StartingPosition(int position) {
+            this.position = position;
+        }
+    }
+
+    public static class TargetPosition {
+        
+        private static final int kNone_val = 0;
+        private static final int kOutside_val = 1;
+        private static final int kInside_val = 2;
+        
+        public static final TargetPosition kNone = new TargetPosition(kNone_val);
+        public static final TargetPosition kCenter = new TargetPosition(kOutside_val);
+        public static final TargetPosition kInside = new TargetPosition(kInside_val);
+        
+        public final int position;
+        
+        private TargetPosition(int position) {
+            this.position = position;
+        }
+    }
+    
+    // constants for timed autonomous
+    private static final int INITIAL_DELAY = 5000;
+    private static final int SHOOT_DELAY = 3000;
+    
+    // constants for min-RPM autonomous
+    private static final int MINIMUM_DELAY = 600;
+    
+    // constants for autonomous driving
+    private static final double DEFAULT_SPEED = 0.5;
+    
+    public Autonomous(ShooterMode mode, StartingPosition start, TargetPosition destination) {
+        buildShootSequence(mode);
+        buildMoveSequence(start, destination);
+        
+//        addSequential(new SetDesiredHeading(-26.5));
+//        addSequential(new DriveStraightDistance(-0.5, 10));
+    }
+    
+    private void buildShootSequence(ShooterMode mode) {
+        if (mode.mode == ShooterMode.kTimer_val) {
             addSequential(new SetShooterMotorPower(1.0));
-            addSequential(new Delay(5000));
+            addSequential(new Delay(INITIAL_DELAY));
             addSequential(new ReleaseFrisbeeCommand());
-            addSequential(new Delay(3000));
+            addSequential(new Delay(SHOOT_DELAY));
             addSequential(new ReleaseFrisbeeCommand());
-            addSequential(new Delay(3000));
+            addSequential(new Delay(SHOOT_DELAY));
             addSequential(new ReleaseFrisbeeCommand());
-            addSequential(new SetShooterMotorPower(0.3));
-//            addSequential(new TurnCommand(0.5, -26.5));
-//            addSequential(new DriveStraightDistance(-0.5, 10.06));
-        } else if (mode.mode == Mode.kEncoder_val) {
+        } else if (mode.mode == ShooterMode.kEncoder_val) {
             addSequential(new SetShooterMotorPower(1.0));
             addSequential(new WaitForMinRPM(Shooter.MIN_RPM_CLOSE_3PT));
             addSequential(new ReleaseFrisbeeCommand());
-            addSequential(new Delay(600));
+            addSequential(new Delay(MINIMUM_DELAY));
             addSequential(new WaitForMinRPM(Shooter.MIN_RPM_CLOSE_3PT));
             addSequential(new ReleaseFrisbeeCommand());
-            addSequential(new Delay(600));
+            addSequential(new Delay(MINIMUM_DELAY));
             addSequential(new WaitForMinRPM(Shooter.MIN_RPM_CLOSE_3PT));
             addSequential(new ReleaseFrisbeeCommand());
-            addSequential(new Delay(600));
+            addSequential(new Delay(MINIMUM_DELAY));
             addSequential(new WaitForMinRPM(Shooter.MIN_RPM_CLOSE_3PT));
             addSequential(new ReleaseFrisbeeCommand());
-            addSequential(new SetShooterMotorPower(0.0));
-//            addSequential(new SetDesiredHeading(-26.5));
-//            addSequential(new TurnCommand(0.5, -26.5));
-//            addSequential(new DriveStraightDistance(-0.5, 10));
-//            addSequential(new DriveStraightTime(-0.5, 3500));
-        } else if (mode.mode == Mode.kPID_val) {
-            addSequential(new SetShooterRPM(3400));
+        } else if (mode.mode == ShooterMode.kPID_val) {
+            addSequential(new SetShooterRPM(Shooter.MIN_RPM_CLOSE_3PT));
             addSequential(new WaitForShooterSpeed());
             addSequential(new ReleaseFrisbeeCommand());
             addSequential(new WaitForShooterSpeed());
             addSequential(new ReleaseFrisbeeCommand());
             addSequential(new WaitForShooterSpeed());
             addSequential(new ReleaseFrisbeeCommand());
-            addSequential(new SetShooterMotorPower(0.3));
-//            addSequential(new TurnCommand(0.5, -26.5));
-//            addSequential(new DriveStraightDistance(-0.5, 10.06));
         }
         
-        addSequential(new SetDesiredHeading(-26.5));
-        addSequential(new DriveStraightDistance(-0.5, 10));
+        addSequential(new SetShooterMotorPower(0.0));
     }
+    
+    private void buildMoveSequence(StartingPosition start, TargetPosition destination) {
+        if (destination.position == TargetPosition.kNone_val) {
+            return;
+        }
+        
+        addSequential(new DriveStraightDistance(-DEFAULT_SPEED, 2));
+    }
+    
 }
