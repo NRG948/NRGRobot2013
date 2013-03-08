@@ -12,6 +12,7 @@ package org.usfirst.frc948.NRGRobot2013.subsystems;
 import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
 
 /**
@@ -49,11 +50,12 @@ public class DiscMagazine extends Subsystem {
         {
             return IRSensor.getAverageVoltage();
         }
-        
+        SmartDashboard.putNumber("Voltage: ", getVoltage());
         return 0;
     }
     public boolean frisbeeLoaded()
     {
-         return getVoltage() > THRESHOLD;         
+         
+         return getVoltage() < THRESHOLD;         
     }
 }
