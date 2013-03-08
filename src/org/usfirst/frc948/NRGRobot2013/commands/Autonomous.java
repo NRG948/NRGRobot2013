@@ -68,7 +68,7 @@ public class Autonomous extends CommandGroup {
         public static final TargetPosition kNone = new TargetPosition(kNone_val);
         public static final TargetPosition kOutside = new TargetPosition(kOutside_val);
         public static final TargetPosition kInside = new TargetPosition(kInside_val);
-        public static final TargetPosition kLeft = new TargetPosition (kLeft_val);
+        public static final TargetPosition kLeft = new TargetPosition(kLeft_val);
         
         public final int position;
         
