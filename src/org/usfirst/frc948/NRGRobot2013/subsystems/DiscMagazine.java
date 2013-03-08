@@ -50,7 +50,7 @@ public class DiscMagazine extends Subsystem {
         {
             return IRSensor.getAverageVoltage();
         }
-        SmartDashboard.putNumber("Voltage: ", getVoltage());
+        SmartDashboard.putNumber("IRVoltage: ", getVoltage());
         return 0;
     }
     public boolean frisbeeLoaded()
