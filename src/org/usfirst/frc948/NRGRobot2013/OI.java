@@ -68,6 +68,11 @@ public class OI {
     private static final double MIN_CYPRESS_VOLTAGE = -0.001; //TODO: Set these values
     private static final double MAX_CYPRESS_VOLTAGE = 3.312;
     
+    private static final int AUTONOMOUS_SHOOT_SWITCH_CHANNEL_1=0;
+    private static final int AUTONOMOUS_SHOOT_SWITCH_CHANNEL_2=0;
+    private static final int AUTONOMOUS_DRIVE_SWITCH_CHANNEL_1=0;
+    private static final int AUTONOMOUS_DRIVE_SWITCH_CHANNEL_2=0;
+    
     private static final int CAMERA_SLIDER_CHANNEL = 2;
     private static final int TRIM_SLIDER_CHANNEL = 4;
     private static final int SPEED_SLIDER_CHANNEL = 6;
@@ -215,4 +220,34 @@ public class OI {
     public double getShootTrimRPM() {
         return shootTrim * SHOOT_TRIM_MAX_RPM;
     }
+    public Autonomous.StartingPosition getAutonomousStartingPosition (){
+        boolean channel1=getDigital(OI.AUTONOMOUS_SHOOT_SWITCH_CHANNEL_1);
+        boolean channel2=getDigital(OI.AUTONOMOUS_SHOOT_SWITCH_CHANNEL_2);
+        if (!channel1&&channel2){
+            return Autonomous.StartingPosition.kLeft;
+        }
+        else if (channel1&&!channel2){
+            return Autonomous.StartingPosition.kCenter;
+        }
+        else if (channel1&&channel2){
+            return Autonomous.StartingPosition.kRight;
+        }
+        return null;
+        }
+    public Autonomous.TargetPosition getAutonomousTargetPosition (){
+        boolean channel1=getDigital(OI.AUTONOMOUS_DRIVE_SWITCH_CHANNEL_1);
+        boolean channel2=getDigital(OI.AUTONOMOUS_DRIVE_SWITCH_CHANNEL_2);
+        if (!channel1&&channel2){
+            return Autonomous.TargetPosition.kOutside;
+        }
+        else if (channel1&&!channel2){
+            return Autonomous.TargetPosition.kInside;
+        }
+        else if (channel1&&channel2){
+            return Autonomous.TargetPosition.kLeft;
+        }
+        return Autonomous.TargetPosition.kNone;
+        }
+    
+
 }

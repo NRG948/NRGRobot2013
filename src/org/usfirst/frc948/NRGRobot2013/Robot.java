@@ -97,7 +97,15 @@ public class Robot extends IterativeRobot {
             while (autonomousCommand.isRunning()) {;}
             autonomousCommand.start();
         }
-    }
+        else{
+            Autonomous.StartingPosition startingPosition = oi.getAutonomousStartingPosition();
+            Autonomous.TargetPosition targetPosition = oi.getAutonomousTargetPosition();
+            if (startingPosition!=null){
+                autonomousCommand =new Autonomous(Autonomous.ShooterMode.kEncoder, startingPosition, targetPosition);
+                autonomousCommand.start();
+            }
+        } 
+            }
 
     /**
      * This function is called periodically during autonomous
