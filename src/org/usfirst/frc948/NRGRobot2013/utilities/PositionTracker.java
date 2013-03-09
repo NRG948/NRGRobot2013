@@ -16,23 +16,35 @@ public class PositionTracker {
     private Encoder driveLeftQuad, driveRightQuad;
     private double x, y;
     private double lastLeftQuadDistance, lastRightQuadDistance;
-
+    private boolean initialized = false ;
+    
     public PositionTracker(Gyro driveGyro, Encoder driveLeftQuad, Encoder driveRightQuad) {
         this.driveGyro = driveGyro;
         this.driveLeftQuad = driveLeftQuad;
         this.driveRightQuad = driveRightQuad;
-
     }
-
+    public void init()
+    {
+        x = 0;
+        y = 0;
+        driveLeftQuad.reset();
+        driveRightQuad.reset();
+        lastLeftQuadDistance = 0;
+        lastRightQuadDistance = 0;
+    }
     public void update() {
+        if ( initialized == false)
+        {
+            initialized = true;
+            init();
+        }
         double newLeftQuadDistance = driveLeftQuad.getDistance() - lastLeftQuadDistance;
         double newRightQuadDistance = driveRightQuad.getDistance() - lastRightQuadDistance;
         double average = (newLeftQuadDistance + newRightQuadDistance) / 2;
-        double degrees = MathHelper.HeadingToDegrees(driveGyro.getAngle()) > 180
-                ? MathHelper.HeadingToDegrees(driveGyro.getAngle()) - 360
-                : MathHelper.HeadingToDegrees(driveGyro.getAngle());
-        y += Math.sin(degrees) * average;
-        x += Math.cos(degrees) * average;
+        double degrees = MathHelper.HeadingToDegrees(driveGyro.getAngle());
+        
+        y += Math.sin(Math.toRadians(degrees)) * average;
+        x += Math.cos(Math.toRadians(degrees)) * average;
         lastLeftQuadDistance = newLeftQuadDistance;
         lastRightQuadDistance = newRightQuadDistance;
     }

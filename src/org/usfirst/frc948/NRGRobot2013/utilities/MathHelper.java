@@ -89,10 +89,6 @@ public class MathHelper {
     
     public static double HeadingToDegrees(double heading) {
         double degrees = 90 - heading;
-        if(degrees < 0) {
-            return 360 + degrees;
-        } else {
-            return degrees;
-        }
+        return degrees;
     }
 }
