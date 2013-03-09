@@ -17,6 +17,17 @@ import org.usfirst.frc948.NRGRobot2013.RobotMap;
  * @Author Patrick, Jared, Charles
  */
 public class Climber extends Subsystem {
+
+    public static class Direction {
+        private static final int kUp_val = 1;
+        private static final int kDown_val = -1;
+        public final int value;
+        private Direction(int value) {
+            this.value = value;
+        }
+        public static final Direction kUp = new Direction(kUp_val);
+        public static final Direction kDown = new Direction(kDown_val);
+    }
     
     public static final double DEFAULT_POWER = 0.65;
 

@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.OI;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
+import org.usfirst.frc948.NRGRobot2013.IOperatorInterface;
 
 /**
  * Command to set the angle of the camera servo.
@@ -14,7 +15,7 @@ public class SetCameraTilt extends Command {
 
     private double servoVal;
     private boolean useSlider;
-    private OI oi = Robot.oi;
+    private IOperatorInterface oi = Robot.oi;
 
     public SetCameraTilt() {
         requires(Robot.camera);

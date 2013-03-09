@@ -5,7 +5,7 @@ import org.usfirst.frc948.NRGRobot2013.OI;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
-
+import org.usfirst.frc948.NRGRobot2013.IOperatorInterface;
 /**
  * Default command for Drive subsystem.
  * 
@@ -18,7 +18,7 @@ public class OperatorDriveCommand extends Command {
     private static final double DRIVE_SLOW_FACTOR = 0.5;
     private static final double DRIVE_NORMAL_FACTOR = 1.0;
     
-    private OI oi = Robot.oi;
+    private IOperatorInterface oi = Robot.oi;
     
     private boolean prevDriveStraight = false;
     private boolean currDriveStraight = false;

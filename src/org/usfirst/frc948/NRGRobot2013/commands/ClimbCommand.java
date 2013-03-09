@@ -13,10 +13,11 @@ import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
  */
 public class ClimbCommand extends Command {
 
+    
     private int direction;
     
-    public ClimbCommand(int direction) {
-        this.direction = direction;
+    public ClimbCommand(Climber.Direction direction) {
+        this.direction = direction.value;
         requires(Robot.climber);
     }
 

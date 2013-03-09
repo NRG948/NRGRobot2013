@@ -31,7 +31,7 @@ import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
-public class OI implements IOperatorInterface {
+public class OI2 implements IOperatorInterface {
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
     // You create one by telling it which joystick it's on and which button
@@ -69,19 +69,34 @@ public class OI implements IOperatorInterface {
     private static final double MIN_CYPRESS_VOLTAGE = -0.001; //TODO: Set these values
     private static final double MAX_CYPRESS_VOLTAGE = 3.312;
     
-    private static final int AUTONOMOUS_SHOOT_SWITCH_CHANNEL_1 = 3;
-    private static final int AUTONOMOUS_SHOOT_SWITCH_CHANNEL_2 = 1;
-    private static final int AUTONOMOUS_DRIVE_SWITCH_CHANNEL_1 = 16;
-    private static final int AUTONOMOUS_DRIVE_SWITCH_CHANNEL_2 = 14;
+    private static final int AUTONOMOUS_SHOOT_SWITCH_CHANNEL_1=1;
+    private static final int AUTONOMOUS_SHOOT_SWITCH_CHANNEL_2=3;
+    private static final int AUTONOMOUS_DRIVE_SWITCH_CHANNEL_1=13;
+    private static final int AUTONOMOUS_DRIVE_SWITCH_CHANNEL_2=15;
     
-    private static final int CAMERA_SLIDER_CHANNEL = 2;
-    private static final int TRIM_SLIDER_CHANNEL = 4;
-    private static final int SPEED_SLIDER_CHANNEL = 6;
+    private static final int CAMERA_SLIDER_CHANNEL = 1;
+    private static final int TRIM_SLIDER_CHANNEL = 5;
+    private static final int SPEED_SLIDER_CHANNEL = 3;
     
     private static final double SHOOT_SPEED_DEAD_ZONE = 0.1;
     private static final double MINIMUM_SHOOT_SPEED = 0.0;
     private static final double SHOOT_TRIM_MAX_POWER = 0.2;
     private static final double SHOOT_TRIM_MAX_RPM = 200;
+    
+    private static final int PRESET_SHOOTER_SPEED_CONTROL = 10;
+    private static final int PRESET_SHOOTER_SPEED_PID_ENABLE = 15;
+    private static final int PRESET_FULL_AUTONOMOUS_ENABLE = 7;
+
+    private static final int SHOOTING_POSITION_TOWER_3PT = 8;
+    private static final int SHOOTING_POSITION_FEEDER_3PT = 12;
+    private static final int SHOOTING_POSITION_FEEDER_2PT = 5;
+    private static final int SHOOTING_POSITION_FEEDER_SELECT = 2;
+    
+    private static final int CLIMBER_DEPLOY = 11;
+    private static final int CLIMBER_CLIMB = 6;
+    
+    private static final int MANUAL_SHOOT = 4;
+    
     
     private Button leftJoyBtn1 = new JoystickButton(leftJoystick, 1),
                    leftJoyBtn2 = new JoystickButton(leftJoystick, 2),
@@ -108,33 +123,32 @@ public class OI implements IOperatorInterface {
                    rightJoyBtn10 = new JoystickButton(rightJoystick, 10),
                    rightJoyBtn11 = new JoystickButton(rightJoystick, 11);
     
-    private Button btnClimbDisengage = new DigitalIOButton(12);
-    private Button btnClimbEngage =  new DigitalIOButton(14);
+//    private Button btnClimbDisengage = new DigitalIOButton(12);
+    private Button btnClimbEngage =  new DigitalIOButton(CLIMBER_DEPLOY);
+    private Button btnClimbUp = new DigitalIOButton(CLIMBER_CLIMB);
     
-    private Button shootButton = new DigitalIOButton(16);
     
-    private Button btnShootClose1 = new DigitalIOButton(4);
-    private Button btnShootClose2 = new DigitalIOButton(6);
-    private Button btnShootFar1 = new DigitalIOButton(8);
-    private Button btnShootFar2 = new DigitalIOButton(10);
+    private Button shootButton = new DigitalIOButton(MANUAL_SHOOT);
+    
+    private Button btnShootTower3pt = new DigitalIOButton(SHOOTING_POSITION_TOWER_3PT);
+    private Button btnShootFeeder3pt = new DigitalIOButton(SHOOTING_POSITION_FEEDER_3PT);
+    private Button btnShootFeeder2pt = new DigitalIOButton(SHOOTING_POSITION_FEEDER_2PT);
     
     private double shootTrim = 0.0;
     
-    public OI() {
+    public OI2() {
         leftJoyBtn7.whenPressed(new ResetSensorsCommand());
         leftJoyBtn11.whenPressed(new ReadGyroSensitivity());
         
         shootButton.whenPressed(new ReleaseFrisbeeCommand());
-        
-        rightJoyBtn6.whileHeld(new ClimbCommand(Climber.Direction.kUp));  // up
-        
-        btnClimbDisengage.whenPressed(new TiltCommand(false));
+                
         btnClimbEngage.whenPressed(new TiltCommand(true));
+        btnClimbEngage.whenReleased(new TiltCommand(false));
+        btnClimbUp.whileHeld(new ClimbCommand(Climber.Direction.kUp));
         
-//        btnShootClose1.whenPressed(new AutonomousShoot());
-        btnShootClose2.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_CLOSE_3PT));
-        btnShootFar1.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_FAR_3PT));
-        btnShootFar2.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_FAR_2PT));
+        btnShootTower3pt.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_CLOSE_3PT));
+        btnShootFeeder3pt.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_FAR_3PT));
+        btnShootFeeder2pt.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_FAR_2PT));
         
         SmartDashboard.putData("Turn 15 CW (0.5)", new TurnCommand(0.5, 15));
         SmartDashboard.putData("Turn 90 CW (0.5)", new TurnCommand(0.5, 90));
@@ -152,7 +166,8 @@ public class OI implements IOperatorInterface {
         
         SmartDashboard.putData("CalibrateRPM", new CalibrateRPM());
     }
-    
+
+    // BEGIN AUTOGENERATED CODE, SOURCE=ROBOTBUILDER ID=FUNCTIONS
     public Joystick getleftJoystick() {
         return leftJoystick;
     }
@@ -217,40 +232,37 @@ public class OI implements IOperatorInterface {
     public double getShootTrimPower() {
         return shootTrim * SHOOT_TRIM_MAX_POWER;
     }
-    
     public double getShootTrimRPM() {
         return shootTrim * SHOOT_TRIM_MAX_RPM;
     }
-
-    public Autonomous.StartingPosition getAutonomousStartingPosition() {
-        boolean channel1 = getDigital(OI.AUTONOMOUS_SHOOT_SWITCH_CHANNEL_1);
-        boolean channel2 = getDigital(OI.AUTONOMOUS_SHOOT_SWITCH_CHANNEL_2);
-        
-        if (!channel1 && channel2) {
+    public Autonomous.StartingPosition getAutonomousStartingPosition (){
+        boolean channel1=getDigital(AUTONOMOUS_SHOOT_SWITCH_CHANNEL_1);
+        boolean channel2=getDigital(AUTONOMOUS_SHOOT_SWITCH_CHANNEL_2);
+        if (!channel1&&channel2){
             return Autonomous.StartingPosition.kLeft;
-        } else if (channel1 && !channel2) {
+        }
+        else if (channel1&&!channel2){
             return Autonomous.StartingPosition.kCenter;
-        } else if (channel1 && channel2) {
+        }
+        else if (channel1&&channel2){
             return Autonomous.StartingPosition.kRight;
         }
-        
         return null;
-    }
-
-    public Autonomous.TargetPosition getAutonomousTargetPosition() {
-        boolean channel1 = getDigital(OI.AUTONOMOUS_DRIVE_SWITCH_CHANNEL_1);
-        boolean channel2 = getDigital(OI.AUTONOMOUS_DRIVE_SWITCH_CHANNEL_2);
-        
-        if (!channel1 && channel2) {
+        }
+    public Autonomous.TargetPosition getAutonomousTargetPosition (){
+        boolean channel1=getDigital(AUTONOMOUS_DRIVE_SWITCH_CHANNEL_1);
+        boolean channel2=getDigital(AUTONOMOUS_DRIVE_SWITCH_CHANNEL_2);
+        if (!channel1&&channel2){
             return Autonomous.TargetPosition.kOutside;
-        } else if (channel1 && !channel2) {
+        }
+        else if (channel1&&!channel2){
             return Autonomous.TargetPosition.kInside;
-        } else if (channel1 && channel2) {
+        }
+        else if (channel1&&channel2){
             return Autonomous.TargetPosition.kLeft;
         }
-        
         return Autonomous.TargetPosition.kNone;
-    }
-
+        }
+    
 
 }
