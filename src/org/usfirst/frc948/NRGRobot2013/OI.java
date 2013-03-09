@@ -217,37 +217,40 @@ public class OI {
     public double getShootTrimPower() {
         return shootTrim * SHOOT_TRIM_MAX_POWER;
     }
+    
     public double getShootTrimRPM() {
         return shootTrim * SHOOT_TRIM_MAX_RPM;
     }
-    public Autonomous.StartingPosition getAutonomousStartingPosition (){
-        boolean channel1=getDigital(OI.AUTONOMOUS_SHOOT_SWITCH_CHANNEL_1);
-        boolean channel2=getDigital(OI.AUTONOMOUS_SHOOT_SWITCH_CHANNEL_2);
-        if (!channel1&&channel2){
+
+    public Autonomous.StartingPosition getAutonomousStartingPosition() {
+        boolean channel1 = getDigital(OI.AUTONOMOUS_SHOOT_SWITCH_CHANNEL_1);
+        boolean channel2 = getDigital(OI.AUTONOMOUS_SHOOT_SWITCH_CHANNEL_2);
+        
+        if (!channel1 && channel2) {
             return Autonomous.StartingPosition.kLeft;
-        }
-        else if (channel1&&!channel2){
+        } else if (channel1 && !channel2) {
             return Autonomous.StartingPosition.kCenter;
-        }
-        else if (channel1&&channel2){
+        } else if (channel1 && channel2) {
             return Autonomous.StartingPosition.kRight;
         }
+        
         return null;
-        }
-    public Autonomous.TargetPosition getAutonomousTargetPosition (){
-        boolean channel1=getDigital(OI.AUTONOMOUS_DRIVE_SWITCH_CHANNEL_1);
-        boolean channel2=getDigital(OI.AUTONOMOUS_DRIVE_SWITCH_CHANNEL_2);
-        if (!channel1&&channel2){
+    }
+
+    public Autonomous.TargetPosition getAutonomousTargetPosition() {
+        boolean channel1 = getDigital(OI.AUTONOMOUS_DRIVE_SWITCH_CHANNEL_1);
+        boolean channel2 = getDigital(OI.AUTONOMOUS_DRIVE_SWITCH_CHANNEL_2);
+        
+        if (!channel1 && channel2) {
             return Autonomous.TargetPosition.kOutside;
-        }
-        else if (channel1&&!channel2){
+        } else if (channel1 && !channel2) {
             return Autonomous.TargetPosition.kInside;
-        }
-        else if (channel1&&channel2){
+        } else if (channel1 && channel2) {
             return Autonomous.TargetPosition.kLeft;
         }
+        
         return Autonomous.TargetPosition.kNone;
-        }
-    
+    }
+
 
 }
