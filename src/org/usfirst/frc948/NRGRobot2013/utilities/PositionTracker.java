@@ -5,6 +5,7 @@
 package org.usfirst.frc948.NRGRobot2013.utilities;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -27,6 +28,8 @@ public class PositionTracker {
     {
         x = 0;
         y = 0;
+        SmartDashboard.putNumber("X: ", x);
+        SmartDashboard.putNumber("Y: ", y);
         driveLeftQuad.reset();
         driveRightQuad.reset();
         lastLeftQuadDistance = 0;
