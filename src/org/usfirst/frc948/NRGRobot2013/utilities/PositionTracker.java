@@ -28,8 +28,7 @@ public class PositionTracker {
     {
         x = 0;
         y = 0;
-        SmartDashboard.putNumber("X: ", x);
-        SmartDashboard.putNumber("Y: ", y);
+        
         driveLeftQuad.reset();
         driveRightQuad.reset();
         lastLeftQuadDistance = 0;
@@ -48,6 +47,8 @@ public class PositionTracker {
         
         y += Math.sin(Math.toRadians(degrees)) * average;
         x += Math.cos(Math.toRadians(degrees)) * average;
+        SmartDashboard.putNumber("X: ", x);
+        SmartDashboard.putNumber("Y: ", y);
         lastLeftQuadDistance = newLeftQuadDistance;
         lastRightQuadDistance = newRightQuadDistance;
     }

@@ -136,21 +136,21 @@ public class OI implements IOperatorInterface {
         btnShootFar1.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_FAR_3PT));
         btnShootFar2.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_FAR_2PT));
         
-        SmartDashboard.putData("Turn 15 CW (0.5)", new TurnCommand(0.5, 15));
-        SmartDashboard.putData("Turn 90 CW (0.5)", new TurnCommand(0.5, 90));
-        SmartDashboard.putData("Turn 1800 CW (0.5)", new TurnCommand(0.5, 1800));
-        SmartDashboard.putData("IncrementalTurn (0.3, 45, 8)", new IncrementalTurn(0.3, 45, 8));
-        
-        SmartDashboard.putData("Drive 10 feet (0.5)", new DriveStraightDistance(0.5, 10));
-        SmartDashboard.putData("Drive 10 feet (-0.5)", new DriveStraightDistance(-0.5, 10));
-        
-        SmartDashboard.putData("BalanceTankDrive", new BalanceTankDrive());
-        
-        SmartDashboard.putData("Autonomous (Timer)", new Autonomous(Autonomous.ShooterMode.kTimer, Autonomous.StartingPosition.kCenter, Autonomous.TargetPosition.kNone));
-        SmartDashboard.putData("Autonomous (Encoder)", new Autonomous(Autonomous.ShooterMode.kEncoder, Autonomous.StartingPosition.kCenter, Autonomous.TargetPosition.kNone));
-        SmartDashboard.putData("Autonomous (PID)", new Autonomous(Autonomous.ShooterMode.kPID, Autonomous.StartingPosition.kCenter, Autonomous.TargetPosition.kNone));
-        
-        SmartDashboard.putData("CalibrateRPM", new CalibrateRPM());
+//        SmartDashboard.putData("Turn 15 CW (0.5)", new TurnCommand(0.5, 15));
+//        SmartDashboard.putData("Turn 90 CW (0.5)", new TurnCommand(0.5, 90));
+//        SmartDashboard.putData("Turn 1800 CW (0.5)", new TurnCommand(0.5, 1800));
+//        SmartDashboard.putData("IncrementalTurn (0.3, 45, 8)", new IncrementalTurn(0.3, 45, 8));
+//        
+//        SmartDashboard.putData("Drive 10 feet (0.5)", new DriveStraightDistance(0.5, 10));
+//        SmartDashboard.putData("Drive 10 feet (-0.5)", new DriveStraightDistance(-0.5, 10));
+//        
+//        SmartDashboard.putData("BalanceTankDrive", new BalanceTankDrive());
+//        
+//        SmartDashboard.putData("Autonomous (Timer)", new Autonomous(Autonomous.ShooterMode.kTimer, Autonomous.StartingPosition.kCenter, Autonomous.TargetPosition.kNone));
+//        SmartDashboard.putData("Autonomous (Encoder)", new Autonomous(Autonomous.ShooterMode.kEncoder, Autonomous.StartingPosition.kCenter, Autonomous.TargetPosition.kNone));
+//        SmartDashboard.putData("Autonomous (PID)", new Autonomous(Autonomous.ShooterMode.kPID, Autonomous.StartingPosition.kCenter, Autonomous.TargetPosition.kNone));
+//        
+//        SmartDashboard.putData("CalibrateRPM", new CalibrateRPM());
     }
     
     public Joystick getleftJoystick() {
@@ -212,6 +212,7 @@ public class OI implements IOperatorInterface {
     public void update() {
         shootTrim = MathHelper.reverseNormalizeValue(getAnalog(TRIM_SLIDER_CHANNEL), MIN_CYPRESS_VOLTAGE, MAX_CYPRESS_VOLTAGE);
         shootTrim = (2 * shootTrim - 1); //always between -1 and 1
+        SmartDashboard.putNumber("TrimRPM", getShootTrimRPM());
     }
     
     public double getShootTrimPower() {
