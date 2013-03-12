@@ -65,6 +65,11 @@ public class Drive extends PIDSubsystem {
             leftSpeed = speed + pidOutput;
             rightSpeed = speed;
         }
+        SmartDashboard.putData("DrivePID", this.getPIDController());
+        SmartDashboard.putNumber("Drive PID output", pidOutput);
+        SmartDashboard.putNumber("Drive PID error", this.getPIDController().getError());
+        SmartDashboard.putNumber("Drive PID Lpower", leftSpeed);
+        SmartDashboard.putNumber("Drive PID Rpower", rightSpeed);
 
         rawTankDrive(leftSpeed, rightSpeed);
     }
@@ -72,8 +77,6 @@ public class Drive extends PIDSubsystem {
     public void driveStraightEnd() {
         this.getPIDController().reset();
         pidOutput = 0;
-//        SmartDashboard.putNumber("Drive PID output", pidOutput);
-//        SmartDashboard.putNumber("Drive PID error", this.getPIDController().getError());
     }
 
     public void tankDrive(double leftPower, double rightPower) {
