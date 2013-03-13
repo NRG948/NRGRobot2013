@@ -185,6 +185,13 @@ public class Robot extends IterativeRobot {
 //        LCD.println(true, 6, "SHOOT TRIM:" + oi.getShootTrimPower());
         LCD.update();
 
+        // Show what command each subsystem is executing
+        SmartDashboard.putData("Drive Subsystem", drive);
+        SmartDashboard.putData("Shooter Subsystem", shooter);
+        SmartDashboard.putData("DiscMag Subsystem", discMagazine);
+        SmartDashboard.putData("Climber Subsystem", climber);
+        SmartDashboard.putData("Camera Subsystem", camera);
+        
         SmartDashboard.putNumber("shooter RPM", RobotMap.shooterQuadrature.getRPM());
         SmartDashboard.putNumber("average RPM", RobotMap.shooterQuadrature.averageRPM());
         Robot.discMagazine.getVoltage();
