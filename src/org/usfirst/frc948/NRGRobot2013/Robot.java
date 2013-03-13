@@ -146,7 +146,7 @@ public class Robot extends IterativeRobot {
         periodicAll();
     }
 
-    private void initPreferences() {
+    public static void initPreferences() {
         Preferences.getInstance().putDouble(PreferenceKeys.TURN_P, TurnCommand.kDefaultP);
         Preferences.getInstance().putDouble(PreferenceKeys.TURN_I, TurnCommand.kDefaultI);
         Preferences.getInstance().putDouble(PreferenceKeys.TURN_D, TurnCommand.kDefaultD);

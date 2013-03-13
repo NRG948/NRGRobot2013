@@ -123,6 +123,7 @@ public class OI implements IOperatorInterface {
     public OI() {
         leftJoyBtn7.whenPressed(new ResetSensorsCommand());
         leftJoyBtn11.whenPressed(new ReadGyroSensitivity());
+        leftJoyBtn12.whenPressed(new InitializePreferences());
         
         shootButton.whenPressed(new ReleaseFrisbeeCommand());
         
