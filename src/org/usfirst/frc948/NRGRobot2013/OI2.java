@@ -69,10 +69,10 @@ public class OI2 implements IOperatorInterface {
     private static final double MIN_CYPRESS_VOLTAGE = -0.001; //TODO: Set these values
     private static final double MAX_CYPRESS_VOLTAGE = 3.312;
     
-    private static final int AUTONOMOUS_SHOOT_SWITCH_CHANNEL_1=1;
-    private static final int AUTONOMOUS_SHOOT_SWITCH_CHANNEL_2=3;
-    private static final int AUTONOMOUS_DRIVE_SWITCH_CHANNEL_1=13;
-    private static final int AUTONOMOUS_DRIVE_SWITCH_CHANNEL_2=15;
+    private static final int AUTONOMOUS_SHOOT_SWITCH_CHANNEL_1 = 1;
+    private static final int AUTONOMOUS_SHOOT_SWITCH_CHANNEL_2 = 3;
+    private static final int AUTONOMOUS_DRIVE_SWITCH_CHANNEL_1 = 14;
+    private static final int AUTONOMOUS_DRIVE_SWITCH_CHANNEL_2 = 16;
     
     private static final int CAMERA_SLIDER_CHANNEL = 1;
     private static final int TRIM_SLIDER_CHANNEL = 5;
@@ -218,7 +218,7 @@ public class OI2 implements IOperatorInterface {
     }
     
     public boolean shooterUsePID() {
-        return !getDigital(15);
+        return !getDigital(PRESET_SHOOTER_SPEED_PID_ENABLE);
     }
     
     public boolean getDriveSlow() {
@@ -233,37 +233,40 @@ public class OI2 implements IOperatorInterface {
     public double getShootTrimPower() {
         return shootTrim * SHOOT_TRIM_MAX_POWER;
     }
+
     public double getShootTrimRPM() {
         return shootTrim * SHOOT_TRIM_MAX_RPM;
     }
-    public Autonomous.StartingPosition getAutonomousStartingPosition (){
-        boolean channel1=getDigital(AUTONOMOUS_SHOOT_SWITCH_CHANNEL_1);
-        boolean channel2=getDigital(AUTONOMOUS_SHOOT_SWITCH_CHANNEL_2);
-        if (!channel1&&channel2){
+
+    public Autonomous.StartingPosition getAutonomousStartingPosition() {
+        boolean channel1 = getDigital(AUTONOMOUS_SHOOT_SWITCH_CHANNEL_1);
+        boolean channel2 = getDigital(AUTONOMOUS_SHOOT_SWITCH_CHANNEL_2);
+        
+        if (!channel1 && channel2) {
             return Autonomous.StartingPosition.kLeft;
-        }
-        else if (channel1&&!channel2){
+        } else if (channel1 && !channel2) {
             return Autonomous.StartingPosition.kCenter;
-        }
-        else if (channel1&&channel2){
+        } else if (channel1 && channel2) {
             return Autonomous.StartingPosition.kRight;
         }
+        
         return null;
-        }
-    public Autonomous.TargetPosition getAutonomousTargetPosition (){
-        boolean channel1=getDigital(AUTONOMOUS_DRIVE_SWITCH_CHANNEL_1);
-        boolean channel2=getDigital(AUTONOMOUS_DRIVE_SWITCH_CHANNEL_2);
-        if (!channel1&&channel2){
+    }
+
+    public Autonomous.TargetPosition getAutonomousTargetPosition() {
+        boolean channel1 = getDigital(AUTONOMOUS_DRIVE_SWITCH_CHANNEL_1);
+        boolean channel2 = getDigital(AUTONOMOUS_DRIVE_SWITCH_CHANNEL_2);
+        
+        if (!channel1 && channel2) {
             return Autonomous.TargetPosition.kOutside;
-        }
-        else if (channel1&&!channel2){
+        } else if (channel1 && !channel2) {
             return Autonomous.TargetPosition.kInside;
-        }
-        else if (channel1&&channel2){
+        } else if (channel1 && channel2) {
             return Autonomous.TargetPosition.kLeft;
         }
+        
         return Autonomous.TargetPosition.kNone;
-        }
-    
+    }
+
 
 }
