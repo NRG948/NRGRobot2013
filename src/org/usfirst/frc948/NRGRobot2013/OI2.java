@@ -71,8 +71,8 @@ public class OI2 implements IOperatorInterface {
     
     private static final int AUTONOMOUS_SHOOT_SWITCH_CHANNEL_1=1;
     private static final int AUTONOMOUS_SHOOT_SWITCH_CHANNEL_2=3;
-    private static final int AUTONOMOUS_DRIVE_SWITCH_CHANNEL_1=13;
-    private static final int AUTONOMOUS_DRIVE_SWITCH_CHANNEL_2=15;
+    private static final int AUTONOMOUS_DRIVE_SWITCH_CHANNEL_1=14;
+    private static final int AUTONOMOUS_DRIVE_SWITCH_CHANNEL_2=16;
     
     private static final int CAMERA_SLIDER_CHANNEL = 1;
     private static final int TRIM_SLIDER_CHANNEL = 5;
