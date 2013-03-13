@@ -16,8 +16,8 @@ public class Shooter extends PIDSubsystem {
     
     public static final double MAX_RPM = 3800;
     
-    public static final double MIN_RPM_CLOSE_3PT = 2900;
-    public static final double MIN_RPM_FAR_3PT = 2400;
+    public static final double MIN_RPM_CLOSE_3PT = 2700;
+    public static final double MIN_RPM_FAR_3PT = 2340;
     public static final double MIN_RPM_FAR_2PT = 2300;
 
     public static final boolean DEFAULT_USE_PID = false;

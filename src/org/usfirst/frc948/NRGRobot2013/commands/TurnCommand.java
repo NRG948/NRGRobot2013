@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
@@ -19,7 +20,7 @@ public class TurnCommand extends PIDCommand {
     public static final double kDefaultI = 0.01;
     public static final double kDefaultD = 0.0;
     
-    private static final double DEGREES_CLOSE = 30.0;
+    private static final double DEGREES_CLOSE = 10.0;
     private static final double DEGREES_TOLERANCE = 2.0;
     private static final int REQUIRED_CYCLES_ON_TARGET = 3;
     
@@ -80,7 +81,7 @@ public class TurnCommand extends PIDCommand {
             double d = Preferences.getInstance().getDouble(PreferenceKeys.TURN_D, kDefaultD);
 
             Debug.println(Debug.DRIVE, "TurnCommand close to target (" + DEGREES_CLOSE + " degrees)");
-            Debug.println(Debug.DRIVE, "TurnCommand adjusting PID constants: " + p + " " + i + " " + d);
+            Debug.println(Debug.DRIVE, "    adjusting PID constants: " + p + " " + i + " " + d);
             
             this.getPIDController().setPID(p, i, d);
         }
@@ -98,6 +99,7 @@ public class TurnCommand extends PIDCommand {
     protected boolean isFinished() {
         if (this.getPIDController().onTarget()) {
             consecutiveCyclesOnTarget++;
+            Debug.println(Debug.DRIVE, "TurnCommand ON TARGET, Gyro: " + RobotMap.drivegyro.getAngle());
         } else {
             consecutiveCyclesOnTarget = 0;
         }
@@ -107,7 +109,7 @@ public class TurnCommand extends PIDCommand {
 
     // Called once after isFinished returns true
     protected void end() {
-        Robot.drive.stop();
+        Robot.drive.rawStop();
     }
 
     // Called when another command which requires one or more of the same

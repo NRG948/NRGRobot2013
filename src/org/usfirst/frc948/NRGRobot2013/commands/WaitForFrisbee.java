@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -11,8 +7,10 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
  *
  * @author Charles
  */
-public class WaitForFrisbee extends Command{
-    public WaitForFrisbee(){
+public class WaitForFrisbee extends Command {
+
+    public WaitForFrisbee() {
+        requires(Robot.shooter);
         requires(Robot.discMagazine);
     }
 
@@ -32,5 +30,5 @@ public class WaitForFrisbee extends Command{
     protected void interrupted() {
         end();
     }
-    
+
 }
