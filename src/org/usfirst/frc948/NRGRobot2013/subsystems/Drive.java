@@ -46,7 +46,7 @@ public class Drive extends PIDSubsystem {
     public static final double DEFAULT_MAX_CHANGE = 0.0015;
 
     public Drive() {
-        super("DrivePID", kP, kI, kD);
+        super("DrivePID", kP, kI, kD, 0.0, 0.03);
         this.getPIDController().setOutputRange(-0.1, 0.1);
         lastTime = System.currentTimeMillis();
     }
@@ -61,7 +61,7 @@ public class Drive extends PIDSubsystem {
 
         double leftSpeed = speed;
         double rightSpeed = speed - pidOutput;
-        if (rightSpeed > 1d || rightSpeed < -1d) {
+        if (rightSpeed > speed || rightSpeed < -speed) {
             leftSpeed = speed + pidOutput;
             rightSpeed = speed;
         }
@@ -71,7 +71,7 @@ public class Drive extends PIDSubsystem {
         SmartDashboard.putNumber("Drive PID Lpower", leftSpeed);
         SmartDashboard.putNumber("Drive PID Rpower", rightSpeed);
 
-        rawTankDrive(leftSpeed, rightSpeed);
+        rawTankDrive(leftSpeed, rightSpeed);        
     }
 
     public void driveStraightEnd() {
@@ -118,6 +118,13 @@ public class Drive extends PIDSubsystem {
         } catch (InterruptedException e) {
         }
 
+        leftMotor1.set(0);
+        leftMotor2.set(0);
+        rightMotor1.set(0);
+        rightMotor2.set(0);
+    }
+    
+    public void rawStop() {
         leftMotor1.set(0);
         leftMotor2.set(0);
         rightMotor1.set(0);
