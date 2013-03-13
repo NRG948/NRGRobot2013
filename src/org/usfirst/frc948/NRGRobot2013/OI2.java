@@ -218,7 +218,7 @@ public class OI2 implements IOperatorInterface {
     }
     
     public boolean shooterUsePID() {
-        return !getDigital(15);
+        return !getDigital(PRESET_SHOOTER_SPEED_PID_ENABLE);
     }
     
     public boolean getDriveSlow() {
