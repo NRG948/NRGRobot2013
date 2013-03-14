@@ -41,7 +41,13 @@ public class MathHelper {
      * returns the angle between on range of [0, 360]
      */
     public static double normalizeAngle(double angle) {
-        return angle % 360;
+        angle = angle % 360;
+        
+        if (angle < 0) {
+            return angle + 360;
+        } else {
+            return angle;
+        }
     }
 
     /**
