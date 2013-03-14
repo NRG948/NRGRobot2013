@@ -122,6 +122,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        positionTracker.update();
         periodicAll();
     }
 
@@ -140,6 +141,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        positionTracker.update();      
         periodicAll();
     }
 
@@ -180,7 +182,6 @@ public class Robot extends IterativeRobot {
 
         RobotMap.shooterQuadrature.update();
         oi.update();
-        positionTracker.update();
 
         LCD.clearLine(4);
         LCD.println(LCD.DRIVE, 1, "L:" + leftQuad + " R:" + rightQuad);

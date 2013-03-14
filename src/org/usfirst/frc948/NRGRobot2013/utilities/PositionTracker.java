@@ -34,21 +34,25 @@ public class PositionTracker {
         lastLeftQuadDistance = 0;
         lastRightQuadDistance = 0;
     }
+    
+    // Update the robot's current x,y field position based the sum of polar vectors created by reading the gyro heading and the drive encoders.
+    // The x,y coordinates tracked are for the rotational centerpoint of the robot.
+    // All on-field coordinates are always positive, such that (0,0) is the field corner to the driver's left.
+    // The center of the 3-pt goal is located at (13.5, 54.0).
     public void update() {
-        if ( initialized == false)
-        {
-            initialized = true;
+        if (initialized == false) {
             init();
+            initialized = true;
         }
         double newLeftQuadDistance = driveLeftQuad.getDistance() - lastLeftQuadDistance;
         double newRightQuadDistance = driveRightQuad.getDistance() - lastRightQuadDistance;
-        double average = (newLeftQuadDistance + newRightQuadDistance) / 2;
-        double degrees = MathHelper.HeadingToDegrees(driveGyro.getAngle());
+        double average = (newLeftQuadDistance + newRightQuadDistance) / 2;  // distance the robot centerpoint moved
+        double radians = Math.toRadians(MathHelper.HeadingToDegrees(driveGyro.getAngle()));
         
-        y += Math.sin(Math.toRadians(degrees)) * average;
-        x += Math.cos(Math.toRadians(degrees)) * average;
-        SmartDashboard.putNumber("X: ", x);
-        SmartDashboard.putNumber("Y: ", y);
+        x += Math.cos(radians) * average;
+        y += Math.sin(radians) * average;
+        SmartDashboard.putNumber("X: ", MathHelper.round(x,2));
+        SmartDashboard.putNumber("Y: ", MathHelper.round(y,2));
         lastLeftQuadDistance = newLeftQuadDistance;
         lastRightQuadDistance = newRightQuadDistance;
     }

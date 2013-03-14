@@ -53,7 +53,7 @@ public class DriveStraightDistance extends Command {
 
     protected void end() {
         Robot.drive.driveStraightEnd();
-        Robot.drive.stop();
+        Robot.drive.rawStop();
     }
 
     protected void interrupted() {
