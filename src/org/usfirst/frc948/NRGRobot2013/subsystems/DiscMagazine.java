@@ -44,18 +44,17 @@ public class DiscMagazine extends Subsystem {
         return count;
     }
     
-    public double getVoltage()
-    {
-        if ( IRSensor != null)
-        {
+    public double getVoltage() {
+        if (IRSensor != null) {
             //SmartDashboard.putNumber("IRVoltage: ", getVoltage());
             return IRSensor.getAverageVoltage();
         }
+        
         return 0;
     }
-    public boolean frisbeeLoaded()
-    {
-         
-         return getVoltage() > THRESHOLD;         
+
+    public boolean frisbeeLoaded() {
+        return getVoltage() > THRESHOLD;
     }
+    
 }

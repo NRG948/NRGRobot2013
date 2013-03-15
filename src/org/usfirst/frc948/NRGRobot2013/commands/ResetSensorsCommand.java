@@ -26,6 +26,7 @@ public class ResetSensorsCommand extends Command {
         Drive.resetLeftEncoder();
         Drive.resetRightEncoder();
         RobotMap.shooterQuadrature.reset();
+        Robot.positionTracker.init();
     }
 
     protected boolean isFinished() {

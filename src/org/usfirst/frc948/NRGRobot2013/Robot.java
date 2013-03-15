@@ -170,6 +170,9 @@ public class Robot extends IterativeRobot {
         Preferences.getInstance().putDouble(PreferenceKeys.DOUBLE_PARAM1, 0.0);
         Preferences.getInstance().putDouble(PreferenceKeys.DOUBLE_PARAM2, 0.0);
         Preferences.getInstance().putDouble(PreferenceKeys.DOUBLE_PARAM3, 0.0);
+        Preferences.getInstance().putDouble(PreferenceKeys.DRIVE_P, Drive.kDefaultP);
+        Preferences.getInstance().putDouble(PreferenceKeys.DRIVE_I, Drive.kDefaultI);
+        Preferences.getInstance().putDouble(PreferenceKeys.DRIVE_D, Drive.kDefaultD);
     }
 
     /*

@@ -85,7 +85,8 @@ public class MathHelper {
     
     public static double RpmToPower(double RPM) {
         if (RPM == 0) return 0;
-        return 0.0002470137 * RPM + 0.0014988179;
+//        return 0.0002470137 * RPM + 0.0014988179;
+        return 0.0002437357 * RPM + 0.1122354842;
     }
     
     public static double PowerToRpm(double power) {

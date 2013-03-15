@@ -24,4 +24,7 @@ public class PreferenceKeys {
     public static final String DOUBLE_PARAM1 = "DoubleParam1";
     public static final String DOUBLE_PARAM2 = "DoubleParam2";
     public static final String DOUBLE_PARAM3 = "DoubleParam3";
+    public static final String DRIVE_P = "DriveP";
+    public static final String DRIVE_I = "DriveI";
+    public static final String DRIVE_D = "DriveD";
 }
