@@ -152,6 +152,8 @@ public class OI implements IOperatorInterface {
 //        SmartDashboard.putData("Autonomous (PID)", new Autonomous(Autonomous.ShooterMode.kPID, Autonomous.StartingPosition.kCenter, Autonomous.TargetPosition.kNone));
 //        
 //        SmartDashboard.putData("CalibrateRPM", new CalibrateRPM());
+        
+        SmartDashboard.putData("DriveToXY(Params)", new DriveToXYParams());
     }
     
     public Joystick getleftJoystick() {

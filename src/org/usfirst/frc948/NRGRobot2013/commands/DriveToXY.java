@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.usfirst.frc948.NRGRobot2013.commands;
 
 import com.sun.squawk.util.MathUtils;
@@ -21,7 +17,7 @@ public class DriveToXY extends Command {
     private double distanceToGo, prevDistanceToGo;
     private final double DRIVEXY_TOLERANCE = 1.0/12.0;  // How close we're trying to get to target x,y (in feet)
 
-    DriveToXY(double x, double y) {
+    public DriveToXY(double x, double y) {
         this(0.45, x, y);
     }
 
@@ -30,7 +26,7 @@ public class DriveToXY extends Command {
      * @param x - desired destination x coordinate
      * @param y - desired destination y coordinate
      */
-    DriveToXY(double power, double x, double y) {
+    public DriveToXY(double power, double x, double y) {
         requires(Robot.drive);
         maxPower = power;
         xFinal = x;
