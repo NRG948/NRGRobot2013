@@ -1,11 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc948.NRGRobot2013.utilities.PositionTracker;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 /**
  *
@@ -13,9 +8,10 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
  */
 public class SetPositionCommand extends Command{
     
-    private static double DesiredxPos = 0;
-    private static double DesiredyPos = 0;
-    public SetPositionCommand(double a, double b){
+    private double DesiredxPos = 0;
+    private double DesiredyPos = 0;
+    
+    public SetPositionCommand(double a, double b) {
         DesiredxPos = a;
         DesiredyPos = b;
     }
@@ -24,7 +20,7 @@ public class SetPositionCommand extends Command{
     }
 
     protected void execute() {
-        Robot.positionTracker.setNewPosition(DesiredxPos, DesiredyPos);
+        Robot.positionTracker.setPosition(DesiredxPos, DesiredyPos);
     }
 
     protected boolean isFinished() {

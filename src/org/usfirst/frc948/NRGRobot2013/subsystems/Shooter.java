@@ -74,7 +74,7 @@ public class Shooter extends PIDSubsystem {
     protected void initDefaultCommand() {
         setDefaultCommand(new OperatorShooterSpeed());
         SmartDashboard.putData("Shooter", this);
-        SmartDashboard.putData("ShooterPID", this.getPIDController());
+//        SmartDashboard.putData("ShooterPID", this.getPIDController());
     }
 
     protected double returnPIDInput() {

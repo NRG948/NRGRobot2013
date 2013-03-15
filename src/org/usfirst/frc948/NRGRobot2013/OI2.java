@@ -243,6 +243,7 @@ public class OI2 implements IOperatorInterface {
     public Autonomous.StartingPosition getAutonomousStartingPosition() {
         boolean channel1 = getDigital(OI2.AUTONOMOUS_SHOOT_SWITCH_CHANNEL_1);
         boolean channel2 = getDigital(OI2.AUTONOMOUS_SHOOT_SWITCH_CHANNEL_2);
+        
         if (channel1 && !channel2) {
             return Autonomous.StartingPosition.kLeft;
         } else if (!channel1 && channel2) {
