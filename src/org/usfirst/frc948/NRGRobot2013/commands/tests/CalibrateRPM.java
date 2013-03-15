@@ -27,14 +27,11 @@ public class CalibrateRPM extends Command {
     }
 
     protected void execute() {
-        if ((System.currentTimeMillis() - startingTime) >= 30000) {
-            System.out.print("POWER:");
-            System.out.print(MathHelper.round(power, 2));
-            System.out.print(" AVG_RPM:");
-            System.out.print(MathHelper.round(RobotMap.shooterQuadrature.averageRPM(), 4));
-            System.out.print(" BATT_VOLT:");
-            System.out.print(DriverStation.getInstance().getBatteryVoltage());
-            System.out.println();
+        if ((System.currentTimeMillis() - startingTime) >= 10000) {
+            double rpm = RobotMap.shooterQuadrature.averageRPM();
+            printData(power, rpm);
+            printData(power, rpm);
+            printData(power, rpm);
 
             startingTime = System.currentTimeMillis();
             power += 0.05;
@@ -53,5 +50,14 @@ public class CalibrateRPM extends Command {
 
     protected void interrupted() {
         end();
+    }
+    
+    private void printData(double power, double rpm) {
+        System.out.print("POWER:");
+        System.out.print(MathHelper.round(power, 3));
+        System.out.print(" AVG_RPM:");
+        System.out.print(MathHelper.round(rpm, 1));
+        System.out.print(" BATT_VOLT:");
+        System.out.println(DriverStation.getInstance().getBatteryVoltage());
     }
 }
