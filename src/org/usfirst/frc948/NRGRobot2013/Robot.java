@@ -167,6 +167,9 @@ public class Robot extends IterativeRobot {
         Preferences.getInstance().putDouble(PreferenceKeys.SHOOTER_I, Shooter.kDefaultI);
         Preferences.getInstance().putDouble(PreferenceKeys.SHOOTER_D, Shooter.kDefaultD);
         Preferences.getInstance().putDouble(PreferenceKeys.SHOOT_PID_SCALE_FACTOR, Shooter.PID_OUTPUT_SCALE_VALUE);
+        Preferences.getInstance().putDouble(PreferenceKeys.DOUBLE_PARAM1, 0.0);
+        Preferences.getInstance().putDouble(PreferenceKeys.DOUBLE_PARAM2, 0.0);
+        Preferences.getInstance().putDouble(PreferenceKeys.DOUBLE_PARAM3, 0.0);
     }
 
     /*

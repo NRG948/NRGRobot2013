@@ -21,4 +21,7 @@ public class PreferenceKeys {
     public static final String SHOOTER_I = "ShooterI";
     public static final String SHOOTER_D = "ShooterD";
     public static final String SHOOT_PID_SCALE_FACTOR = "ShooterPIDScaleValue";
+    public static final String DOUBLE_PARAM1 = "DoubleParam1";
+    public static final String DOUBLE_PARAM2 = "DoubleParam2";
+    public static final String DOUBLE_PARAM3 = "DoubleParam3";
 }
