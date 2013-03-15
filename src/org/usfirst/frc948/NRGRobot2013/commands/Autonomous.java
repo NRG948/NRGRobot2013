@@ -42,11 +42,12 @@ public class Autonomous extends CommandGroup {
     }
 
     public static class StartingPosition {
+        private static final int kNone_val = 0;
+        private static final int kLeft_val = 1;
+        private static final int kCenter_val = 2;
+        private static final int kRight_val = 3;
         
-        private static final int kLeft_val = 0;
-        private static final int kCenter_val = 1;
-        private static final int kRight_val = 2;
-        
+        public static final StartingPosition kNone = new StartingPosition(kNone_val);
         public static final StartingPosition kLeft = new StartingPosition(kLeft_val);
         public static final StartingPosition kCenter = new StartingPosition(kCenter_val);
         public static final StartingPosition kRight = new StartingPosition(kRight_val);

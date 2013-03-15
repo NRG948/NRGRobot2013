@@ -26,6 +26,7 @@ import org.usfirst.frc948.NRGRobot2013.subsystems.Climber;
 import org.usfirst.frc948.NRGRobot2013.subsystems.Shooter;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
+import org.usfirst.frc948.NRGRobot2013.utilities.NRGDigitalIOButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -123,16 +124,15 @@ public class OI2 implements IOperatorInterface {
                    rightJoyBtn10 = new JoystickButton(rightJoystick, 10),
                    rightJoyBtn11 = new JoystickButton(rightJoystick, 11);
     
-//    private Button btnClimbDisengage = new DigitalIOButton(12);
-    private Button btnClimbEngage =  new DigitalIOButton(CLIMBER_DEPLOY);
-    private Button btnClimbUp = new DigitalIOButton(CLIMBER_CLIMB);
+    private Button btnClimbEngage =  new NRGDigitalIOButton(CLIMBER_DEPLOY, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
+    private Button btnClimbUp = new NRGDigitalIOButton(CLIMBER_CLIMB, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
     
     
     private Button shootButton = new DigitalIOButton(MANUAL_SHOOT);
     
-    private Button btnShootTower3pt = new DigitalIOButton(SHOOTING_POSITION_TOWER_3PT);
-    private Button btnShootFeeder3pt = new DigitalIOButton(SHOOTING_POSITION_FEEDER_3PT);
-    private Button btnShootFeeder2pt = new DigitalIOButton(SHOOTING_POSITION_FEEDER_2PT);
+    private Button btnShootTower3pt = new NRGDigitalIOButton(SHOOTING_POSITION_TOWER_3PT, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
+    private Button btnShootFeeder3pt = new NRGDigitalIOButton(SHOOTING_POSITION_FEEDER_3PT, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
+    private Button btnShootFeeder2pt = new NRGDigitalIOButton(SHOOTING_POSITION_FEEDER_2PT, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
     
     private double shootTrim = 0.0;
     
@@ -220,7 +220,7 @@ public class OI2 implements IOperatorInterface {
     }
     
     public boolean shooterUsePID() {
-        return !getDigital(PRESET_SHOOTER_SPEED_PID_ENABLE);
+        return getDigital(PRESET_SHOOTER_SPEED_PID_ENABLE);
     }
     
     public boolean getDriveSlow() {
@@ -241,29 +241,28 @@ public class OI2 implements IOperatorInterface {
     }
 
     public Autonomous.StartingPosition getAutonomousStartingPosition() {
-        boolean channel1 = getDigital(AUTONOMOUS_SHOOT_SWITCH_CHANNEL_1);
-        boolean channel2 = getDigital(AUTONOMOUS_SHOOT_SWITCH_CHANNEL_2);
-        
-        if (!channel1 && channel2) {
+        boolean channel1 = getDigital(OI2.AUTONOMOUS_SHOOT_SWITCH_CHANNEL_1);
+        boolean channel2 = getDigital(OI2.AUTONOMOUS_SHOOT_SWITCH_CHANNEL_2);
+        if (channel1 && !channel2) {
             return Autonomous.StartingPosition.kLeft;
-        } else if (channel1 && !channel2) {
+        } else if (!channel1 && channel2) {
             return Autonomous.StartingPosition.kCenter;
         } else if (channel1 && channel2) {
             return Autonomous.StartingPosition.kRight;
         }
         
-        return null;
+        return Autonomous.StartingPosition.kNone;
     }
 
     public Autonomous.TargetPosition getAutonomousTargetPosition() {
         boolean channel1 = getDigital(AUTONOMOUS_DRIVE_SWITCH_CHANNEL_1);
         boolean channel2 = getDigital(AUTONOMOUS_DRIVE_SWITCH_CHANNEL_2);
         
-        if (!channel1 && channel2) {
+        if (!channel1 && !channel2) {
             return Autonomous.TargetPosition.kOutside;
         } else if (channel1 && !channel2) {
             return Autonomous.TargetPosition.kInside;
-        } else if (channel1 && channel2) {
+        } else if (!channel1 && channel2) {
             return Autonomous.TargetPosition.kLeft;
         }
         

@@ -192,7 +192,7 @@ public class Robot extends IterativeRobot {
         LCD.println(LCD.SHOOT, 3, "RELEASED: " + Robot.discMagazine.getCount());
         LCD.println(true, 4, "AVG RPM:" + RobotMap.shooterQuadrature.averageRPM());
         LCD.println(true, 5, "SHOOT PID:" + oi.shooterUsePID() + "  ");
-//        LCD.println(true, 6, "SHOOT TRIM:" + oi.getShootTrimPower());
+//        LCD.println(true, 6, "AUTO START:" + oi.getAutonomousStartingPosition().position + " TGT:"+oi.getAutonomousTargetPosition().position);
         LCD.update();
 
         // Show what command each subsystem is executing
