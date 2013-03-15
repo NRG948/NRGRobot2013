@@ -21,7 +21,6 @@ public class SetPositionCommand extends Command{
     }
 
     protected void initialize() {
-        Robot.positionTracker.init();
     }
 
     protected void execute() {
