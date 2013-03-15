@@ -25,7 +25,7 @@ public class SetPositionCommand extends Command{
     }
 
     protected void execute() {
-        Robot.positionTracker.setNewPosition(DesiredxPos, DesiredxPos);
+        Robot.positionTracker.setNewPosition(DesiredxPos, DesiredyPos);
     }
 
     protected boolean isFinished() {
