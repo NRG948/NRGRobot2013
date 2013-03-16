@@ -45,6 +45,7 @@ public class DriveToXY extends Command {
         distanceToGo = Math.sqrt(dX * dX + dY * dY);
         // atan2(dy,dx) works in all 4 quadrants; trig angle "theta" will always be between -179.999 and +180.0
         double theta = Math.toDegrees(MathUtils.atan2(dY, dX));
+        double gyroHeading = Robot.positionTracker.getHeading();
         
         if (maxPower >= 0) { // driving forward
             newHeading = 90.0 - theta;
@@ -53,13 +54,23 @@ public class DriveToXY extends Command {
             newHeading = -90 - theta;
             power = MathHelper.clamp(-distanceToGo / 3, maxPower, 0.0);
         }
-        Robot.drive.driveStraight(power, newHeading);
+        Robot.drive.driveStraight(power, equivalentHeading(newHeading, gyroHeading));
     }
 
+    private double equivalentHeading(double heading, double gyroHeading) {
+        double deltaAngle = (heading - gyroHeading) % 360;
+        if (deltaAngle > 180) deltaAngle -= 360;
+        if (deltaAngle <= -180) deltaAngle += 360;
+        return gyroHeading + deltaAngle;
+    }
+    
     protected boolean isFinished() {
         // Finish the command if we're very close to target position, or if we overshot the target and are moving away.
-        boolean finished = (distanceToGo <= DRIVEXY_TOLERANCE) || (distanceToGo > prevDistanceToGo + DRIVEXY_TOLERANCE/2);
+        boolean finished = (distanceToGo <= DRIVEXY_TOLERANCE) || (distanceToGo < 1.0 && distanceToGo > prevDistanceToGo + DRIVEXY_TOLERANCE/2);
         prevDistanceToGo = distanceToGo;
+        double x = MathHelper.round(Robot.positionTracker.getX(),2);
+        double y = MathHelper.round(Robot.positionTracker.getY(),2);
+        System.out.println("[DrivetoXY] final pos (" + x + "," + y + ")");
         return finished;
     }
 
