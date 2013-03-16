@@ -21,7 +21,7 @@ public class ResetSensorsCommand extends Command {
     }
 
     protected void execute() {
-        Robot.drive.resetGyro();
+        RobotMap.drivegyro.reset();
         Robot.drive.setDesiredHeading(0);
         Drive.resetLeftEncoder();
         Drive.resetRightEncoder();

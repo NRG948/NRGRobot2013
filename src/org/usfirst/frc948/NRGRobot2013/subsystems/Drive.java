@@ -147,10 +147,6 @@ public class Drive extends PIDSubsystem {
         return gyro.getAngle();
     }
 
-    public void resetGyro() {
-        gyro.reset();
-    }
-
     public void setGyroSensitivity(double k) {
         gyro.setSensitivity(k);
     }
