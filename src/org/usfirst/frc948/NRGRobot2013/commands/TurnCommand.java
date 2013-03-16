@@ -73,6 +73,8 @@ public class TurnCommand extends PIDCommand {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        if (degrees == 0) return;
+        
         if (!closeToTarget && Math.abs(Robot.drive.getGyroAngle() - Robot.drive.getDesiredHeading()) <= DEGREES_CLOSE) {
             closeToTarget = true;
             
@@ -104,7 +106,7 @@ public class TurnCommand extends PIDCommand {
             consecutiveCyclesOnTarget = 0;
         }
 
-        return consecutiveCyclesOnTarget >= REQUIRED_CYCLES_ON_TARGET;
+        return this.degrees == 0 || consecutiveCyclesOnTarget >= REQUIRED_CYCLES_ON_TARGET;
     }
 
     // Called once after isFinished returns true
