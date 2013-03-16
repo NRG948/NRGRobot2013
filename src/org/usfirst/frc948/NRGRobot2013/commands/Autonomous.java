@@ -143,7 +143,7 @@ public class Autonomous extends CommandGroup {
     public static void initPreferences() {
         double[][] defaults = {
             {  8.0, 32.0,   5.0, 0.0, Shooter.MIN_RPM_CLOSE_3PT, -20.0, 16.0, 29.0, 0.00, 25.5, 6.0, 22.5, 4.0 },  // left
-            { 14.5, 32.0,   0.0, 0.0, Shooter.MIN_RPM_CLOSE_3PT,   0.0, 16.0, 29.0, 0.00, 25.5, 6.0, 22.5, 4.0 },  // center
+            { 14.5, 32.0,   0.0, 1.5, Shooter.MIN_RPM_CLOSE_3PT,   0.0, 16.0, 29.0, 0.00, 25.5, 6.0, 22.5, 4.0 },  // center
             { 21.0, 32.0, -10.0, 0.0, Shooter.MIN_RPM_CLOSE_3PT,   0.0, 16.0, 29.0, 0.00, 25.5, 6.0, 22.5, 4.0 }   // right
         };
         
