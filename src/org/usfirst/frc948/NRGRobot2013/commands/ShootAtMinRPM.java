@@ -1,6 +1,7 @@
 package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 
 /**
@@ -26,7 +27,7 @@ public class ShootAtMinRPM extends CommandGroup {
     }
     
     public void initialize() {
-        System.out.println("[ShootAtMinRPM] initializing with RPM=" + rpm);
+        Debug.println("[ShootAtMinRPM] initializing with RPM=" + rpm);
     }
     
     public void interrupted() {

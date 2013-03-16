@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.subsystems.Shooter;
+import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 
@@ -21,7 +22,7 @@ public class OperatorShooterSpeed extends Command {
     }
 
     protected void initialize() {
-        System.out.println("[OperatorShooterSpeed] initializing");
+        Debug.println("[OperatorShooterSpeed] initializing");
     }
 
     protected void execute() {
@@ -32,7 +33,7 @@ public class OperatorShooterSpeed extends Command {
             if(!usingPID) {
                 Robot.shooter.reset();
                 usingPID = true;
-                System.out.println("[OperatorShooterSpeed] switch to PID");
+                Debug.println("[OperatorShooterSpeed] switch to PID");
             }
             
             SmartDashboard.putNumber("PID target RPM", speedSlider * Shooter.MAX_RPM);
@@ -53,7 +54,7 @@ public class OperatorShooterSpeed extends Command {
     }
 
     protected void end() {
-        System.out.println("[OperatorShooterSpeed] ending");
+        Debug.println("[OperatorShooterSpeed] ending");
         Robot.shooter.stop();
     }
 

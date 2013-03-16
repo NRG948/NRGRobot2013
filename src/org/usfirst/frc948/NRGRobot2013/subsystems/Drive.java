@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.commands.*;
+import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
@@ -62,7 +63,7 @@ public class Drive extends PIDSubsystem {
         double i = Preferences.getInstance().getDouble(PreferenceKeys.DRIVE_I, kDefaultI);
         double d = Preferences.getInstance().getDouble(PreferenceKeys.DRIVE_D, kDefaultD);
         pid.setPID(p, i, d);
-        System.out.println("[Drive] driveStraightInit | P:" + p + " I:" + i + " D:" + d);
+        Debug.println("[Drive] driveStraightInit | P:" + p + " I:" + i + " D:" + d);
         pid.setOutputRange(-PID_MAX_OUTPUT, PID_MAX_OUTPUT);
         pid.enable();
     }

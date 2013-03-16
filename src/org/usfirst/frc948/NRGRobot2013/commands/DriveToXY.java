@@ -4,6 +4,7 @@ import com.sun.squawk.util.MathUtils;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
+import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 
 /**
@@ -70,7 +71,7 @@ public class DriveToXY extends Command {
         prevDistanceToGo = distanceToGo;
         double x = MathHelper.round(Robot.positionTracker.getX(),2);
         double y = MathHelper.round(Robot.positionTracker.getY(),2);
-        System.out.println("[DrivetoXY] final pos (" + x + "," + y + ")");
+        Debug.println("[DrivetoXY] final pos (" + x + "," + y + ")");
         return finished;
     }
 

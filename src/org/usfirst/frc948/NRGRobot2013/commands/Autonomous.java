@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.subsystems.Shooter;
+import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 
 /**
  * 
@@ -168,6 +169,8 @@ public class Autonomous extends CommandGroup {
         } else {
             prefix = PreferenceKeys.PREFIX_CENTER;
         }
+        
+        Debug.println("[Autonomous] building sequence " + mode + " " + start + " " + destination);
         
         initializePosition();
         buildShootSequence();

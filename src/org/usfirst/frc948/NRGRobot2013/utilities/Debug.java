@@ -90,4 +90,16 @@ public class Debug {
             System.out.println(printString);
         }
     }
+    
+    public static void print(String s) {
+        if (print) {
+            System.out.print(s);
+        }
+    }
+    
+    public static void println(String s) {
+        if (print) {
+            System.out.println(s);
+        }
+    }
 }

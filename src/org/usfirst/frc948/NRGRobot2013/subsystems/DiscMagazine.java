@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
+import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 
 /**
  * @author Patrick & Charles
@@ -32,6 +33,10 @@ public class DiscMagazine extends Subsystem {
     }
 
     public void openPiston() {
+        if (magPiston.get() == Relay.Value.kOff) {
+            Debug.println("[DiscMagazine] opening with RPM=" + RobotMap.shooterQuadrature.averageRPM());
+        }
+        
         magPiston.set(Relay.Value.kReverse);
     }
 

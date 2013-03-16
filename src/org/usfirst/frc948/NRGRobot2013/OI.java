@@ -69,10 +69,10 @@ public class OI implements IOperatorInterface {
     private static final double MIN_CYPRESS_VOLTAGE = -0.001; //TODO: Set these values
     private static final double MAX_CYPRESS_VOLTAGE = 3.312;
     
-    private static final int AUTONOMOUS_SHOOT_SWITCH_CHANNEL_1 = 3;
-    private static final int AUTONOMOUS_SHOOT_SWITCH_CHANNEL_2 = 1;
-    private static final int AUTONOMOUS_DRIVE_SWITCH_CHANNEL_1 = 16;
-    private static final int AUTONOMOUS_DRIVE_SWITCH_CHANNEL_2 = 14;
+    private static final int AUTONOMOUS_SHOOT_SWITCH_CHANNEL_1 = 1;
+    private static final int AUTONOMOUS_SHOOT_SWITCH_CHANNEL_2 = 3;
+    private static final int AUTONOMOUS_DRIVE_SWITCH_CHANNEL_1 = 5;
+    private static final int AUTONOMOUS_DRIVE_SWITCH_CHANNEL_2 = 7;
     
     private static final int CAMERA_SLIDER_CHANNEL = 2;
     private static final int TRIM_SLIDER_CHANNEL = 4;
