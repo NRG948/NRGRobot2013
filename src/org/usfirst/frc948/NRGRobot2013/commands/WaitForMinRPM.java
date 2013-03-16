@@ -3,6 +3,7 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
+import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 
 /**
  * Wait until shooter wheel reaches a minimum RPM.
@@ -19,6 +20,7 @@ public class WaitForMinRPM extends Command {
     }
 
     protected void initialize() {
+        Debug.println("[WaitForMinRPM] initializing with RPM=" + RobotMap.shooterQuadrature.averageRPM());
     }
 
     protected void execute() {
