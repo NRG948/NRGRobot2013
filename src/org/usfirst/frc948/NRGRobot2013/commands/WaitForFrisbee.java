@@ -9,19 +9,31 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
  */
 public class WaitForFrisbee extends Command {
 
+    private boolean previousFrisbeeLoaded;
+    private long end;
+    
     public WaitForFrisbee() {
         requires(Robot.shooter);
         requires(Robot.discMagazine);
     }
 
     protected void initialize() {
+        end = 0;
+        previousFrisbeeLoaded = Robot.discMagazine.frisbeeLoaded();
     }
 
     protected void execute() {
+        boolean currentFrisbeeLoaded = Robot.discMagazine.frisbeeLoaded();
+        
+        if (!previousFrisbeeLoaded && currentFrisbeeLoaded) {
+            end = System.currentTimeMillis() + 500;
+        }
+        
+        previousFrisbeeLoaded = currentFrisbeeLoaded;
     }
 
     protected boolean isFinished() {
-        return Robot.discMagazine.frisbeeLoaded();
+        return previousFrisbeeLoaded && System.currentTimeMillis() >= end;
     }
 
     protected void end() {
