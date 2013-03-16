@@ -16,7 +16,7 @@ public class PositionTracker {
     private Gyro driveGyro;
     private Encoder driveLeftQuad, driveRightQuad;
     private double x, y;
-    private double lastLeftQuadDistance, lastRightQuadDistance;
+    private double lastLeftQuadDistance, lastRightQuadDistance, lastGyroHeading;
     private boolean initialized = false;
     
     public PositionTracker(Gyro driveGyro, Encoder driveLeftQuad, Encoder driveRightQuad) {
@@ -45,15 +45,15 @@ public class PositionTracker {
         if (!initialized) {
             init();
         }
-        
         double leftDistance = driveLeftQuad.getDistance();
         double rightDistance = driveRightQuad.getDistance();
         
         double leftChange = leftDistance - lastLeftQuadDistance;
         double rightChange = rightDistance - lastRightQuadDistance;
-        
         double average = (leftChange + rightChange) / 2;  // distance the robot centerpoint moved
-        double radians = Math.toRadians(MathHelper.HeadingToDegrees(driveGyro.getAngle()));
+        
+        lastGyroHeading = driveGyro.getAngle();
+        double radians = Math.toRadians(MathHelper.HeadingToDegrees(lastGyroHeading));
         
         x += Math.cos(radians) * average;
         y += Math.sin(radians) * average;
@@ -71,6 +71,10 @@ public class PositionTracker {
 
     public double getY() {
         return y;
+    }
+
+    public double getHeading() {
+        return lastGyroHeading;
     }
 
     public void setPosition(double newX, double newY) {
