@@ -1,11 +1,12 @@
 package org.usfirst.frc948.NRGRobot2013.commands;
 
+import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.subsystems.Shooter;
 
 /**
- * Shoots 4 frisbees (misfire safety) and moves back ~10 feet at ~26 degrees.
- * ...Also known as our autonomous routine.
  * 
  * @author irving
  */
@@ -42,6 +43,7 @@ public class Autonomous extends CommandGroup {
     }
 
     public static class StartingPosition {
+        
         private static final int kNone_val = 0;
         private static final int kLeft_val = 1;
         private static final int kCenter_val = 2;
@@ -86,17 +88,114 @@ public class Autonomous extends CommandGroup {
     private static final int MINIMUM_DELAY = 600;
     
     // constants for autonomous driving
-    private static final double DEFAULT_SPEED = 0.5;
+    private static final double DEFAULT_TURN_SPEED = 0.3;
+    private static final double DEFAULT_SPEED = 0.4;
     
-    public Autonomous(ShooterMode mode, StartingPosition start, TargetPosition destination) {
-        buildShootSequence(mode);
-        buildMoveSequence(start, destination);
+    private final ShooterMode mode;
+    private final StartingPosition start;
+    private final TargetPosition destination;
+    
+    private final String prefix;
+    
+    public static class PreferenceKeys {
+        public static final String PREFIX_LEFT = "AutoL";
+        public static final String PREFIX_CENTER = "AutoC";
+        public static final String PREFIX_RIGHT = "AutoR";
         
-//        addSequential(new SetDesiredHeading(-26.5));
-//        addSequential(new DriveStraightDistance(-0.5, 10));
+        public static final String INITIAL_X = "InitialX";
+        public static final String INITIAL_Y = "InitialY";
+        public static final String INITIAL_TURN = "Turn";
+        public static final String INTIAL_DISTANCE = "Distance";
+        public static final String SHOOT_RPM = "MinRPM";
+        public static final String ALIGN_TURN = "PostShootTurn";
+        public static final String DEST_X = "PostShootX";
+        public static final String DEST_Y = "PostShootY";
+        public static final String FINAL_TURN = "FinalTurn";
+        public static final String OUTSIDE_X = "FinalPos1X";
+        public static final String OUTSIDE_Y = "FinalPos1Y";
+        public static final String INSIDE_X = "FinalPos2X";
+        public static final String INSIDE_Y = "FinalPos2Y";
+        
+        public static final String[] prefixes = {
+            PREFIX_LEFT,
+            PREFIX_CENTER,
+            PREFIX_RIGHT
+        };
+        
+        public static final String[] array = {
+            INITIAL_X,
+            INITIAL_Y,
+            INITIAL_TURN,
+            INTIAL_DISTANCE,
+            SHOOT_RPM,
+            ALIGN_TURN,
+            DEST_X,
+            DEST_Y,
+            FINAL_TURN,
+            OUTSIDE_X,
+            OUTSIDE_Y,
+            INSIDE_X,
+            INSIDE_Y
+        };
     }
     
-    private void buildShootSequence(ShooterMode mode) {
+    public static void initPreferences() {
+        double[][] defaults = {
+            {  8.0, 32.0,   5.0, 0.0, Shooter.MIN_RPM_CLOSE_3PT, -20.0, 16.0, 29.0, 0.00, 25.5, 6.0, 22.5, 4.0 },  // left
+            { 14.5, 32.0,   0.0, 0.0, Shooter.MIN_RPM_CLOSE_3PT,   0.0, 16.0, 29.0, 0.00, 25.5, 6.0, 22.5, 4.0 },  // center
+            { 21.0, 32.0, -10.0, 0.0, Shooter.MIN_RPM_CLOSE_3PT,   0.0, 16.0, 29.0, 0.00, 25.5, 6.0, 22.5, 4.0 }   // right
+        };
+        
+        String[] keys = PreferenceKeys.array;
+        String[] prefixes = PreferenceKeys.prefixes;
+        
+        for (int i = 0; i < prefixes.length; i++) {
+            for (int j = 0; j < keys.length; j++) {
+                Preferences.getInstance().putDouble(prefixes[i] + keys[j], defaults[i][j]);
+            }
+        }
+    }
+    
+    public Autonomous(ShooterMode mode, StartingPosition start, TargetPosition destination) {
+        this.mode = mode;
+        this.start = start;
+        this.destination = destination;
+        
+        if (start.position == StartingPosition.kLeft_val) {
+            prefix = PreferenceKeys.PREFIX_LEFT;
+        } else if (start.position == StartingPosition.kRight_val) {
+            prefix = PreferenceKeys.PREFIX_RIGHT;
+        } else {
+            prefix = PreferenceKeys.PREFIX_CENTER;
+        }
+        
+        initializePosition();
+        buildShootSequence();
+        buildMoveSequence();
+    }
+    
+    private void initializePosition() {
+        addSequential(new Command() {
+            protected void initialize() {}
+            protected void execute() {Robot.positionTracker.init();}
+            protected boolean isFinished() {return true;}
+            protected void end() {}
+            protected void interrupted() {}
+        });
+        
+        addSequential(new SetPositionCommand(Preferences.getInstance().getDouble(prefix + PreferenceKeys.INITIAL_X, 0.0),
+                    Preferences.getInstance().getDouble(prefix + PreferenceKeys.INITIAL_Y, 0.0)));
+    }
+    
+    private void buildShootSequence() {
+        if (start.position == StartingPosition.kNone_val) {
+            return;
+        }
+        
+        addSequential(new TurnCommand(DEFAULT_TURN_SPEED, Preferences.getInstance().getDouble(prefix + PreferenceKeys.INITIAL_TURN, 0.0)));
+        addSequential(new DriveStraightDistance(-DEFAULT_SPEED, Preferences.getInstance().getDouble(prefix + PreferenceKeys.INTIAL_DISTANCE, 0.0)));
+        
+        double minRPM = Preferences.getInstance().getDouble(prefix + PreferenceKeys.SHOOT_RPM, Shooter.MIN_RPM_CLOSE_3PT);
         if (mode.mode == ShooterMode.kTimer_val) {
             addSequential(new SetShooterMotorPower(1.0));
             addSequential(new Delay(INITIAL_DELAY));
@@ -107,19 +206,19 @@ public class Autonomous extends CommandGroup {
             addSequential(new ReleaseFrisbeeCommand());
         } else if (mode.mode == ShooterMode.kEncoder_val) {
             addSequential(new SetShooterMotorPower(1.0));
-            addSequential(new WaitForMinRPM(Shooter.MIN_RPM_CLOSE_3PT));
+            addSequential(new WaitForMinRPM(minRPM));
             addSequential(new ReleaseFrisbeeCommand());
             addSequential(new Delay(MINIMUM_DELAY));
-            addSequential(new WaitForMinRPM(Shooter.MIN_RPM_CLOSE_3PT));
+            addSequential(new WaitForMinRPM(minRPM));
             addSequential(new ReleaseFrisbeeCommand());
             addSequential(new Delay(MINIMUM_DELAY));
-            addSequential(new WaitForMinRPM(Shooter.MIN_RPM_CLOSE_3PT));
+            addSequential(new WaitForMinRPM(minRPM));
             addSequential(new ReleaseFrisbeeCommand());
             addSequential(new Delay(MINIMUM_DELAY));
-            addSequential(new WaitForMinRPM(Shooter.MIN_RPM_CLOSE_3PT));
+            addSequential(new WaitForMinRPM(minRPM));
             addSequential(new ReleaseFrisbeeCommand());
         } else if (mode.mode == ShooterMode.kPID_val) {
-            addSequential(new SetShooterRPM(Shooter.MIN_RPM_CLOSE_3PT));
+            addSequential(new SetShooterRPM(minRPM));
             addSequential(new WaitForShooterSpeed());
             addSequential(new ReleaseFrisbeeCommand());
             addSequential(new WaitForShooterSpeed());
@@ -129,14 +228,32 @@ public class Autonomous extends CommandGroup {
         }
         
         addSequential(new SetShooterMotorPower(0.0));
+        addSequential(new TurnCommand(DEFAULT_TURN_SPEED, Preferences.getInstance().getDouble(prefix + PreferenceKeys.ALIGN_TURN, 0.0)));
     }
     
-    private void buildMoveSequence(StartingPosition start, TargetPosition destination) {
+    private void buildMoveSequence() {
         if (destination.position == TargetPosition.kNone_val) {
             return;
         }
         
-        addSequential(new DriveStraightDistance(-DEFAULT_SPEED, 2));
+        addSequential(new DriveToXY(DEFAULT_SPEED, Preferences.getInstance().getDouble(prefix + PreferenceKeys.DEST_X, 0.0), Preferences.getInstance().getDouble(prefix + PreferenceKeys.DEST_Y, 0.0)));
+        addSequential(new TurnCommand(DEFAULT_TURN_SPEED, Preferences.getInstance().getDouble(prefix + PreferenceKeys.FINAL_TURN, 0.0)));
+    }
+    
+    public CommandGroup buildPostAutonomous() {
+        CommandGroup postAutonomous = new CommandGroup();
+        
+        if (destination.position == TargetPosition.kOutside_val) {
+            postAutonomous.addSequential(new DriveToXY(DEFAULT_SPEED,
+                    Preferences.getInstance().getDouble(prefix + PreferenceKeys.OUTSIDE_X, 0.0),
+                    Preferences.getInstance().getDouble(prefix + PreferenceKeys.OUTSIDE_Y, 0.0)));
+        } else if (destination.position == TargetPosition.kInside_val) {
+            postAutonomous.addSequential(new DriveToXY(DEFAULT_SPEED,
+                    Preferences.getInstance().getDouble(prefix + PreferenceKeys.INSIDE_X, 0.0),
+                    Preferences.getInstance().getDouble(prefix + PreferenceKeys.INSIDE_Y, 0.0)));
+        }
+        
+        return postAutonomous;
     }
     
 }
