@@ -83,15 +83,18 @@ public class MathHelper {
         return val1 < val2 ? val1 : val2;
     }
     
+    private static final double m = 0.000266123957;
+    private static final double b = -0.040707308941;
     public static double RpmToPower(double RPM) {
         if (RPM == 0) return 0;
 //        return 0.0002470137 * RPM + 0.0014988179;
-        return 0.0002437357 * RPM + 0.1122354842;
+//        return 0.0002437357 * RPM + 0.1122354842;
+          return m * RPM + b;
     }
     
     public static double PowerToRpm(double power) {
         if (power == 0) return 0;
-        return 4048.358451 * power - 6.067752;
+        return (power - b) / m;
     }
     
     public static double HeadingToDegrees(double heading) {
