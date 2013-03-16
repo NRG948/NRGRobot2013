@@ -10,7 +10,7 @@ import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
  * Gathers data to run a linear regression on RPM-power function.
  * Function is used to estimate input motor power for given RPM.
  *
- * @author holeung
+ * @author hoileung
  */
 public class CalibrateRPM extends Command {
 
@@ -22,7 +22,7 @@ public class CalibrateRPM extends Command {
     }
 
     protected void initialize() {
-        power = 0.2;
+        power = 0.25;
         startingTime = System.currentTimeMillis();
     }
 
@@ -41,7 +41,7 @@ public class CalibrateRPM extends Command {
     }
 
     protected boolean isFinished() {
-        return power > 1;
+        return power > 1.001;
     }
 
     protected void end() {
