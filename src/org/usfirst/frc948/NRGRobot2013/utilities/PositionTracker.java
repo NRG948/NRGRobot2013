@@ -47,6 +47,7 @@ public class PositionTracker {
         }
         double leftDistance = driveLeftQuad.getDistance();
         double rightDistance = driveRightQuad.getDistance();
+        rightDistance = leftDistance; // TODO!!! remove when right drive encoder fixed!
         
         double leftChange = leftDistance - lastLeftQuadDistance;
         double rightChange = rightDistance - lastRightQuadDistance;
