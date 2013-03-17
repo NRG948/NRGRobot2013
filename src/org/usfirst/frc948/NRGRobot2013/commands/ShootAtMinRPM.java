@@ -14,13 +14,13 @@ public class ShootAtMinRPM extends CommandGroup {
     
     public ShootAtMinRPM(double rpm) {
         this.rpm = rpm;
-        addSequential(new SetShooterMotorPower(MathHelper.RpmToPower(rpm) * 0.85));
+        addSequential(new SetShooterMotorPower(MathHelper.RpmToPower(rpm)));
+        addSequential(new SetShooterOverRev(0.85));
         addSequential(new WaitForFrisbee());
         addSequential(new WaitForStartingRPM(rpm - 50));
-        addSequential(new SetShooterMotorPower(MathHelper.RpmToPower(rpm) * 1.4));
+        addSequential(new SetShooterOverRev(1.4));
         addSequential(new WaitForMinRPM(rpm));
         addSequential(new ReleaseFrisbeeCommand());
-        addSequential(new SetShooterMotorPower(MathHelper.RpmToPower(rpm)));
         addSequential(new Delay(100));
     }
     

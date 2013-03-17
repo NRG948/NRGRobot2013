@@ -29,7 +29,7 @@ public class Shooter extends PIDSubsystem {
     
     public static final double PID_OUTPUT_SCALE_VALUE = 0.01;
     private static final double pidDeactivationConstant = 1000000000;
-    public static final double DEFAULT_OVER_REV = 1.10;
+    public static final double DEFAULT_OVER_REV = 1.54;
     public static final long SHOOT_DELAY_TIME = 3000;
     private double currentMotorPower = 0;
     private double overRevFactor = 1.0;

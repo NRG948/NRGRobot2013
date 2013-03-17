@@ -2,6 +2,7 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 
 /**
  *
@@ -24,6 +25,7 @@ public class SetShooterMotorPower extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        Debug.println("[SetShooterMotorPower] " + power);
         Robot.shooter.setRawPower(power);
     }
 
