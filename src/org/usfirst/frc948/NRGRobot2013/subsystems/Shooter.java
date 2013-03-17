@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.commands.OperatorShooterSpeed;
+import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
@@ -17,8 +18,8 @@ public class Shooter extends PIDSubsystem {
     public static final double MAX_RPM = 3700;
     
     public static final double MIN_RPM_CLOSE_3PT = 2700;
-    public static final double MIN_RPM_FAR_3PT = 2425;  // inside +35
-    public static final double MIN_RPM_FAR_2PT = 2325;  // inside +35
+    public static final double MIN_RPM_FAR_3PT = 2425;  // inside +20
+    public static final double MIN_RPM_FAR_2PT = 2325;  // inside +20
 
     public static final boolean DEFAULT_USE_PID = false;
     
@@ -38,7 +39,7 @@ public class Shooter extends PIDSubsystem {
     private double pidOutputScaleValue = PID_OUTPUT_SCALE_VALUE;
     private boolean pidEnabled = false;
     private boolean largeError = true;
-
+    private double lastSetPower = 0;
 
     public Shooter() {
         super("Shooter", kDefaultP, kDefaultI, kDefaultD);
@@ -49,6 +50,7 @@ public class Shooter extends PIDSubsystem {
     }
 
     public void setRawPower(double power) {
+        lastSetPower = power;
         power = MathHelper.clamp(power * overRevFactor, 0, 1.0);
         RobotMap.shooterMotor.set(-power);
         currentMotorPower = power;
@@ -128,6 +130,7 @@ public class Shooter extends PIDSubsystem {
 
     public void setOverRev(double d) {
         overRevFactor = d;
+        setRawPower(lastSetPower);
     }
 
     public void reset() {
