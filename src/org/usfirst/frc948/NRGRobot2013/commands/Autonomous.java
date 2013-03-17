@@ -60,6 +60,15 @@ public class Autonomous extends CommandGroup {
         private StartingPosition(int position) {
             this.position = position;
         }
+        
+        public String toString() {
+            switch (position) {
+                case kLeft_val: return "LEFT";
+                case kCenter_val: return "CENTER";
+                case kRight_val: return "RIGHT";
+                default: return "NONE";
+            }
+        }
     }
 
     public static class TargetPosition {
@@ -78,6 +87,15 @@ public class Autonomous extends CommandGroup {
         
         private TargetPosition(int position) {
             this.position = position;
+        }
+        
+        public String toString() {
+            switch(position) {
+                case kOutside_val: return "OUTSIDE";
+                case kInside_val: return "CENTER";
+                case kLeft_val: return "LEFT";
+                default: return "NONE";
+            }
         }
     }
     

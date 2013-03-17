@@ -25,6 +25,7 @@ import org.usfirst.frc948.NRGRobot2013.commands.tests.IncrementalTurn;
 import org.usfirst.frc948.NRGRobot2013.subsystems.Climber;
 import org.usfirst.frc948.NRGRobot2013.subsystems.Shooter;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
+import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 import org.usfirst.frc948.NRGRobot2013.utilities.NRGDigitalIOButton;
 
@@ -67,8 +68,8 @@ public class OI2 implements IOperatorInterface {
     // This represents the io board.
     private final DriverStationEnhancedIO io = DriverStation.getInstance().getEnhancedIO();
     
-    private static final double MIN_CYPRESS_VOLTAGE = -0.001; //TODO: Set these values
-    private static final double MAX_CYPRESS_VOLTAGE = 3.312;
+    private static final double MIN_CYPRESS_VOLTAGE = 0.002; //TODO: Set these values
+    private static final double MAX_CYPRESS_VOLTAGE = 3.324;
     
     private static final int AUTONOMOUS_SHOOT_SWITCH_CHANNEL_1 = 1;
     private static final int AUTONOMOUS_SHOOT_SWITCH_CHANNEL_2 = 3;
@@ -109,10 +110,9 @@ public class OI2 implements IOperatorInterface {
                    leftJoyBtn8 = new JoystickButton(leftJoystick, 8),
                    leftJoyBtn9 = new JoystickButton(leftJoystick, 9),
                    leftJoyBtn10 = new JoystickButton(leftJoystick, 10),
-                   leftJoyBtn11 = new JoystickButton(leftJoystick, 11),
-                   leftJoyBtn12 = new JoystickButton(leftJoystick, 12),
+                   leftJoyBtn11 = new JoystickButton(leftJoystick, 11);
 
-                   rightJoyBtn1 = new JoystickButton(rightJoystick, 1),
+    private Button rightJoyBtn1 = new JoystickButton(rightJoystick, 1),
                    rightJoyBtn2 = new JoystickButton(rightJoystick, 2),
                    rightJoyBtn3 = new JoystickButton(rightJoystick, 3),
                    rightJoyBtn4 = new JoystickButton(rightJoystick, 4),
@@ -139,7 +139,7 @@ public class OI2 implements IOperatorInterface {
     public OI2() {
         leftJoyBtn7.whenPressed(new ResetSensorsCommand());
         leftJoyBtn11.whenPressed(new ReadGyroSensitivity());
-        leftJoyBtn12.whenPressed(new InitializePreferences());
+        leftJoyBtn8.whenPressed(new InitializePreferences());
         
         shootButton.whenPressed(new ReleaseFrisbeeCommand());
                 
@@ -228,8 +228,9 @@ public class OI2 implements IOperatorInterface {
     }
     
     public void update() {
-        shootTrim = MathHelper.reverseNormalizeValue(getAnalog(TRIM_SLIDER_CHANNEL), MIN_CYPRESS_VOLTAGE, MAX_CYPRESS_VOLTAGE);
+        shootTrim = MathHelper.normalizeValue(getAnalog(TRIM_SLIDER_CHANNEL), MIN_CYPRESS_VOLTAGE, MAX_CYPRESS_VOLTAGE);
         shootTrim = (2 * shootTrim - 1); //always between -1 and 1
+        SmartDashboard.putNumber("TrimRPM", getShootTrimRPM());
     }
     
     public double getShootTrimPower() {
@@ -244,9 +245,9 @@ public class OI2 implements IOperatorInterface {
         boolean channel1 = getDigital(OI2.AUTONOMOUS_SHOOT_SWITCH_CHANNEL_1);
         boolean channel2 = getDigital(OI2.AUTONOMOUS_SHOOT_SWITCH_CHANNEL_2);
         
-        if (channel1 && !channel2) {
+        if (!channel1 && channel2) {
             return Autonomous.StartingPosition.kLeft;
-        } else if (!channel1 && channel2) {
+        } else if (channel1 && !channel2) {
             return Autonomous.StartingPosition.kCenter;
         } else if (channel1 && channel2) {
             return Autonomous.StartingPosition.kRight;
@@ -269,6 +270,9 @@ public class OI2 implements IOperatorInterface {
         
         return Autonomous.TargetPosition.kNone;
     }
-
-
+    
+    public boolean atInsideFeederStation() {
+        return !getDigital(SHOOTING_POSITION_FEEDER_SELECT);
+    }
+    
 }
