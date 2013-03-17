@@ -19,7 +19,7 @@ public class WaitForFrisbee extends Command {
 
     protected void initialize() {
         end = 0;
-        previousFrisbeeLoaded = Robot.discMagazine.frisbeeLoaded();
+        previousFrisbeeLoaded = false;
     }
 
     protected void execute() {
