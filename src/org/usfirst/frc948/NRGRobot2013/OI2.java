@@ -82,8 +82,9 @@ public class OI2 implements IOperatorInterface {
     
     private static final double SHOOT_SPEED_DEAD_ZONE = 0.1;
     private static final double MINIMUM_SHOOT_SPEED = 0.0;
-    private static final double SHOOT_TRIM_MAX_POWER = 0.2;
-    private static final double SHOOT_TRIM_MAX_RPM = 200;
+    
+    private static final double SHOOT_TRIM_MAX_POWER = 0.1;
+    private static final double SHOOT_TRIM_MAX_RPM = 100;
     
     private static final int PRESET_SHOOTER_SPEED_CONTROL = 10;
     private static final int PRESET_SHOOTER_SPEED_PID_ENABLE = 15;
