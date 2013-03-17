@@ -238,7 +238,7 @@ public class OI implements IOperatorInterface {
             return Autonomous.StartingPosition.kRight;
         }
         
-        return null;
+        return Autonomous.StartingPosition.kNone;
     }
 
     public Autonomous.TargetPosition getAutonomousTargetPosition() {
