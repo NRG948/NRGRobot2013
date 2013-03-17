@@ -13,7 +13,7 @@ public class IncrementalTurn extends CommandGroup {
     
     public IncrementalTurn(double speed, double degrees, int n) {
         for (int i = 0; i < n; i++) {
-            addSequential(new TurnCommand(speed, degrees));
+            addSequential(new TurnCommand(degrees, speed));
             addSequential(new Delay(1000));
         }
     }

@@ -14,39 +14,45 @@ import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
  * @author irving
  */
 public class TurnCommand extends PIDCommand {
-
+    /*
+     * rough turns: 0.01 0.001 0.1
+     * 0.05 0.001 0.1
+     * small turn: 1.0 power
+     * big turn: 0.6 power
+     * really big turn: 0.4 power
+     */
     public static final double kInitialP = 0.015;
-    public static final double kDefaultP = 0.02;
-    public static final double kDefaultI = 0.01;
-    public static final double kDefaultD = 0.0;
+    public static final double kDefaultP = 0.05;
+    public static final double kDefaultI = 0.001;
+    public static final double kDefaultD = 0.1;
+    
+    public static final double DEFAULT_DEGREES_TOLERANCE = 2.0;
     
     private static final double DEGREES_CLOSE = 10.0;
-    private static final double DEGREES_TOLERANCE = 2.0;
     private static final int REQUIRED_CYCLES_ON_TARGET = 3;
     
-    private double degrees;
+    private final double degrees;
     
-    private double maxLeftPower;
-    private double maxRightPower;
+    private final double maxLeftPower;
+    private final double maxRightPower;
     
     private boolean closeToTarget;
     private double pidOutput;
     private int consecutiveCyclesOnTarget;
+    
+    public TurnCommand(double degreesClockwise) {
+        this(degreesClockwise, Math.abs(degreesClockwise) > 180 ? 0.4 : (Math.abs(degreesClockwise) > 50.0 ? 0.5 : 1.0));
+    }
 
-    public TurnCommand(double power, double degreesClockwise) {
-        super(kDefaultP, kDefaultI, kDefaultD);
-
-        requires(Robot.drive);
-
-        this.closeToTarget = false;
-        this.maxLeftPower = MathHelper.clamp(power, 0.0, 1.0);
-        this.maxRightPower = maxLeftPower;
-        this.degrees = degreesClockwise;
-
-        this.getPIDController().setAbsoluteTolerance(DEGREES_TOLERANCE);
+    public TurnCommand(double degreesClockwise, double power) {
+        this(degreesClockwise, power, power);
     }
     
-    public TurnCommand(double maxLeftPower, double maxRightPower, double degreesClockwise) {
+    public TurnCommand(double degreesClockwise, double maxLeftPower, double maxRightPower) {
+        this(degreesClockwise, maxLeftPower, maxRightPower, DEFAULT_DEGREES_TOLERANCE);
+    }
+    
+    public TurnCommand(double degreesClockwise, double maxLeftPower, double maxRightPower, double absoluteTolerance) {
         super(kDefaultP, kDefaultI, kDefaultD);
         
         requires(Robot.drive);
@@ -56,7 +62,7 @@ public class TurnCommand extends PIDCommand {
         this.maxRightPower = MathHelper.clamp(maxRightPower, 0.0, 1.0);
         this.degrees = degreesClockwise;
 
-        this.getPIDController().setAbsoluteTolerance(DEGREES_TOLERANCE);
+        this.getPIDController().setAbsoluteTolerance(absoluteTolerance);
     }
 
     // Called just before this Command runs the first time

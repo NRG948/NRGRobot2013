@@ -2,6 +2,7 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
+import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 
 /**
@@ -10,19 +11,28 @@ import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
  */
 public class TurnToHeading extends Command {
     
-    private final double power;
     private final double desiredHeading;
+    private double turnAngle;
     
-    public TurnToHeading(double power, double heading) {
-        this.power = power;
+    private double power;
+    private final double tolerance;
+    
+    public TurnToHeading(double heading) {
+        this(heading, 0.0);
+    }
+
+    public TurnToHeading(double heading, double power) {
+        this(heading, power, TurnCommand.DEFAULT_DEGREES_TOLERANCE);
+    }
+    
+    public TurnToHeading(double heading, double power, double degreesTolerance) {
         this.desiredHeading = MathHelper.normalizeAngle(heading);
+        this.power = power;
+        this.tolerance = degreesTolerance;
     }
-
+    
     protected void initialize() {
-    }
-
-    protected void execute() {
-        double turnAngle = desiredHeading - MathHelper.normalizeAngle(RobotMap.drivegyro.getAngle());
+        turnAngle = desiredHeading - MathHelper.normalizeAngle(RobotMap.drivegyro.getAngle());
         
         if (turnAngle > 180) {
             turnAngle -= 360;
@@ -30,7 +40,18 @@ public class TurnToHeading extends Command {
             turnAngle += 360;
         }
         
-        (new TurnCommand(power, turnAngle)).start();
+        if (power == 0.0) {
+            if (Math.abs(turnAngle) <= 50.0) {
+                power = 1.0;
+            } else {
+                power = 0.5;
+            }
+        }
+    }
+
+    protected void execute() {
+        Debug.println("[TurnToHeading]=" + desiredHeading + " starting new Turn(" + power + "," + turnAngle + ")");
+        (new TurnCommand(turnAngle, power, power, tolerance)).start();
     }
 
     protected boolean isFinished() {

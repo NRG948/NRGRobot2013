@@ -213,7 +213,7 @@ public class Autonomous extends CommandGroup {
             return;
         }
         
-        addSequential(new TurnCommand(DEFAULT_TURN_SPEED, Preferences.getInstance().getDouble(prefix + PreferenceKeys.INITIAL_TURN, 0.0)));
+        addSequential(new TurnCommand(Preferences.getInstance().getDouble(prefix + PreferenceKeys.INITIAL_TURN, 0.0), DEFAULT_TURN_SPEED));
         addSequential(new DriveStraightDistance(-DEFAULT_SPEED, Preferences.getInstance().getDouble(prefix + PreferenceKeys.INTIAL_DISTANCE, 0.0)));
         
         double minRPM = Preferences.getInstance().getDouble(prefix + PreferenceKeys.SHOOT_RPM, Shooter.MIN_RPM_CLOSE_3PT);
@@ -249,7 +249,7 @@ public class Autonomous extends CommandGroup {
         }
         
         addSequential(new SetShooterMotorPower(0.0));
-        addSequential(new TurnCommand(DEFAULT_TURN_SPEED, Preferences.getInstance().getDouble(prefix + PreferenceKeys.ALIGN_TURN, 0.0)));
+        addSequential(new TurnCommand(Preferences.getInstance().getDouble(prefix + PreferenceKeys.ALIGN_TURN, 0.0), DEFAULT_TURN_SPEED));
     }
     
     private void buildMoveSequence() {
@@ -258,7 +258,7 @@ public class Autonomous extends CommandGroup {
         }
         
         addSequential(new DriveToXY(DEFAULT_SPEED, Preferences.getInstance().getDouble(prefix + PreferenceKeys.DEST_X, 0.0), Preferences.getInstance().getDouble(prefix + PreferenceKeys.DEST_Y, 0.0)));
-        addSequential(new TurnCommand(DEFAULT_TURN_SPEED, Preferences.getInstance().getDouble(prefix + PreferenceKeys.FINAL_TURN, 0.0)));
+        addSequential(new TurnToHeading(0));
     }
     
     public CommandGroup buildPostAutonomous() {

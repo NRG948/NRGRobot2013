@@ -137,8 +137,8 @@ public class OI implements IOperatorInterface {
         btnShootFar1.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_FAR_3PT));
         btnShootFar2.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_FAR_2PT));
         
-        SmartDashboard.putData("Turn 15 CW (0.3)", new TurnCommand(0.3, 15));
-        SmartDashboard.putData("Turn 90 CW (0.3)", new TurnCommand(0.3, 90));
+        SmartDashboard.putData("Turn 15 CW (0.3)", new TurnCommand(15, 0.3));
+        SmartDashboard.putData("Turn 90 CW (0.3)", new TurnCommand(90, 0.3));
 //        SmartDashboard.putData("Turn 1800 CW (0.5)", new TurnCommand(0.5, 1800));
         SmartDashboard.putData("IncrementalTurn (0.3, 45, 8)", new IncrementalTurn(0.3, 45, 8));
 //        

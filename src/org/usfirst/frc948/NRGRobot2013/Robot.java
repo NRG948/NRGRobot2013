@@ -184,6 +184,7 @@ public class Robot extends IterativeRobot {
         oi.update();
 
         LCD.clearLine(3);
+        LCD.clearLine(5);
         LCD.println(LCD.DRIVE, 1, "L:" + leftQuad + " R:" + rightQuad);
         LCD.println(LCD.GYRO, 2, "GYRO:" + gyro + " TARG:" + target);
 //        LCD.println(LCD.SHOOT, 3, "RELEASED: " + Robot.discMagazine.getCount());

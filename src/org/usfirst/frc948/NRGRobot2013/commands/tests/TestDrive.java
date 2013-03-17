@@ -17,7 +17,7 @@ public class TestDrive extends CommandGroup {
         addSequential(new DriveToXY(-0.3, 5, -20));
         addSequential(new Delay(5000));
         addSequential(new DriveToXY(0.3, 0, 0));
-        addSequential(new TurnToHeading(0.2, 0));
+        addSequential(new TurnToHeading(0));
     }
     
 }
