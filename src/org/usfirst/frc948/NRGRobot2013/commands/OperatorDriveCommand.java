@@ -95,6 +95,8 @@ public class OperatorDriveCommand extends Command {
 
             Robot.drive.tankDrive(leftMotorSpeed * driveFactor, rightMotorSpeed * driveFactor);
         }
+        
+        Robot.drive.setDesiredHeading(RobotMap.drivegyro.getAngle());
     }
 
     protected boolean isFinished() {
