@@ -5,8 +5,6 @@ import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 
 /**
- * Waits for minimum RPM before shooting.
- * ...aka god-mode.
  * 
  * @author irving
  */
@@ -16,10 +14,10 @@ public class ShootAtMinRPM extends CommandGroup {
     
     public ShootAtMinRPM(double rpm) {
         this.rpm = rpm;
-//        addSequential(new SetShooterMotorPower(MathHelper.RpmToPower(rpm) * 0.9));
+        addSequential(new SetShooterMotorPower(MathHelper.RpmToPower(rpm) * 0.85));
         addSequential(new WaitForFrisbee());
+        addSequential(new WaitForStartingRPM(rpm - 50));
         addSequential(new SetShooterMotorPower(MathHelper.RpmToPower(rpm) * 1.4));
-        // addSequential(new SetShooterMotorPower(1.0));  // this is too fast!
         addSequential(new WaitForMinRPM(rpm));
         addSequential(new ReleaseFrisbeeCommand());
         addSequential(new SetShooterMotorPower(MathHelper.RpmToPower(rpm)));

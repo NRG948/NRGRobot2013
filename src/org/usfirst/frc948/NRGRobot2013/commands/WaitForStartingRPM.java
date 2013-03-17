@@ -6,29 +6,27 @@ import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 
 /**
- * Wait until shooter wheel reaches a minimum RPM.
  *
- * @author Charles
+ * @author irving
  */
-public class WaitForMinRPM extends Command {
+public class WaitForStartingRPM extends Command {
 
-    private double rpm;
+    private final double rpm;
 
-    public WaitForMinRPM(double rpm) {
+    public WaitForStartingRPM(double rpm) {
         requires(Robot.shooter);
         this.rpm = rpm;
     }
 
     protected void initialize() {
-        Debug.println("[WaitForMinRPM]=" + rpm + " initializing with RPM=" + RobotMap.shooterQuadrature.averageRPM());
+        Debug.println("[WaitForStartingRPM]=" + rpm + " initializing with RPM=" + RobotMap.shooterQuadrature.averageRPM());
     }
 
     protected void execute() {
-        
     }
 
     protected boolean isFinished() {
-        return RobotMap.shooterQuadrature.averageRPM() >= rpm + Robot.oi.getShootTrimRPM();
+        return RobotMap.shooterQuadrature.averageRPM() <= rpm + Robot.oi.getShootTrimRPM();
     }
 
     protected void end() {
