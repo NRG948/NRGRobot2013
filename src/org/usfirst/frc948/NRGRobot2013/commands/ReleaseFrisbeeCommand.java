@@ -13,10 +13,8 @@ import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
  */
 public class ReleaseFrisbeeCommand extends Command {
 
-    public static final int INITIAL_DELAY = 250;
-    public static final int SHOOT_DELAY = 500;
+    public static final int DELAY = 250;
     
-    private long closeTime;
     private long endTime;
     
     public ReleaseFrisbeeCommand() {
@@ -24,21 +22,12 @@ public class ReleaseFrisbeeCommand extends Command {
     }
 
     protected void initialize() {
-//        closeTime = (long) (System.currentTimeMillis() + Preferences.getInstance().getDouble(PreferenceKeys.SHOOT_DELAY, SHOOT_DELAY));
-        closeTime = System.currentTimeMillis() + INITIAL_DELAY;
-        endTime = closeTime + SHOOT_DELAY;
+        endTime = (long) (System.currentTimeMillis() + Preferences.getInstance().getDouble(PreferenceKeys.SHOOT_DELAY, DELAY));
     }
 
     protected void execute() {
-        long now = System.currentTimeMillis();
-        
-        if (now < closeTime) {
-            Robot.discMagazine.openPiston();
-            Robot.shooter.setOverRev(Preferences.getInstance().getDouble(PreferenceKeys.OVER_REV_FACTOR, Shooter.DEFAULT_OVER_REV));
-        } else if (now < endTime) {
-            Robot.discMagazine.closePiston();
-            Robot.shooter.setOverRev(1.0);
-        }
+        Robot.discMagazine.openPiston();
+        Robot.shooter.setOverRev(Preferences.getInstance().getDouble(PreferenceKeys.OVER_REV_FACTOR, Shooter.DEFAULT_OVER_REV));
     }
 
     protected boolean isFinished() {
@@ -46,6 +35,8 @@ public class ReleaseFrisbeeCommand extends Command {
     }
 
     protected void end() {
+        Robot.shooter.setOverRev(1.0);
+        Robot.discMagazine.closePiston();
     }
 
     protected void interrupted() {
