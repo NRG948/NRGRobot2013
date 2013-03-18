@@ -160,9 +160,9 @@ public class Autonomous extends CommandGroup {
     
     public static void initPreferences() {
         double[][] defaults = {
-            {  8.0, 32.0,   5.0, 0.0, Shooter.MIN_RPM_CLOSE_3PT, -20.0, 16.0, 29.0, 0.00, 25.5, 6.0, 22.5, 4.0 },  // left
-            { 14.5, 32.0,   0.0, 1.5, Shooter.MIN_RPM_CLOSE_3PT,   0.0, 16.0, 29.0, 0.00, 25.5, 6.0, 22.5, 4.0 },  // center
-            { 21.0, 32.0, -10.0, 0.0, Shooter.MIN_RPM_CLOSE_3PT,   0.0, 16.0, 29.0, 0.00, 25.5, 6.0, 22.5, 4.0 }   // right
+            {  8.0, 32.00,   5.0, 0.0, Shooter.MIN_RPM_CLOSE_3PT, -20.0, 16.0, 29.00, 0.00, 25.5, 6.00, 22.5, 4.0 },  // left
+            { 14.5, 32.00,   0.0, 1.5, Shooter.MIN_RPM_CLOSE_3PT,   0.0, 16.0, 29.00, 0.00, 25.5, 6.00, 22.5, 4.0 },  // center
+            { 19.0, 35.83, -20.0, 0.0, Shooter.MIN_RPM_CLOSE_3PT,   0.0, 24.0, 27.83, 0.00, 24.0, 5.23, 22.5, 4.0 }   // right
         };
         
         String[] keys = PreferenceKeys.array;
@@ -196,6 +196,8 @@ public class Autonomous extends CommandGroup {
     }
     
     private void initializePosition() {
+        addSequential(new ResetSensorsCommand());
+        
         addSequential(new Command() {
             protected void initialize() {}
             protected void execute() {Robot.positionTracker.init();}
@@ -213,12 +215,22 @@ public class Autonomous extends CommandGroup {
             return;
         }
         
-        addSequential(new TurnCommand(Preferences.getInstance().getDouble(prefix + PreferenceKeys.INITIAL_TURN, 0.0), DEFAULT_TURN_SPEED));
-        addSequential(new DriveStraightDistance(-DEFAULT_SPEED, Preferences.getInstance().getDouble(prefix + PreferenceKeys.INTIAL_DISTANCE, 0.0)));
+        addSequential(new SetShooterMotorPower(1.0));
+        
+        double initialTurnAngle = Preferences.getInstance().getDouble(prefix + PreferenceKeys.INITIAL_TURN, 0.0);
+        
+        if (initialTurnAngle != 0) {
+            addSequential(new TurnCommand(initialTurnAngle));
+        }
+        
+        addSequential(new DriveStraightDistance(-0.5, Preferences.getInstance().getDouble(prefix + PreferenceKeys.INTIAL_DISTANCE, 0.0)));
+        
+        if (start.position == StartingPosition.kCenter_val) {
+            addSequential(new TurnToHeading(-7.0, 1.0));
+        }
         
         double minRPM = Preferences.getInstance().getDouble(prefix + PreferenceKeys.SHOOT_RPM, Shooter.MIN_RPM_CLOSE_3PT);
         if (mode.mode == ShooterMode.kTimer_val) {
-            addSequential(new SetShooterMotorPower(1.0));
             addSequential(new Delay(INITIAL_DELAY));
             addSequential(new ReleaseFrisbeeCommand());
             addSequential(new Delay(SHOOT_DELAY));
@@ -226,7 +238,6 @@ public class Autonomous extends CommandGroup {
             addSequential(new Delay(SHOOT_DELAY));
             addSequential(new ReleaseFrisbeeCommand());
         } else if (mode.mode == ShooterMode.kEncoder_val) {
-            addSequential(new SetShooterMotorPower(1.0));
             addSequential(new WaitForMinRPM(minRPM));
             addSequential(new ReleaseFrisbeeCommand());
             addSequential(new Delay(MINIMUM_DELAY));
@@ -257,15 +268,30 @@ public class Autonomous extends CommandGroup {
             return;
         }
         
-        addSequential(new DriveToXY(DEFAULT_SPEED, Preferences.getInstance().getDouble(prefix + PreferenceKeys.DEST_X, 0.0), Preferences.getInstance().getDouble(prefix + PreferenceKeys.DEST_Y, 0.0)));
+        addSequential(new DriveToXY(-0.5, Preferences.getInstance().getDouble(prefix + PreferenceKeys.DEST_X, 0.0), Preferences.getInstance().getDouble(prefix + PreferenceKeys.DEST_Y, 0.0)));
         addSequential(new TurnToHeading(0));
     }
     
     public CommandGroup buildPostAutonomous() {
-        CommandGroup postAutonomous = new CommandGroup();
+        CommandGroup postAutonomous = new CommandGroup() {
+            public void initialize() {
+                Debug.println("[PostAutonomous] initialize()");
+            }
+            
+            public void end() {
+                Debug.println("[PostAutonomous] end()");
+            }
+        };
+        
+        if (destination.position == TargetPosition.kNone_val) {
+            return postAutonomous;
+        }
+        
+        // rough turn so that DriveToXY doesn't drive in wide arc
+        postAutonomous.addSequential(new TurnToHeading(0.0, 0.6, 0.6, 10.0));
         
         if (destination.position == TargetPosition.kOutside_val) {
-            postAutonomous.addSequential(new DriveToXY(DEFAULT_SPEED,
+            postAutonomous.addSequential(new DriveToXY(-0.5,
                     Preferences.getInstance().getDouble(prefix + PreferenceKeys.OUTSIDE_X, 0.0),
                     Preferences.getInstance().getDouble(prefix + PreferenceKeys.OUTSIDE_Y, 0.0)));
         } else if (destination.position == TargetPosition.kInside_val) {
@@ -274,7 +300,13 @@ public class Autonomous extends CommandGroup {
                     Preferences.getInstance().getDouble(prefix + PreferenceKeys.INSIDE_Y, 0.0)));
         }
         
+        postAutonomous.addSequential(new TurnToHeading(-10.0));
+        
         return postAutonomous;
+    }
+    
+    public void end() {
+        Debug.println("[Autonomous] end()");
     }
     
 }
