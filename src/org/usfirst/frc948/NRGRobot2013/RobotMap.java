@@ -73,14 +73,14 @@ public class RobotMap {
  
         driveleftQuadrature = new Encoder(1, 7, 1, 8, false, EncodingType.k4X);
 	LiveWindow.addSensor("Drive", "leftQuadrature", driveleftQuadrature);
-        driveleftQuadrature.setDistancePerPulse(RobotMap.CompetitionRobot ? 0.002446363 : 0.002030629);
+        driveleftQuadrature.setDistancePerPulse(RobotMap.CompetitionRobot ? 0.002446363 : 0.00205071);
         driveleftQuadrature.setPIDSourceParameter(PIDSourceParameter.kRate);
         driveleftQuadrature.setReverseDirection(true);
         driveleftQuadrature.start();
         
         driverightQuadrature = new Encoder(1, 9, 1, 10, false, EncodingType.k4X);
 	LiveWindow.addSensor("Drive", "rightQuadrature", driverightQuadrature);
-        driverightQuadrature.setDistancePerPulse(RobotMap.CompetitionRobot ? 0.002446363 : 0.002503860);
+        driverightQuadrature.setDistancePerPulse(RobotMap.CompetitionRobot ? 0.002446363 : 0.00247263);
         driverightQuadrature.setPIDSourceParameter(PIDSourceParameter.kRate);
         //driverightQuadrature.setReverseDirection(true);
         driverightQuadrature.start();
