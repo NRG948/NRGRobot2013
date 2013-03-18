@@ -3,6 +3,7 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.subsystems.Drive;
+import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 
 /**
@@ -29,6 +30,8 @@ public class DriveStraightDistance extends Command {
         rightStartDistance = Drive.getRightQuadratureDistance();
         
         Robot.drive.driveStraightInit();
+        
+        Debug.println("[DriveStraightDistance] driving " + distance + " feet at " + speed + " power");
     }
 
     protected void execute() {
@@ -52,6 +55,7 @@ public class DriveStraightDistance extends Command {
     }
 
     protected void end() {
+        Debug.println("[DriveStraightDistance] end()");
         Robot.drive.driveStraightEnd();
         Robot.drive.rawStop();
     }

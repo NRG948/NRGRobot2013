@@ -37,6 +37,10 @@ public class DriveToXY extends Command {
     protected void initialize() {
         Robot.drive.driveStraightInit();
         prevDistanceToGo = 999999.0;  // any large value will do
+        
+        String curPos = "(" + MathHelper.round(Robot.positionTracker.getX(), 3) + "," + MathHelper.round(Robot.positionTracker.getY(), 3) + ")";
+        String dest = "(" + MathHelper.round(xFinal, 3) + "," + MathHelper.round(yFinal, 3) + ")";
+        Debug.println("[DriveToXY] starting, drive from " + curPos + " to " + dest);
     }
 
     protected void execute() {
@@ -71,7 +75,9 @@ public class DriveToXY extends Command {
         prevDistanceToGo = distanceToGo;
         double x = MathHelper.round(Robot.positionTracker.getX(),2);
         double y = MathHelper.round(Robot.positionTracker.getY(),2);
-        Debug.println("[DrivetoXY] final pos (" + x + "," + y + ")");
+        if (finished) {
+            Debug.println("[DrivetoXY] final pos (" + x + "," + y + ")");
+        }
         return finished;
     }
 
