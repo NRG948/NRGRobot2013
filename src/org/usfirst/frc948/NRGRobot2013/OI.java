@@ -74,6 +74,8 @@ public class OI implements IOperatorInterface {
     private static final int AUTONOMOUS_DRIVE_SWITCH_CHANNEL_1 = 5;
     private static final int AUTONOMOUS_DRIVE_SWITCH_CHANNEL_2 = 7;
     
+    private static final int FULL_AUTONOMOUS_SWITCH_CHANNEL = 11;
+    
     private static final int CAMERA_SLIDER_CHANNEL = 2;
     private static final int TRIM_SLIDER_CHANNEL = 4;
     private static final int SPEED_SLIDER_CHANNEL = 6;
@@ -127,7 +129,7 @@ public class OI implements IOperatorInterface {
         
         shootButton.whenPressed(new ReleaseFrisbeeCommand());
         
-        rightJoyBtn6.whileHeld(new ClimbCommand(Climber.Direction.kUp));  // up
+        rightJoyBtn6.whileHeld(new ClimbCommand(Climber.Direction.kUp));
         
         btnClimbDisengage.whenPressed(new TiltCommand(false));
         btnClimbEngage.whenPressed(new TiltCommand(true));
@@ -256,5 +258,8 @@ public class OI implements IOperatorInterface {
         return Autonomous.TargetPosition.kNone;
     }
 
+    public boolean isFullAutonomous() {
+        return !getDigital(FULL_AUTONOMOUS_SWITCH_CHANNEL);
+    }
 
 }

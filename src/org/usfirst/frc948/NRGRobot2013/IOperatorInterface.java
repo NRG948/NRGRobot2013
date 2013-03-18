@@ -38,4 +38,6 @@ public interface IOperatorInterface {
 
     void update();
     
+    boolean isFullAutonomous();
+    
 }

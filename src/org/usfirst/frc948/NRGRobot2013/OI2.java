@@ -157,14 +157,14 @@ public class OI2 implements IOperatorInterface {
 //        SmartDashboard.putData("Turn 1800 CW (0.3)", new TurnCommand(1800, 0.3));
         SmartDashboard.putData("IncrementalTurn (0.3, 45, 8)", new IncrementalTurn(0.3, 45, 8));
         
-        SmartDashboard.putData("Drive 10 feet (0.3)", new DriveStraightDistance(0.3, 10));
-        SmartDashboard.putData("Drive 10 feet (-0.3)", new DriveStraightDistance(-0.3, 10));
+        SmartDashboard.putData("Drive 10 feet (0.4)", new DriveStraightDistance(0.4, 10));
+        SmartDashboard.putData("Drive 10 feet (-0.4)", new DriveStraightDistance(-0.4, 10));
         
-        SmartDashboard.putData("BalanceTankDrive", new BalanceTankDrive());
+//        SmartDashboard.putData("BalanceTankDrive", new BalanceTankDrive());
         
-        SmartDashboard.putData("Autonomous (Timer)", new Autonomous(Autonomous.ShooterMode.kTimer, Autonomous.StartingPosition.kCenter, Autonomous.TargetPosition.kNone));
-        SmartDashboard.putData("Autonomous (Encoder)", new Autonomous(Autonomous.ShooterMode.kEncoder, Autonomous.StartingPosition.kCenter, Autonomous.TargetPosition.kNone));
-        SmartDashboard.putData("Autonomous (PID)", new Autonomous(Autonomous.ShooterMode.kPID, Autonomous.StartingPosition.kCenter, Autonomous.TargetPosition.kNone));
+//        SmartDashboard.putData("Autonomous (Timer)", new Autonomous(Autonomous.ShooterMode.kTimer, Autonomous.StartingPosition.kCenter, Autonomous.TargetPosition.kNone));
+//        SmartDashboard.putData("Autonomous (Encoder)", new Autonomous(Autonomous.ShooterMode.kEncoder, Autonomous.StartingPosition.kCenter, Autonomous.TargetPosition.kNone));
+//        SmartDashboard.putData("Autonomous (PID)", new Autonomous(Autonomous.ShooterMode.kPID, Autonomous.StartingPosition.kCenter, Autonomous.TargetPosition.kNone));
         
         SmartDashboard.putData("CalibrateRPM", new CalibrateRPM());
         
@@ -275,8 +275,12 @@ public class OI2 implements IOperatorInterface {
         return Autonomous.TargetPosition.kNone;
     }
     
-    public boolean atInsideFeederStation() {
+    public boolean isAtInsideFeederStation() {
         return !getDigital(SHOOTING_POSITION_FEEDER_SELECT);
+    }
+    
+    public boolean isFullAutonomous() {
+        return getDigital(PRESET_FULL_AUTONOMOUS_ENABLE);
     }
     
 }
