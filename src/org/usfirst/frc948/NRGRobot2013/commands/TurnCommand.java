@@ -29,7 +29,7 @@ public class TurnCommand extends PIDCommand {
     public static final double DEFAULT_DEGREES_TOLERANCE = 2.0;
     
     private static final double DEGREES_CLOSE = 10.0;
-    private static final int REQUIRED_CYCLES_ON_TARGET = 3;
+    public static final int REQUIRED_CYCLES_ON_TARGET = 3;
     
     private final double degrees;
     
@@ -70,7 +70,7 @@ public class TurnCommand extends PIDCommand {
         this.getPIDController().setPID(kInitialP, 0.0, 0.0);
         this.closeToTarget = false;
         
-        Debug.println(Debug.DRIVE, "TurnCommand intializing w/ only P: " + kInitialP);
+        Debug.println(Debug.DRIVE, "[TurnCommand] " + degrees + " degrees, intializing w/ only P: " + kInitialP + ", maxPowers: " + maxLeftPower + " " + maxRightPower);
 
         Robot.drive.setDesiredHeading(Robot.drive.getDesiredHeading() + degrees);
         setSetpoint(Robot.drive.getDesiredHeading());
@@ -81,18 +81,18 @@ public class TurnCommand extends PIDCommand {
     protected void execute() {
         if (degrees == 0) return;
         
-        if (!closeToTarget && Math.abs(Robot.drive.getGyroAngle() - Robot.drive.getDesiredHeading()) <= DEGREES_CLOSE) {
-            closeToTarget = true;
+//        if (!closeToTarget && Math.abs(Robot.drive.getGyroAngle() - Robot.drive.getDesiredHeading()) <= DEGREES_CLOSE) {
+//            closeToTarget = true;
             
             double p = Preferences.getInstance().getDouble(PreferenceKeys.TURN_P, kDefaultP);
             double i = Preferences.getInstance().getDouble(PreferenceKeys.TURN_I, kDefaultI);
             double d = Preferences.getInstance().getDouble(PreferenceKeys.TURN_D, kDefaultD);
 
-            Debug.println(Debug.DRIVE, "TurnCommand close to target (" + DEGREES_CLOSE + " degrees)");
-            Debug.println(Debug.DRIVE, "    adjusting PID constants: " + p + " " + i + " " + d);
+//            Debug.println(Debug.DRIVE, "TurnCommand close to target (" + DEGREES_CLOSE + " degrees)");
+//            Debug.println(Debug.DRIVE, "    adjusting PID constants: " + p + " " + i + " " + d);
             
             this.getPIDController().setPID(p, i, d);
-        }
+//        }
         
 //        SmartDashboard.putNumber("Turn ERR", this.getPIDController().getError());
 
@@ -117,6 +117,7 @@ public class TurnCommand extends PIDCommand {
 
     // Called once after isFinished returns true
     protected void end() {
+        Debug.println("[TurnCommand] end()");
         Robot.drive.rawStop();
     }
 
