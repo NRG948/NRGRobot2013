@@ -67,7 +67,7 @@ public class TurnToHeading extends PIDCommand {
         setSetpoint(Robot.drive.getDesiredHeading());
         consecutiveCyclesOnTarget = 0;
         
-        Debug.println(Debug.DRIVE, "[TurnToHeading] to " + Robot.drive.getDesiredHeading() + " degrees (" + desiredHeading + ") from " + RobotMap.drivegyro.getAngle() + ", maxL: " + maxLeftPower + " maxR:" + maxRightPower);
+        Debug.println("[TurnToHeading] to " + Robot.drive.getDesiredHeading() + " degrees (" + desiredHeading + ") from " + RobotMap.drivegyro.getAngle() + ", maxL: " + maxLeftPower + " maxR:" + maxRightPower);
     }
 
     protected void execute() {
@@ -80,7 +80,7 @@ public class TurnToHeading extends PIDCommand {
     protected boolean isFinished() {
         if (this.getPIDController().onTarget()) {
             consecutiveCyclesOnTarget++;
-            Debug.println(Debug.DRIVE, "[TurnToHeading] ON TARGET(" + consecutiveCyclesOnTarget + "/" + TurnCommand.REQUIRED_CYCLES_ON_TARGET + "), Gyro: " + RobotMap.drivegyro.getAngle());
+            Debug.println("[TurnToHeading] On target (" + consecutiveCyclesOnTarget + "/" + TurnCommand.REQUIRED_CYCLES_ON_TARGET + "), Gyro: " + RobotMap.drivegyro.getAngle());
         } else {
             consecutiveCyclesOnTarget = 0;
         }

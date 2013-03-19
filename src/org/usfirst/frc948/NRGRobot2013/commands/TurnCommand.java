@@ -62,7 +62,7 @@ public class TurnCommand extends PIDCommand {
 
         this.getPIDController().setPID(p, i, d);
 
-        Debug.println(Debug.DRIVE, "[TurnCommand] " + degrees + " degree turn intializing |" +
+        Debug.println("[TurnCommand] " + degrees + " degree turn intializing |" +
                 " P:" + p +
                 " I:" + i +
                 " D:" + d +
@@ -84,7 +84,7 @@ public class TurnCommand extends PIDCommand {
     protected boolean isFinished() {
         if (this.getPIDController().onTarget()) {
             consecutiveCyclesOnTarget++;
-            Debug.println(Debug.DRIVE, "TurnCommand ON TARGET(" + consecutiveCyclesOnTarget + "/" + REQUIRED_CYCLES_ON_TARGET + "), Gyro: " + RobotMap.drivegyro.getAngle());
+            Debug.println("[TurnCommand] On target (" + consecutiveCyclesOnTarget + "/" + REQUIRED_CYCLES_ON_TARGET + "), Gyro: " + RobotMap.drivegyro.getAngle());
         } else {
             consecutiveCyclesOnTarget = 0;
         }

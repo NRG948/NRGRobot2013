@@ -21,7 +21,7 @@ public class ReadGyroSensitivity extends Command {
     protected void execute() {
         double s = Preferences.getInstance().getDouble(PreferenceKeys.GYRO_SENSITIVITY, RobotMap.DEFAULT_GYRO_SENSITIVITY);
         Robot.drive.setGyroSensitivity(s);
-        Debug.println(Debug.GYRO, "Read new gyro sensitivity: " + s);
+        Debug.println("[ReadGyroSensitivity] new gyro sensitivity: " + s);
     }
 
     protected boolean isFinished() {

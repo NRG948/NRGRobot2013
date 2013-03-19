@@ -52,19 +52,19 @@ public class OperatorDriveCommand extends Command {
         
         if (currDriveSlow) {
             if (!prevDriveSlow) {
-                Debug.println(Debug.DRIVE, "Entered slow drive mode");
+                Debug.println("[OperatorDriveCommand] Entered slow drive mode");
                 driveFactor = DRIVE_SLOW_FACTOR;
             }
         } else {
             if (prevDriveSlow) {
-                Debug.println(Debug.DRIVE, "Exited drive slow mode");
+                Debug.println("[OperatorDriveCommand] Exited drive slow mode");
                 driveFactor = DRIVE_NORMAL_FACTOR;
             }
         }
 
         if (currDriveStraight) {
             if (!prevDriveStraight) {
-                Debug.println(Debug.DRIVE, "Entered drive straight mode");
+                Debug.println("[OperatorDriveCommand] Entered drive straight mode");
                 driveStraightHeading = RobotMap.drivegyro.getAngle();
                 Robot.drive.driveStraightInit();
             }
@@ -74,7 +74,7 @@ public class OperatorDriveCommand extends Command {
             Robot.drive.driveStraight(speed * driveFactor, driveStraightHeading);
         } else {
             if (prevDriveStraight) {
-                Debug.println(Debug.DRIVE, "Exited drive straight mode");
+                Debug.println("[OperatorDriveCommand] Exited drive straight mode");
                 Robot.drive.driveStraightEnd();
             }
 
