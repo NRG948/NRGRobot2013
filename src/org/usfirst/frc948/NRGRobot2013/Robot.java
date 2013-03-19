@@ -187,8 +187,8 @@ public class Robot extends IterativeRobot {
      * Good for things like LCD prints or general updates.
      */
     private void periodicAll() {
-        String leftQuad = String.valueOf(MathHelper.round(RobotMap.driveleftQuadrature.getRaw(), 4));
-        String rightQuad = String.valueOf(MathHelper.round(RobotMap.driverightQuadrature.getRaw(), 4));
+        String leftQuad = String.valueOf(RobotMap.driveleftQuadrature.getRaw());
+        String rightQuad = String.valueOf(RobotMap.driverightQuadrature.getRaw());
 
         String gyro = String.valueOf(MathHelper.round(RobotMap.drivegyro.getAngle(), 1));
         String target = String.valueOf(MathHelper.round(Robot.drive.getDesiredHeading(), 1));
@@ -201,7 +201,6 @@ public class Robot extends IterativeRobot {
         LCD.clearLine(5);
         LCD.println(LCD.DRIVE, 1, "L:" + leftQuad + " R:" + rightQuad);
         LCD.println(LCD.GYRO, 2, "GYRO:" + gyro + " TARG:" + target);
-//        LCD.println(LCD.SHOOT, 3, "RELEASED: " + Robot.discMagazine.getCount());
         LCD.println(true, 3, "AVG RPM:" + RobotMap.shooterQuadrature.averageRPM());
         LCD.println(true, 5, "AUTO:" + oi.getAutonomousStartingPosition().toString() + "->" + oi.getAutonomousTargetPosition().toString());
         LCD.update();
