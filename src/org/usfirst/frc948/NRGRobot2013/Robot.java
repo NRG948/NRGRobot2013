@@ -197,12 +197,13 @@ public class Robot extends IterativeRobot {
         oi.update();
 
         LCD.clearLine(1);
+        LCD.clearLine(2);
         LCD.clearLine(3);
-        LCD.clearLine(5);
+        LCD.clearLine(4);
         LCD.println(LCD.DRIVE, 1, "L:" + leftQuad + " R:" + rightQuad);
         LCD.println(LCD.GYRO, 2, "GYRO:" + gyro + " TARG:" + target);
-        LCD.println(true, 3, "AVG RPM:" + RobotMap.shooterQuadrature.averageRPM());
-        LCD.println(true, 5, "AUTO:" + oi.getAutonomousStartingPosition().toString() + "->" + oi.getAutonomousTargetPosition().toString());
+        LCD.println(LCD.SHOOTER, 3, "AVG RPM:" + RobotMap.shooterQuadrature.averageRPM());
+        LCD.println(LCD.AUTONOMOUS, 4, "AUTO:" + oi.getAutonomousStartingPosition().toString() + "->" + oi.getAutonomousTargetPosition().toString());
         LCD.update();
 
         // Show what command each subsystem is executing

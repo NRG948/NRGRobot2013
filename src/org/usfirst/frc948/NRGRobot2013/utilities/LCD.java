@@ -8,14 +8,10 @@ import edu.wpi.first.wpilibj.DriverStationLCD;
  */
 public class LCD {
 
-    public static final boolean GYRO = true;
-    public static final boolean DRIVE = true;
-    public static final boolean AUTONOMOUS = false;
-    public static final boolean JOYSTICK = false;
-    public static final boolean PID = false;
-    public static final boolean TURNING = false;
-    public static final boolean AIM = true;
-    public static final boolean SHOOT = true;
+    public static boolean GYRO = true;
+    public static boolean DRIVE = true;
+    public static boolean AUTONOMOUS = true;
+    public static boolean SHOOTER = true;
     
     private static final String emptyLine = emptyLine();
     private static String emptyLine() {
