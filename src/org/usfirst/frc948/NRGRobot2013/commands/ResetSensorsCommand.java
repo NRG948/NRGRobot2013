@@ -3,7 +3,6 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
-import org.usfirst.frc948.NRGRobot2013.subsystems.Drive;
 
 /**
  * Command to reset all sensors/encoders on the robot.
@@ -23,8 +22,8 @@ public class ResetSensorsCommand extends Command {
     protected void execute() {
         RobotMap.drivegyro.reset();
         Robot.drive.setDesiredHeading(0);
-        Drive.resetLeftEncoder();
-        Drive.resetRightEncoder();
+        Robot.drive.resetLeftEncoder();
+        Robot.drive.resetRightEncoder();
         RobotMap.shooterQuadrature.reset();
         Robot.positionTracker.init();
     }

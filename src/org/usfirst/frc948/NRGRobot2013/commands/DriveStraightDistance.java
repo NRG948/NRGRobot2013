@@ -2,7 +2,6 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
-import org.usfirst.frc948.NRGRobot2013.subsystems.Drive;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 
@@ -26,8 +25,8 @@ public class DriveStraightDistance extends Command {
     }
 
     protected void initialize() {
-        leftStartDistance = Drive.getLeftQuadratureDistance();
-        rightStartDistance = Drive.getRightQuadratureDistance();
+        leftStartDistance = Robot.drive.getLeftQuadratureDistance();
+        rightStartDistance = Robot.drive.getRightQuadratureDistance();
         
         Robot.drive.driveStraightInit();
         
@@ -35,8 +34,8 @@ public class DriveStraightDistance extends Command {
     }
 
     protected void execute() {
-        double leftDistanceTraveled = Math.abs(Drive.getLeftQuadratureDistance()-leftStartDistance);
-        double rightDistanceTraveled = Math.abs(Drive.getRightQuadratureDistance()-rightStartDistance);
+        double leftDistanceTraveled = Math.abs(Robot.drive.getLeftQuadratureDistance()-leftStartDistance);
+        double rightDistanceTraveled = Math.abs(Robot.drive.getRightQuadratureDistance()-rightStartDistance);
 
         greaterValue = Math.max(leftDistanceTraveled, rightDistanceTraveled);
         double distanceRemaining = distance - greaterValue;
