@@ -43,6 +43,8 @@ public class RobotMap {
     
     public static Compressor compressor;
     
+    public static AnalogChannel IRSensor;
+    
     public static final double DEFAULT_GYRO_SENSITIVITY = 0.00685;
     
     public static final boolean CompetitionRobot = false;   // ROBOT1: set true for Competition robot, false for practice bot
@@ -122,5 +124,8 @@ public class RobotMap {
         
         magPiston = new Relay(1);
     LiveWindow.addActuator("DiscMagazine", "magPiston", magPiston);
+        
+        IRSensor = new AnalogChannel(4);
+    LiveWindow.addSensor("DiscMagazine", "IRSensor", IRSensor);
     }
 }
