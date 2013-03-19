@@ -19,7 +19,6 @@ public class Autonomous extends CommandGroup {
 
         private static final int kTimer_val = 0;
         private static final int kEncoder_val = 1;
-        private static final int kPID_val = 2;
         
         /**
          * mode: no encoder available, run autonomous on time delay alone
@@ -30,11 +29,6 @@ public class Autonomous extends CommandGroup {
          * mode: no PID available, run autonomous on raw motor power and RPM sensor
          */
         public static final ShooterMode kEncoder = new ShooterMode(ShooterMode.kEncoder_val);
-        
-        /**
-         * mode: PID working, run autonomous on PID
-         */
-        public static final ShooterMode kPID = new ShooterMode(ShooterMode.kPID_val);
         
         public final int mode;
 
@@ -248,14 +242,6 @@ public class Autonomous extends CommandGroup {
             addSequential(new ReleaseFrisbeeCommand());
             addSequential(new Delay(MINIMUM_DELAY));
             addSequential(new WaitForMinRPM(minRPM));
-            addSequential(new ReleaseFrisbeeCommand());
-        } else if (mode.mode == ShooterMode.kPID_val) {
-            addSequential(new SetShooterRPM(minRPM));
-            addSequential(new WaitForShooterSpeed());
-            addSequential(new ReleaseFrisbeeCommand());
-            addSequential(new WaitForShooterSpeed());
-            addSequential(new ReleaseFrisbeeCommand());
-            addSequential(new WaitForShooterSpeed());
             addSequential(new ReleaseFrisbeeCommand());
         }
         

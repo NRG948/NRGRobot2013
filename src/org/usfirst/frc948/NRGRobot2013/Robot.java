@@ -174,11 +174,6 @@ public class Robot extends IterativeRobot {
         Preferences.getInstance().putDouble(PreferenceKeys.OVER_REV_FACTOR, Shooter.DEFAULT_OVER_REV);
         Preferences.getInstance().putDouble(PreferenceKeys.SHOOT_DELAY, ReleaseFrisbeeCommand.DELAY);
         Preferences.getInstance().putDouble(PreferenceKeys.CLIMBER_POWER, Climber.DEFAULT_POWER);
-        Preferences.getInstance().putBoolean(PreferenceKeys.SHOOTER_USE_PID, Shooter.DEFAULT_USE_PID);
-        Preferences.getInstance().putDouble(PreferenceKeys.SHOOTER_P, Shooter.kDefaultP);
-        Preferences.getInstance().putDouble(PreferenceKeys.SHOOTER_I, Shooter.kDefaultI);
-        Preferences.getInstance().putDouble(PreferenceKeys.SHOOTER_D, Shooter.kDefaultD);
-        Preferences.getInstance().putDouble(PreferenceKeys.SHOOT_PID_SCALE_FACTOR, Shooter.PID_OUTPUT_SCALE_VALUE);
         Preferences.getInstance().putDouble(PreferenceKeys.DOUBLE_PARAM1, 0.0);
         Preferences.getInstance().putDouble(PreferenceKeys.DOUBLE_PARAM2, 0.0);
         Preferences.getInstance().putDouble(PreferenceKeys.DOUBLE_PARAM3, 0.0);
