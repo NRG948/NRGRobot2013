@@ -11,8 +11,7 @@ public class Averager {
     
     private int count;
     private int idx;
-    private double sum;
-    private double[] array;
+    private final double[] array;
     
     private double average;
 
@@ -23,27 +22,30 @@ public class Averager {
         max = n;
         count = 0;
         idx = 0;
-        sum = 0;
         array = new double[n];
     }
 
     public void add(double n) {
         if (count == max) {
-            sum -= array[idx];
             count--;
         }
         
         array[idx] = n;
-        sum += n;
         count++;
         idx++;
-        average = sum / count;
+        average = sum() / count;
         
         if (idx == max) {
             idx = 0;
         }
     }
-
+    
+    private double sum() {
+        double sum = 0;
+        for (int i = 0; i < array.length; i++) {sum += array[i];}
+        return sum;
+    }
+    
     public double getAverage() {
         return average;
     }
