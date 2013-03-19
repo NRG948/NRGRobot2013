@@ -203,7 +203,6 @@ public class Robot extends IterativeRobot {
         LCD.println(LCD.GYRO, 2, "GYRO:" + gyro + " TARG:" + target);
 //        LCD.println(LCD.SHOOT, 3, "RELEASED: " + Robot.discMagazine.getCount());
         LCD.println(true, 3, "AVG RPM:" + RobotMap.shooterQuadrature.averageRPM());
-        LCD.println(true, 4, "SHOOT PID:" + oi.shooterUsePID() + "  ");
         LCD.println(true, 5, "AUTO:" + oi.getAutonomousStartingPosition().toString() + "->" + oi.getAutonomousTargetPosition().toString());
         LCD.update();
 

@@ -14,8 +14,6 @@ import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
  */
 public class OperatorShooterSpeed extends Command {
 
-    private boolean usingPID = false; 
-    
     public OperatorShooterSpeed() {
         requires(Robot.shooter);
     }

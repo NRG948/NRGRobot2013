@@ -223,10 +223,6 @@ public class OI2 implements IOperatorInterface {
         return rightJoyBtn1.get();
     }
     
-    public boolean shooterUsePID() {
-        return getDigital(PRESET_SHOOTER_SPEED_PID_ENABLE);
-    }
-    
     public boolean getDriveSlow() {
         return leftJoyBtn1.get();
     }

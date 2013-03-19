@@ -34,8 +34,6 @@ public interface IOperatorInterface {
 
     Joystick getrightJoystick();
 
-    boolean shooterUsePID();
-
     void update();
     
     boolean isFullAutonomous();

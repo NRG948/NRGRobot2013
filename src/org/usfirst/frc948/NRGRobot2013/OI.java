@@ -206,10 +206,6 @@ public class OI implements IOperatorInterface {
         return rightJoyBtn1.get();
     }
     
-    public boolean shooterUsePID() {
-        return !getDigital(15);
-    }
-    
     public boolean getDriveSlow() {
         return leftJoyBtn1.get();
     }
