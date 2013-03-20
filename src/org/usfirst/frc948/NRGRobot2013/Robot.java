@@ -124,6 +124,11 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         positionTracker.update();
         periodicAll();
+        
+        if (autonomousCommand != null && (positionTracker.getY() <= 27.5 || positionTracker.getX() >= 25.7)) {
+            Debug.println("[Robot] emergency canceling autonomous command (too close to boundary)");
+            autonomousCommand.cancel();
+        }
     }
 
     public void teleopInit() {
