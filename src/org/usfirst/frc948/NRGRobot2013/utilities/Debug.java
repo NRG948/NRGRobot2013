@@ -43,6 +43,26 @@ public class Debug {
         }
     }
     
+    public static void terminateLogging() {
+        if (loggingInitialized) {
+            if (log != null) {
+                try {
+                    log.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            
+            if (file != null) {
+                try {
+                    file.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+    }
+    
     public static void enable() {
         print = true;
     }
