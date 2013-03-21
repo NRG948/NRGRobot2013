@@ -47,7 +47,7 @@ public class RobotMap {
     
     public static final double DEFAULT_GYRO_SENSITIVITY = 0.00685;
     
-    public static final boolean CompetitionRobot = false;   // ROBOT1: set true for Competition robot, false for practice bot
+    public static final boolean CompetitionRobot = true;   // ROBOT1: set true for Competition robot, false for practice bot
     
     public static void init() {
         
