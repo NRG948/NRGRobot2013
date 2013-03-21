@@ -154,7 +154,7 @@ public class Autonomous extends CommandGroup {
     
     public static void initPreferences() {
         double[][] defaults = {
-            {  8.0, 32.00,   5.0, 0.0, Shooter.MIN_RPM_CLOSE_3PT, -20.0, 16.0, 29.00, 0.00, 25.5, 6.00, 22.5, 4.0 },  // left
+            {  8.0, 35.83,   5.0, 0.0, Shooter.MIN_RPM_CLOSE_3PT, -20.0, 16.0, 29.00, 0.00, 25.5, 6.00, 22.5, 4.0 },  // left
             { 14.5, 32.00,   0.0, 1.5, Shooter.MIN_RPM_CLOSE_3PT,   0.0, 16.0, 29.00, 0.00, 25.5, 6.00, 22.5, 4.0 },  // center
             { 19.0, 35.83, -20.0, 0.0, Shooter.MIN_RPM_CLOSE_3PT,   0.0, 24.0, 27.83, 0.00, 24.0, 5.23, 22.5, 4.0 }   // right
         };
@@ -214,7 +214,13 @@ public class Autonomous extends CommandGroup {
         double initialTurnAngle = Preferences.getInstance().getDouble(prefix + PreferenceKeys.INITIAL_TURN, 0.0);
         
         if (initialTurnAngle != 0) {
-            addSequential(new TurnCommand(initialTurnAngle));
+            if (start.position == StartingPosition.kLeft_val) {
+                addSequential(new TurnCommand(initialTurnAngle, 0.8, 0.0));
+            } else if (start.position == StartingPosition.kRight_val) {
+                addSequential(new TurnCommand(initialTurnAngle, 0.0, 0.8));
+            } else {
+                addSequential(new TurnCommand(initialTurnAngle));
+            }
         }
         
         addSequential(new DriveStraightDistance(-0.5, Preferences.getInstance().getDouble(prefix + PreferenceKeys.INTIAL_DISTANCE, 0.0)));
