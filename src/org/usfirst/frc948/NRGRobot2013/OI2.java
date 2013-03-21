@@ -125,8 +125,7 @@ public class OI2 implements IOperatorInterface {
                    rightJoyBtn11 = new JoystickButton(rightJoystick, 11);
     
     private Button btnClimbEngage =  new NRGDigitalIOButton(CLIMBER_DEPLOY, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
-    private Button btnClimbUp = new NRGDigitalIOButton(CLIMBER_CLIMB, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
-    
+    private Button btnClimbUp = new NRGDigitalIOButton(CLIMBER_CLIMB, NRGDigitalIOButton.ACTIVE_STATE_FALSE);
     
     private Button shootButton = new DigitalIOButton(MANUAL_SHOOT);
     
