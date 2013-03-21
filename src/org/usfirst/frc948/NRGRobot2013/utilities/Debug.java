@@ -76,20 +76,6 @@ public class Debug {
         e.printStackTrace();
     }
 
-    public static void print(String s) {
-        if (loggingInitialized) {
-            try {
-                log.write(s.getBytes());
-            } catch (IOException ex) {
-                printException(ex);
-            }
-        }
-        
-        if (print) {
-            System.out.print(s);
-        }
-    }
-    
     public static void println(String s) {
         if (loggingInitialized) {
             try {
@@ -101,6 +87,8 @@ public class Debug {
         }
         
         if (print) {
+            System.out.print(System.currentTimeMillis());
+            System.out.print('|');
             System.out.println(s);
         }
     }
