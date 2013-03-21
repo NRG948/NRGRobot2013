@@ -24,12 +24,12 @@ public class DriveStraightTime extends Command {
     }
 
     protected void initialize() {
-        Robot.drive.driveStraightInit();
+        Robot.drive.driveOnHeadingInit();
         endTime = System.currentTimeMillis() + time;
     }
 
     protected void execute() {
-        Robot.drive.driveStraight(speed, Robot.drive.getDesiredHeading());
+        Robot.drive.driveOnHeading(speed, Robot.drive.getDesiredHeading());
     }
 
     protected boolean isFinished() {
@@ -37,7 +37,7 @@ public class DriveStraightTime extends Command {
     }
 
     protected void end() {
-        Robot.drive.driveStraightEnd();
+        Robot.drive.driveOnHeadingEnd();
         Robot.drive.stop();
     }
 

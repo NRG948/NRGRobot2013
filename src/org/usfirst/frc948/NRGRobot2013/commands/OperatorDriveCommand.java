@@ -66,16 +66,16 @@ public class OperatorDriveCommand extends Command {
             if (!prevDriveStraight) {
                 Debug.println("[OperatorDriveCommand] Entered drive straight mode");
                 driveStraightHeading = RobotMap.drivegyro.getAngle();
-                Robot.drive.driveStraightInit();
+                Robot.drive.driveOnHeadingInit();
             }
 
             double speed = Math.abs(currentRightJoystickYValue) < CLOSE_TO_ZERO ? 0 : currentRightJoystickYValue;
 
-            Robot.drive.driveStraight(speed * driveFactor, driveStraightHeading);
+            Robot.drive.driveOnHeading(speed * driveFactor, driveStraightHeading);
         } else {
             if (prevDriveStraight) {
                 Debug.println("[OperatorDriveCommand] Exited drive straight mode");
-                Robot.drive.driveStraightEnd();
+                Robot.drive.driveOnHeadingEnd();
             }
 
             double leftMotorSpeed;

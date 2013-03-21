@@ -28,7 +28,7 @@ public class DriveStraightDistance extends Command {
         leftStartDistance = Robot.drive.getLeftQuadratureDistance();
         rightStartDistance = Robot.drive.getRightQuadratureDistance();
         
-        Robot.drive.driveStraightInit();
+        Robot.drive.driveOnHeadingInit();
         
         Debug.println("[DriveStraightDistance] driving " + distance + " feet at " + speed + " power");
     }
@@ -40,10 +40,10 @@ public class DriveStraightDistance extends Command {
         greaterValue = Math.max(leftDistanceTraveled, rightDistanceTraveled);
         double distanceRemaining = distance - greaterValue;
         if (speed > 0) {
-            Robot.drive.driveStraight(MathHelper.clamp(distanceRemaining / 2, -Math.abs(speed), Math.abs(speed)),
+            Robot.drive.driveOnHeading(MathHelper.clamp(distanceRemaining / 2, -Math.abs(speed), Math.abs(speed)),
                     Robot.drive.getDesiredHeading());
         } else if (speed < 0) {
-            Robot.drive.driveStraight(MathHelper.clamp(-distanceRemaining / 2, -Math.abs(speed), Math.abs(speed)),
+            Robot.drive.driveOnHeading(MathHelper.clamp(-distanceRemaining / 2, -Math.abs(speed), Math.abs(speed)),
                     Robot.drive.getDesiredHeading());
         }
 
@@ -55,7 +55,7 @@ public class DriveStraightDistance extends Command {
 
     protected void end() {
         Debug.println("[DriveStraightDistance] end()");
-        Robot.drive.driveStraightEnd();
+        Robot.drive.driveOnHeadingEnd();
         Robot.drive.rawStop();
     }
 
