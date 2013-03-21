@@ -144,10 +144,10 @@ public class OI2 implements IOperatorInterface {
         shootButton.whenPressed(new ReleaseFrisbeeCommand());
         
         rightJoyBtn2.whenPressed(new SetCameraTilt(0.00));
-        rightJoyBtn3.whenPressed(new SetCameraTilt(0.62));
+        rightJoyBtn3.whenPressed(new SetCameraTilt(0.69));
         
-        rightJoyBtn4.whileHeld(new SetCameraTilt(-1, 0.01));
-        rightJoyBtn5.whileHeld(new SetCameraTilt( 1, 0.01));
+        rightJoyBtn4.whileHeld(new SetCameraTilt(-1, 0.0075));
+        rightJoyBtn5.whileHeld(new SetCameraTilt( 1, 0.0075));
                 
         btnClimbEngage.whenPressed(new TiltCommand(true));
         btnClimbEngage.whenReleased(new TiltCommand(false));
