@@ -137,11 +137,18 @@ public class OI2 implements IOperatorInterface {
     private double shootTrim = 0.0;
     
     public OI2() {
-        leftJoyBtn7.whenPressed(new ResetSensorsCommand());
+        leftJoyBtn6.whenPressed(new ResetSensorsCommand());
+        leftJoyBtn7.whenPressed(new InitializePreferences());
+        
         leftJoyBtn11.whenPressed(new ReadGyroSensitivity());
-        leftJoyBtn8.whenPressed(new InitializePreferences());
         
         shootButton.whenPressed(new ReleaseFrisbeeCommand());
+        
+        rightJoyBtn2.whenPressed(new SetCameraTilt(0.67));
+        rightJoyBtn3.whenPressed(new SetCameraTilt(1.00));
+        
+        rightJoyBtn4.whileHeld(new SetCameraTilt(-1, 0.01));
+        rightJoyBtn5.whileHeld(new SetCameraTilt( 1, 0.01));
                 
         btnClimbEngage.whenPressed(new TiltCommand(true));
         btnClimbEngage.whenReleased(new TiltCommand(false));

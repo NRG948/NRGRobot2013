@@ -13,32 +13,34 @@ import org.usfirst.frc948.NRGRobot2013.IOperatorInterface;
  */
 public class SetCameraTilt extends Command {
 
-    private double servoVal;
-    private boolean useSlider;
-    private IOperatorInterface oi = Robot.oi;
-
-    public SetCameraTilt() {
-        requires(Robot.camera);
-        useSlider = true;
-    }
-
+    private final boolean relative;
+    private final double value;
+    
+    // set absolute position of servo
     public SetCameraTilt(double servoVal) {
-        servoVal = this.servoVal;
-        useSlider = false;
+        relative = false;
+        this.value = servoVal;
+    }
+    
+    // adjust position of servo (relative)
+    public SetCameraTilt(int direction, double speed) {
+        relative = true;
+        this.value = direction * speed;
     }
 
     protected void initialize() {
     }
 
     protected void execute() {
-        if (useSlider) {
-            servoVal = oi.getCameraTilt();
+        if (relative) {
+            RobotMap.cameraServo.set(RobotMap.cameraServo.get() + value);
+        } else {
+            RobotMap.cameraServo.set(value);
         }
-        RobotMap.cameraServo.set(servoVal);
     }
 
     protected boolean isFinished() {
-        return !useSlider;
+        return true;
     }
 
     protected void end() {

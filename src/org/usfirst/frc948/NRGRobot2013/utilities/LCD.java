@@ -12,6 +12,7 @@ public class LCD {
     public static boolean DRIVE = true;
     public static boolean AUTONOMOUS = true;
     public static boolean SHOOTER = true;
+    public static boolean CAMERA = true;
     
     private static final String emptyLine = emptyLine();
     private static String emptyLine() {

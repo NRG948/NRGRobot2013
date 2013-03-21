@@ -33,7 +33,7 @@ public class Camera extends Subsystem {
     final double TANGENT = Math.tan((43.5 / 180.0 * Math.PI));
 
     protected void initDefaultCommand() {
-        this.setDefaultCommand(new SetCameraTilt());
+//        this.setDefaultCommand(new SetCameraTilt());
     }
 
     public Camera() {
