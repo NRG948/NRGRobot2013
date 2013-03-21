@@ -2,6 +2,7 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 
 /**
  *
@@ -10,10 +11,11 @@ import org.usfirst.frc948.NRGRobot2013.Robot;
 public class InitializePreferences extends Command {
     
     protected void initialize() {
-    
+        
     }
     
     protected void execute() {
+        Debug.println("[InitializePreferences]");
         Robot.initPreferences();
         Autonomous.initPreferences();
     }

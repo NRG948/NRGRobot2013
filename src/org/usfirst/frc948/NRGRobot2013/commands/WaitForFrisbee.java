@@ -2,6 +2,7 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 
 /**
  *
@@ -20,6 +21,7 @@ public class WaitForFrisbee extends Command {
     protected void initialize() {
         end = 0;
         previousFrisbeeLoaded = false;
+        Debug.println("[WaitForFrisbee] waiting for frisbee...");
     }
 
     protected void execute() {
@@ -33,7 +35,14 @@ public class WaitForFrisbee extends Command {
     }
 
     protected boolean isFinished() {
-        return previousFrisbeeLoaded && System.currentTimeMillis() >= end;
+        boolean finished = previousFrisbeeLoaded && System.currentTimeMillis() >= end;
+        
+        if (finished) {
+            Debug.println("[WaitForFrisbee] done waiting");
+            return true;
+        }
+        
+        return false;
     }
 
     protected void end() {

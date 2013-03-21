@@ -2,6 +2,7 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 
 /**
  * Command to engage/disengage climber piston.
@@ -21,6 +22,7 @@ public class TiltCommand extends Command {
     }
 
     protected void execute() {
+        Debug.println("[TiltCommand] tilt:" + tilt);
         if (tilt) {
             Robot.climber.activateTilt();
         } else {
