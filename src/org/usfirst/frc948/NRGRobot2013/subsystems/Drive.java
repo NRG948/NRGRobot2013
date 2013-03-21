@@ -57,7 +57,7 @@ public class Drive extends PIDSubsystem {
         lastTime = System.currentTimeMillis();
     }
 
-    public void driveStraightInit() {
+    public void driveOnHeadingInit() {
         pid.reset();
         double p = Preferences.getInstance().getDouble(PreferenceKeys.DRIVE_P, kDefaultP);
         double i = Preferences.getInstance().getDouble(PreferenceKeys.DRIVE_I, kDefaultI);
@@ -68,7 +68,7 @@ public class Drive extends PIDSubsystem {
         pid.enable();
     }
 
-    public void driveStraight(double speed, double heading) {
+    public void driveOnHeading(double power, double heading) {
         this.setSetpoint(heading);
         // Scale the PIDController output range based on the size of the current heading error in degrees
         double error = heading - Robot.positionTracker.getHeading();
@@ -76,22 +76,25 @@ public class Drive extends PIDSubsystem {
         pid.setOutputRange(-outputRange, outputRange);
         pidOutput = MathHelper.clamp(pidOutput, -outputRange, outputRange); // in case the last pidOutput is out of range
         
-        double leftSpeed = speed;
-        double rightSpeed = speed - pidOutput;
-        if (rightSpeed > speed || rightSpeed < -speed) {
-            leftSpeed = speed + pidOutput;
-            rightSpeed = speed;
+        // Adjust left/right drive power so that we follow the heading but don't exceed the max specified power
+        double leftPower, rightPower;
+        if (pidOutput >= 0.0) {
+            leftPower = power;
+            rightPower = power - pidOutput;
+        } else {
+            leftPower = power + pidOutput;
+            rightPower = power;
         }
-        rawTankDrive(leftSpeed, rightSpeed);
+        rawTankDrive(leftPower, rightPower);
 
         SmartDashboard.putData("DrivePID", pid);
         SmartDashboard.putNumber("Drive PID output", pidOutput);
         SmartDashboard.putNumber("Drive PID error", pid.getError());
-        SmartDashboard.putNumber("Drive PID Lpower", leftSpeed);
-        SmartDashboard.putNumber("Drive PID Rpower", rightSpeed);
+        SmartDashboard.putNumber("Drive PID Lpower", leftPower);
+        SmartDashboard.putNumber("Drive PID Rpower", rightPower);
     }
 
-    public void driveStraightEnd() {
+    public void driveOnHeadingEnd() {
         pid.reset();
         pidOutput = 0;
     }

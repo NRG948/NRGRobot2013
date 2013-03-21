@@ -101,4 +101,22 @@ public class MathHelper {
         double degrees = 90 - heading;
         return degrees;
     }
+    
+    /**
+     * Convert a heading into an equivalent heading which is within 180 degrees of the gyroHeading.
+     * 
+     * @param heading The heading of which we're trying to find an equivalent that is close to gyroHeading.
+     * @param gyroHeading The current value of the gyro.
+     * @return heading+n*360 where n is chosen such that the result is within 180 degrees of gyroHeading.
+     */
+    public static double nearestEquivalentHeading(double heading, double gyroHeading)
+    {
+        double deltaAngle = (heading - gyroHeading) % 360;
+        if (deltaAngle > 180) {
+            deltaAngle -= 360;
+        } else if (deltaAngle <= -180) {
+            deltaAngle += 360;
+        }
+        return gyroHeading + deltaAngle;
+    }
 }

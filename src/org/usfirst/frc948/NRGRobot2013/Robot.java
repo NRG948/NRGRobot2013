@@ -11,7 +11,6 @@
 
 package org.usfirst.frc948.NRGRobot2013;
 
-import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
@@ -20,6 +19,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc948.NRGRobot2013.commands.*;
 import org.usfirst.frc948.NRGRobot2013.subsystems.*;
+import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import org.usfirst.frc948.NRGRobot2013.utilities.LCD;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 import org.usfirst.frc948.NRGRobot2013.utilities.PositionTracker;
@@ -221,5 +221,4 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("shooter RPM", RobotMap.shooterQuadrature.getRPM());
         SmartDashboard.putNumber("average RPM", RobotMap.shooterQuadrature.averageRPM());
     }
-
 }
