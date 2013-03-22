@@ -56,7 +56,8 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-        Debug.enable();
+//        Debug.enable();
+//        Debug.initLogging();
         
         Debug.println("Far over...");
 
@@ -125,10 +126,10 @@ public class Robot extends IterativeRobot {
         positionTracker.update();
         periodicAll();
         
-        if (autonomousCommand != null && (positionTracker.getY() <= 27.5 || positionTracker.getX() >= 25.7)) {
-            Debug.println("[Robot] emergency canceling autonomous command (too close to boundary)");
-            autonomousCommand.cancel();
-        }
+//        if (autonomousCommand != null && autonomousCommand.isRunning() && (positionTracker.getY() <= 27.5 || positionTracker.getX() >= 25.7)) {
+//            Debug.println("[Robot] emergency canceling autonomous command (too close to boundary)");
+//            autonomousCommand.cancel();
+//        }
     }
 
     public void teleopInit() {
@@ -205,11 +206,12 @@ public class Robot extends IterativeRobot {
         LCD.clearLine(2);
         LCD.clearLine(3);
         LCD.clearLine(4);
+        LCD.clearLine(6);
         LCD.println(LCD.DRIVE, 1, "L:" + leftQuad + " R:" + rightQuad);
         LCD.println(LCD.GYRO, 2, "GYRO:" + gyro + " TARG:" + target);
         LCD.println(LCD.SHOOTER, 3, "AVG RPM:" + RobotMap.shooterQuadrature.averageRPM());
         LCD.println(LCD.AUTONOMOUS, 4, "AUTO:" + oi.getAutonomousStartingPosition().toString() + "->" + oi.getAutonomousTargetPosition().toString());
-        LCD.println(LCD.CAMERA, 5, "CamServo:" + RobotMap.cameraServo.get());
+        LCD.println(LCD.CAMERA, 6, "CamServo:" + RobotMap.cameraServo.get());
         LCD.update();
 
         // Show what command each subsystem is executing
