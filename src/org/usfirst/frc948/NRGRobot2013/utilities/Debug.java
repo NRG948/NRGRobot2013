@@ -64,6 +64,8 @@ public class Debug {
                     ex.printStackTrace();
                 }
             }
+            
+            loggingInitialized = false;
         }
     }
     
