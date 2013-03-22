@@ -102,7 +102,7 @@ public class Autonomous extends CommandGroup {
     
     // constants for autonomous driving
     private static final double DEFAULT_TURN_SPEED = 0.3;
-    private static final double DEFAULT_SPEED = 0.4;
+    private static final double DEFAULT_SPEED = 0.5;
     
     private final ShooterMode mode;
     private final StartingPosition start;
@@ -128,6 +128,7 @@ public class Autonomous extends CommandGroup {
         public static final String OUTSIDE_Y = "FinalPos1Y";
         public static final String INSIDE_X = "FinalPos2X";
         public static final String INSIDE_Y = "FinalPos2Y";
+        public static final String SHOOT_TURN = "ShootTurn";
         
         public static final String[] prefixes = {
             PREFIX_LEFT,
@@ -148,15 +149,16 @@ public class Autonomous extends CommandGroup {
             OUTSIDE_X,
             OUTSIDE_Y,
             INSIDE_X,
-            INSIDE_Y
+            INSIDE_Y,
+            SHOOT_TURN
         };
     }
     
     public static void initPreferences() {
         double[][] defaults = {
-            {  8.0, 35.83,   8.0, 0.0, Shooter.MIN_RPM_CLOSE_3PT, -20.0, 16.0, 29.00, 0.00, 25.5, 6.00, 22.5, 4.0 },  // left
-            { 14.5, 35.83,   0.0, 1.5, Shooter.MIN_RPM_CLOSE_3PT,   0.0, 16.0, 29.00, 0.00, 25.5, 6.00, 22.5, 4.0 },  // center
-            { 19.0, 35.83, -20.0, 0.0, Shooter.MIN_RPM_CLOSE_3PT,   0.0, 24.0, 29.00, 0.00, 24.0, 5.23, 22.5, 4.0 }   // right
+            {  7.92, 34.83,   6.0, 2.0, 2800.0, -30.0, 24.0, 29.00, 0.00, 25.2, 7.75, 24.0, 5.5,  0.01 },  // left
+            { 14.50, 35.83,   0.0, 2.0, 2900.0,   0.0, 24.0, 29.00, 0.00, 25.2, 7.75, 24.0, 5.5, -7.00 },  // center
+            { 19.08, 34.83, -23.0, 2.0, 2800.0,   0.0, 24.0, 29.00, 0.00, 25.2, 7.75, 24.0, 5.5,  0.01 }   // right
         };
         
         String[] keys = PreferenceKeys.array;
@@ -223,11 +225,11 @@ public class Autonomous extends CommandGroup {
             }
         }
         
-        addSequential(new DriveStraightDistance(-0.5, Preferences.getInstance().getDouble(prefix + PreferenceKeys.INTIAL_DISTANCE, 0.0)));
+        addSequential(new DriveStraightDistance(-DEFAULT_SPEED, Preferences.getInstance().getDouble(prefix + PreferenceKeys.INTIAL_DISTANCE, 0.0)));
         
-        if (start.position == StartingPosition.kCenter_val) {
-            addSequential(new TurnToHeading(-7.0, 1.0));
-        }
+        double shootHeading = Preferences.getInstance().getDouble(prefix + PreferenceKeys.SHOOT_TURN, 0.0);
+        
+        addSequential(new TurnCommand(shootHeading, 0.6, 0.6, 1.0));
         
         double minRPM = Preferences.getInstance().getDouble(prefix + PreferenceKeys.SHOOT_RPM, Shooter.MIN_RPM_CLOSE_3PT);
         if (mode.mode == ShooterMode.kTimer_val) {
@@ -260,7 +262,7 @@ public class Autonomous extends CommandGroup {
             return;
         }
         
-        addSequential(new DriveToXY(-0.5, Preferences.getInstance().getDouble(prefix + PreferenceKeys.DEST_X, 0.0), Preferences.getInstance().getDouble(prefix + PreferenceKeys.DEST_Y, 0.0)));
+        addSequential(new DriveToXY(-0.6, Preferences.getInstance().getDouble(prefix + PreferenceKeys.DEST_X, 0.0), Preferences.getInstance().getDouble(prefix + PreferenceKeys.DEST_Y, 0.0)));
         addSequential(new TurnToHeading(0));
     }
     
@@ -283,11 +285,11 @@ public class Autonomous extends CommandGroup {
         postAutonomous.addSequential(new TurnToHeading(0.0, 0.6, 0.6, 10.0));
         
         if (destination.position == TargetPosition.kOutside_val) {
-            postAutonomous.addSequential(new DriveToXY(-0.5,
+            postAutonomous.addSequential(new DriveToXY(-0.7,
                     Preferences.getInstance().getDouble(prefix + PreferenceKeys.OUTSIDE_X, 0.0),
                     Preferences.getInstance().getDouble(prefix + PreferenceKeys.OUTSIDE_Y, 0.0)));
         } else if (destination.position == TargetPosition.kInside_val) {
-            postAutonomous.addSequential(new DriveToXY(DEFAULT_SPEED,
+            postAutonomous.addSequential(new DriveToXY(-0.7,
                     Preferences.getInstance().getDouble(prefix + PreferenceKeys.INSIDE_X, 0.0),
                     Preferences.getInstance().getDouble(prefix + PreferenceKeys.INSIDE_Y, 0.0)));
         }
