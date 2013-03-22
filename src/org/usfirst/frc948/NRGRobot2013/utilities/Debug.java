@@ -29,6 +29,10 @@ public class Debug {
                 file = (FileConnection) Connector.open(fileName, Connector.WRITE);
                 
                 if (file != null) {
+                    if (!file.exists()) {
+                        file.create();
+                    }
+                    
                     log = file.openOutputStream();
                     
                     if (log != null) {
