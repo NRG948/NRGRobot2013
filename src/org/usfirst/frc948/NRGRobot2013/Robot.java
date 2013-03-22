@@ -56,8 +56,8 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-//        Debug.enable();
-//        Debug.initLogging();
+        Debug.enable();
+        Debug.initLogging();
         
         Debug.println("Far over...");
 
@@ -86,6 +86,8 @@ public class Robot extends IterativeRobot {
 
     public void disabledInit() {
         Debug.println("[Robot] disabledInit()");
+        
+        Debug.terminateLogging();
     }
 
     public void disabledPeriodic() {
@@ -94,6 +96,8 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
+        Debug.initLogging();
+        
         Debug.println("[Robot] autonomousInit()");
         
 //        RobotMap.drivegyro.reset();
@@ -133,6 +137,10 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
+        Debug.initLogging();
+        
+        Debug.println("[Robot] teleopInit()");
+        
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
