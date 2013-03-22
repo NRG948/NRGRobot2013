@@ -87,11 +87,11 @@ public class Drive extends PIDSubsystem {
         }
         rawTankDrive(leftPower, rightPower);
 
-        SmartDashboard.putData("DrivePID", pid);
-        SmartDashboard.putNumber("Drive PID output", pidOutput);
-        SmartDashboard.putNumber("Drive PID error", pid.getError());
-        SmartDashboard.putNumber("Drive PID Lpower", leftPower);
-        SmartDashboard.putNumber("Drive PID Rpower", rightPower);
+//        SmartDashboard.putData("DrivePID", pid);
+//        SmartDashboard.putNumber("Drive PID output", pidOutput);
+//        SmartDashboard.putNumber("Drive PID error", pid.getError());
+//        SmartDashboard.putNumber("Drive PID Lpower", leftPower);
+//        SmartDashboard.putNumber("Drive PID Rpower", rightPower);
     }
 
     public void driveOnHeadingEnd() {
