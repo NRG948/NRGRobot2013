@@ -156,9 +156,9 @@ public class Autonomous extends CommandGroup {
     
     public static void initPreferences() {
         double[][] defaults = {
-            {  7.92, 34.83,   6.0, 2.0, 2800.0, -30.0, 24.0, 29.00, 0.00, 25.2, 7.75, 24.0, 5.5,  0.01 },  // left
-            { 14.50, 35.83,   0.0, 2.0, 2900.0,   0.0, 24.0, 29.00, 0.00, 25.2, 7.75, 24.0, 5.5, -7.00 },  // center
-            { 19.08, 34.83, -23.0, 2.0, 2800.0,   0.0, 24.0, 29.00, 0.00, 25.2, 7.75, 24.0, 5.5,  0.01 }   // right
+            {  7.92, 34.83,   9.0, 2.0, 2700.0, -30.0, 24.0, 29.00, 0.00, 25.2, 7.75, 24.0, 5.5,  0.01 },  // left
+            { 14.50, 35.83,   0.0, 2.0, 2825.0,   0.0, 24.0, 29.00, 0.00, 25.2, 7.75, 24.0, 5.5, -9.00 },  // center
+            { 19.08, 34.83, -20.0, 2.0, 2700.0,   0.0, 24.0, 29.00, 0.00, 25.2, 7.75, 24.0, 5.5,  0.01 }   // right
         };
         
         String[] keys = PreferenceKeys.array;
@@ -217,9 +217,9 @@ public class Autonomous extends CommandGroup {
         
         if (initialTurnAngle != 0) {
             if (start.position == StartingPosition.kLeft_val) {
-                addSequential(new TurnCommand(initialTurnAngle, 0.8, 0.0));
+                addSequential(new TurnCommand(initialTurnAngle, 1.0, 0.0));
             } else if (start.position == StartingPosition.kRight_val) {
-                addSequential(new TurnCommand(initialTurnAngle, 0.0, 0.8));
+                addSequential(new TurnCommand(initialTurnAngle, 0.0, 1.0));
             } else {
                 addSequential(new TurnCommand(initialTurnAngle));
             }
@@ -227,9 +227,9 @@ public class Autonomous extends CommandGroup {
         
         addSequential(new DriveStraightDistance(-DEFAULT_SPEED, Preferences.getInstance().getDouble(prefix + PreferenceKeys.INTIAL_DISTANCE, 0.0)));
         
-        double shootHeading = Preferences.getInstance().getDouble(prefix + PreferenceKeys.SHOOT_TURN, 0.0);
+        double shootTurn = Preferences.getInstance().getDouble(prefix + PreferenceKeys.SHOOT_TURN, 0.0);
         
-        addSequential(new TurnCommand(shootHeading, 0.6, 0.6, 1.0));
+        addSequential(new TurnCommand(shootTurn, 0.6, 0.6, 1.0));
         
         double minRPM = Preferences.getInstance().getDouble(prefix + PreferenceKeys.SHOOT_RPM, Shooter.MIN_RPM_CLOSE_3PT);
         if (mode.mode == ShooterMode.kTimer_val) {
@@ -295,6 +295,10 @@ public class Autonomous extends CommandGroup {
         }
         
         postAutonomous.addSequential(new TurnToHeading(-10.0));
+        
+//        for (int i = 0; i < 100; i++) {
+//            postAutonomous.addSequential(new ShootAtMinRPM(Shooter.MIN_RPM_FAR_3PT));
+//        }
         
         return postAutonomous;
     }
