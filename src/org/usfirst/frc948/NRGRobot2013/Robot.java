@@ -57,7 +57,7 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
         Debug.enable();
-        Debug.initLogging();
+//        Debug.initLogging();
         
         Debug.println("Far over...");
 
@@ -87,7 +87,7 @@ public class Robot extends IterativeRobot {
     public void disabledInit() {
         Debug.println("[Robot] disabledInit()");
         
-        Debug.terminateLogging();
+//        Debug.terminateLogging();
     }
 
     public void disabledPeriodic() {
@@ -96,7 +96,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
-        Debug.initLogging();
+//        Debug.initLogging();
         
         Debug.println("[Robot] autonomousInit()");
         
@@ -137,7 +137,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
-        Debug.initLogging();
+//        Debug.initLogging();
         
         Debug.println("[Robot] teleopInit()");
         
@@ -227,9 +227,9 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Shooter Subsystem", shooter);
         SmartDashboard.putData("DiscMag Subsystem", discMagazine);
         SmartDashboard.putData("Climber Subsystem", climber);
-        SmartDashboard.putData("Camera Subsystem", camera);
+//        SmartDashboard.putData("Camera Subsystem", camera);
         
         SmartDashboard.putNumber("shooter RPM", RobotMap.shooterQuadrature.getRPM());
-        SmartDashboard.putNumber("average RPM", RobotMap.shooterQuadrature.averageRPM());
+//        SmartDashboard.putNumber("average RPM", RobotMap.shooterQuadrature.averageRPM());
     }
 }
