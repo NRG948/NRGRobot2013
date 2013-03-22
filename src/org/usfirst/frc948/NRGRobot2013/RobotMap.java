@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder.PIDSourceParameter;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import org.usfirst.frc948.NRGRobot2013.subsystems.Camera;
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -116,7 +117,7 @@ public class RobotMap {
     LiveWindow.addActuator("Climber", "tiltPiston", tiltPiston);
     
         cameraServo = new Servo(9);
-        cameraServo.set(0.67);
+        cameraServo.set(Camera.SERVO_SET_SHOOT);
     LiveWindow.addActuator("Camera", "servo", cameraServo);
     
         compressor = new Compressor(6, 2);

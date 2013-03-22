@@ -22,6 +22,7 @@ import org.usfirst.frc948.NRGRobot2013.commands.*;
 import org.usfirst.frc948.NRGRobot2013.commands.tests.BalanceTankDrive;
 import org.usfirst.frc948.NRGRobot2013.commands.tests.CalibrateRPM;
 import org.usfirst.frc948.NRGRobot2013.commands.tests.IncrementalTurn;
+import org.usfirst.frc948.NRGRobot2013.subsystems.Camera;
 import org.usfirst.frc948.NRGRobot2013.subsystems.Climber;
 import org.usfirst.frc948.NRGRobot2013.subsystems.Shooter;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
@@ -84,7 +85,7 @@ public class OI2 implements IOperatorInterface {
     private static final double MINIMUM_SHOOT_SPEED = 0.0;
     
     private static final double SHOOT_TRIM_MAX_POWER = 0.1;
-    private static final double SHOOT_TRIM_MAX_RPM = 100;
+    private static final double SHOOT_TRIM_MAX_RPM = 200;
     
     private static final int PRESET_SHOOTER_SPEED_CONTROL = 10;
     private static final int PRESET_FULL_AUTONOMOUS_ENABLE = 7;
@@ -143,8 +144,8 @@ public class OI2 implements IOperatorInterface {
         
         shootButton.whenPressed(new ReleaseFrisbeeCommand());
         
-        rightJoyBtn2.whenPressed(new SetCameraTilt(0.00));
-        rightJoyBtn3.whenPressed(new SetCameraTilt(0.69));
+        rightJoyBtn2.whenPressed(new SetCameraTilt(Camera.SERVO_SET_CLIMB));
+        rightJoyBtn3.whenPressed(new SetCameraTilt(Camera.SERVO_SET_SHOOT));
         
         rightJoyBtn4.whileHeld(new SetCameraTilt(-1, 0.0075));
         rightJoyBtn5.whileHeld(new SetCameraTilt( 1, 0.0075));

@@ -17,6 +17,9 @@ import org.usfirst.frc948.NRGRobot2013.commands.SetCameraTilt;
  * @author Sean
  */
 public class Camera extends Subsystem {
+    
+    public static final double SERVO_SET_SHOOT = 0.69;
+    public static final double SERVO_SET_CLIMB = 0.00;
 
     public static AxisCamera axisCamera;          // the axis camera object (connected to the switch)
     ColorImage axisImage;
