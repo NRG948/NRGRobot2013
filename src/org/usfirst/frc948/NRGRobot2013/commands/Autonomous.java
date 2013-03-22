@@ -155,8 +155,8 @@ public class Autonomous extends CommandGroup {
     public static void initPreferences() {
         double[][] defaults = {
             {  8.0, 35.83,   8.0, 0.0, Shooter.MIN_RPM_CLOSE_3PT, -20.0, 16.0, 29.00, 0.00, 25.5, 6.00, 22.5, 4.0 },  // left
-            { 14.5, 32.00,   0.0, 1.5, Shooter.MIN_RPM_CLOSE_3PT,   0.0, 16.0, 29.00, 0.00, 25.5, 6.00, 22.5, 4.0 },  // center
-            { 19.0, 35.83, -20.0, 0.0, Shooter.MIN_RPM_CLOSE_3PT,   0.0, 24.0, 27.83, 0.00, 24.0, 5.23, 22.5, 4.0 }   // right
+            { 14.5, 35.83,   0.0, 1.5, Shooter.MIN_RPM_CLOSE_3PT,   0.0, 16.0, 29.00, 0.00, 25.5, 6.00, 22.5, 4.0 },  // center
+            { 19.0, 35.83, -20.0, 0.0, Shooter.MIN_RPM_CLOSE_3PT,   0.0, 24.0, 29.00, 0.00, 24.0, 5.23, 22.5, 4.0 }   // right
         };
         
         String[] keys = PreferenceKeys.array;
