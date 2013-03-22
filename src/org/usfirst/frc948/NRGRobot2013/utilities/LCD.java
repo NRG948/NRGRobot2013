@@ -14,6 +14,9 @@ public class LCD {
     public static boolean SHOOTER = true;
     public static boolean CAMERA = true;
     
+    private static final int UPDATE_TIME = 5;
+    private static int updateCounter = 0;
+    
     private static final String emptyLine = emptyLine();
     private static String emptyLine() {
         String emptyLine = "";
@@ -64,7 +67,12 @@ public class LCD {
     
     // update LCD
     public static void update() {
-        lcd.updateLCD();
+        updateCounter++;
+        
+        if (updateCounter == UPDATE_TIME) {
+            updateCounter = 0;
+            lcd.updateLCD();
+        }
     }
     
 }
