@@ -77,8 +77,13 @@ public class Debug {
     }
 
     public static void println(String s) {
+        String timeStampString = null;
+        
         if (loggingInitialized) {
+            timeStampString = String.valueOf(System.currentTimeMillis()) + '|';
+            
             try {
+                log.write(timeStampString.getBytes());
                 log.write(s.getBytes());
                 log.write('\n');
             } catch (IOException ex) {
@@ -87,8 +92,13 @@ public class Debug {
         }
         
         if (print) {
-            System.out.print(System.currentTimeMillis());
-            System.out.print('|');
+            if (timeStampString == null) {
+                System.out.print(System.currentTimeMillis());
+                System.out.print('|');
+            } else {
+                System.out.print(timeStampString);
+            }
+            
             System.out.println(s);
         }
     }
