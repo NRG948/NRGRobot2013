@@ -156,8 +156,8 @@ public class Autonomous extends CommandGroup {
     
     public static void initPreferences() {
         double[][] defaults = {
-            {  7.92, 34.83,   9.0, 2.0, 2700.0, -30.0, 23.0, 29.00, 0.00, 23.0, 8.50, 21.5, 6.50,  0.01 },  // left
-            { 14.50, 35.83,   0.0, 2.0, 2825.0,   0.0, 23.0, 29.00, 0.00, 23.0, 8.50, 21.5, 6.50, -9.00 },  // center
+            {  7.92, 34.83,   9.0, 2.0, 2700.0, -90.0, 23.0, 29.00, 0.00, 23.0, 8.50, 21.5, 6.50,  0.01 },  // left
+            { 14.50, 35.83,   0.0, 2.0, 2825.0, -50.0, 23.0, 29.00, 0.00, 23.0, 8.50, 21.5, 6.50, -9.00 },  // center
             { 19.08, 34.83, -20.0, 2.0, 2700.0,   0.0, 23.0, 29.00, 0.00, 23.0, 8.50, 21.5, 6.50,  0.01 }   // right
         };
         
@@ -254,7 +254,7 @@ public class Autonomous extends CommandGroup {
         }
         
         addSequential(new SetShooterMotorPower(0.0));
-        addSequential(new TurnCommand(Preferences.getInstance().getDouble(prefix + PreferenceKeys.ALIGN_TURN, 0.0), DEFAULT_TURN_SPEED));
+        addSequential(new TurnCommand(Preferences.getInstance().getDouble(prefix + PreferenceKeys.ALIGN_TURN, 0.0), 0.7, 0.7, 5.0));
     }
     
     private void buildMoveSequence() {
