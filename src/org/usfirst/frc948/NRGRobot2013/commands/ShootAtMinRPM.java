@@ -2,7 +2,6 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
-import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 
 /**
  * 
@@ -14,7 +13,7 @@ public class ShootAtMinRPM extends CommandGroup {
     
     public ShootAtMinRPM(double rpm) {
         this.rpm = rpm;
-        addSequential(new SetShooterMotorPower(MathHelper.RpmToPower(rpm)));
+        addSequential(new SetShooterMotorPowerFromRPM(rpm));
         addSequential(new SetShooterOverRev(0.85));
         addSequential(new WaitForFrisbee());
         addSequential(new WaitForStartingRPM(rpm - 50));
