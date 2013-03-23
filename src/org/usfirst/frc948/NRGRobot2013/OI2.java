@@ -91,10 +91,10 @@ public class OI2 implements IOperatorInterface {
     private static final int PRESET_SHOOTER_SPEED_CONTROL = 10;
     private static final int PRESET_FULL_AUTONOMOUS_ENABLE = 7;
 
+    private static final int SHOOTING_POSITION_MID_FIELD = 2;
     private static final int SHOOTING_POSITION_TOWER_3PT = 8;
     private static final int SHOOTING_POSITION_FEEDER_3PT = 12;
     private static final int SHOOTING_POSITION_FEEDER_2PT = 5;
-    private static final int SHOOTING_POSITION_FEEDER_SELECT = 2;
     
     private static final int CLIMBER_DEPLOY = 11;
     private static final int CLIMBER_CLIMB = 6;
@@ -131,6 +131,7 @@ public class OI2 implements IOperatorInterface {
     
     private Button shootButton = new DigitalIOButton(MANUAL_SHOOT);
     
+    private Button btnShootMid = new NRGDigitalIOButton(SHOOTING_POSITION_MID_FIELD, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
     private Button btnShootTower3pt = new NRGDigitalIOButton(SHOOTING_POSITION_TOWER_3PT, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
     private Button btnShootFeeder3pt = new NRGDigitalIOButton(SHOOTING_POSITION_FEEDER_3PT, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
     private Button btnShootFeeder2pt = new NRGDigitalIOButton(SHOOTING_POSITION_FEEDER_2PT, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
@@ -159,6 +160,7 @@ public class OI2 implements IOperatorInterface {
         btnClimbEngage.whenReleased(new TiltCommand(false));
         btnClimbUp.whileHeld(new ClimbCommand(Climber.Direction.kUp));
         
+        btnShootMid.whileHeld(new ShootAtMinRPM(2500));
         btnShootTower3pt.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_CLOSE_3PT));
         btnShootFeeder3pt.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_FAR_3PT));
         btnShootFeeder2pt.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_FAR_2PT));
@@ -284,10 +286,6 @@ public class OI2 implements IOperatorInterface {
         }
         
         return Autonomous.TargetPosition.kNone;
-    }
-    
-    public boolean isAtInsideFeederStation() {
-        return !getDigital(SHOOTING_POSITION_FEEDER_SELECT);
     }
     
     public boolean isFullAutonomous() {
