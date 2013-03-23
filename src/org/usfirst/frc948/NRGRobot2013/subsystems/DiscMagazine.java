@@ -32,7 +32,7 @@ public class DiscMagazine extends Subsystem {
 
     public void openPiston() {
         if (magPiston.get() == Relay.Value.kOff) {
-            Debug.println("[DiscMagazine] opening with RPM=" + RobotMap.shooterQuadrature.averageRPM());
+            Debug.println("[DiscMagazine] opening with RPM=" + RobotMap.shooterQuadrature.averageRPM() + " SHOOT_SET:" + RobotMap.shooterMotor.get());
         }
         
         magPiston.set(Relay.Value.kReverse);
