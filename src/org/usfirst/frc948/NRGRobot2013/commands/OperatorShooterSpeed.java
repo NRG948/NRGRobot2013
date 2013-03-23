@@ -30,7 +30,7 @@ public class OperatorShooterSpeed extends Command {
         Robot.shooter.setRawPower(speed);
         
         LCD.clearLine(5);
-        LCD.println(LCD.SHOOTER, 5, "RAW:" + MathHelper.round(speed, 3) + " EST:" + MathHelper.round(MathHelper.PowerToRpm(speed), 0));
+        LCD.println(LCD.SHOOTER, 5, "SHT RAW:" + MathHelper.round(speed, 2) + " EST:" + ((int) MathHelper.PowerToRpm(speed)));
     }
 
     protected boolean isFinished() {
