@@ -85,7 +85,8 @@ public class OI2 implements IOperatorInterface {
     private static final double MINIMUM_SHOOT_SPEED = 0.0;
     
     private static final double SHOOT_TRIM_MAX_POWER = 0.1;
-    private static final double SHOOT_TRIM_MAX_RPM = 200;
+    private static final double SHOOT_TRIM_MAX_RPM = 100;
+    private static final double SHOOT_TRIM_CENTER_INCREMENT = 10.0;
     
     private static final int PRESET_SHOOTER_SPEED_CONTROL = 10;
     private static final int PRESET_FULL_AUTONOMOUS_ENABLE = 7;
@@ -135,6 +136,7 @@ public class OI2 implements IOperatorInterface {
     private Button btnShootFeeder2pt = new NRGDigitalIOButton(SHOOTING_POSITION_FEEDER_2PT, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
     
     private double shootTrim = 0.0;
+    private double shootTrimRPM = 0.0;
     
     public OI2() {
         leftJoyBtn6.whenPressed(new ResetSensorsCommand());
@@ -149,6 +151,9 @@ public class OI2 implements IOperatorInterface {
         
         rightJoyBtn4.whileHeld(new SetCameraTilt(-1, 0.0075));
         rightJoyBtn5.whileHeld(new SetCameraTilt( 1, 0.0075));
+        
+        rightJoyBtn10.whenPressed(new AddShooterTrim(-SHOOT_TRIM_CENTER_INCREMENT));
+        rightJoyBtn11.whenPressed(new AddShooterTrim(SHOOT_TRIM_CENTER_INCREMENT));
                 
         btnClimbEngage.whenPressed(new TiltCommand(true));
         btnClimbEngage.whenReleased(new TiltCommand(false));
@@ -236,7 +241,11 @@ public class OI2 implements IOperatorInterface {
     public void update() {
         shootTrim = MathHelper.normalizeValue(getAnalog(TRIM_SLIDER_CHANNEL), MIN_CYPRESS_VOLTAGE, MAX_CYPRESS_VOLTAGE);
         shootTrim = (2 * shootTrim - 1); //always between -1 and 1
-        SmartDashboard.putNumber("TrimRPM", getShootTrimRPM());
+        
+        double trimCenter = Robot.shooter.trimCenter;
+        double trimFine = shootTrim * SHOOT_TRIM_MAX_RPM;
+        
+        shootTrimRPM = trimCenter + trimFine;
     }
     
     public double getShootTrimPower() {
@@ -244,7 +253,7 @@ public class OI2 implements IOperatorInterface {
     }
 
     public double getShootTrimRPM() {
-        return shootTrim * SHOOT_TRIM_MAX_RPM;
+        return shootTrimRPM;
     }
 
     public Autonomous.StartingPosition getAutonomousStartingPosition() {
