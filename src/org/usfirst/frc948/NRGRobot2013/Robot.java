@@ -57,7 +57,10 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
         Debug.enable();
-//        Debug.initLogging();
+//        Debug.enableLogging();
+        
+        Debug.initLogging();
+        Debug.openLoggingStream();
         
         Debug.println("Far over...");
 
@@ -87,7 +90,7 @@ public class Robot extends IterativeRobot {
     public void disabledInit() {
         Debug.println("[Robot] disabledInit()");
         
-//        Debug.terminateLogging();
+        Debug.closeLoggingStream();
     }
 
     public void disabledPeriodic() {
@@ -96,7 +99,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
-//        Debug.initLogging();
+        Debug.openLoggingStream();
         
         Debug.println("[Robot] autonomousInit()");
         
@@ -137,7 +140,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
-//        Debug.initLogging();
+        Debug.openLoggingStream();
         
         Debug.println("[Robot] teleopInit()");
         

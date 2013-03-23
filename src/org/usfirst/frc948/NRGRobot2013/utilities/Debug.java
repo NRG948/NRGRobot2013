@@ -12,33 +12,41 @@ import javax.microedition.io.Connector;
 public class Debug {
 
     private static boolean print = false;
+    private static boolean logging = false;
     
-    private static boolean loggingInitialized = false;
+    private static boolean logFileInitialized = false;
+    private static boolean logStreamOpen = false;
     
     private static FileConnection file = null;
     private static OutputStream log = null;
     
+    private static final String logFilePath = "file:///NRGRobot2013.log";
+    
+    public static void enableLogging() {
+        logging = true;
+    }
+    
+    public static void disableLogging() {
+        logging = false;
+    }
+    
     public static void initLogging() {
-        if (!loggingInitialized) {
-            String fileName = "Robot-log-" + System.currentTimeMillis();
-            
+        if (logging && !logFileInitialized) {
             file = null;
-            log = null;
             
             try {
-                file = (FileConnection) Connector.open(fileName, Connector.WRITE);
+                file = (FileConnection) Connector.open(logFilePath, Connector.READ_WRITE);
                 
                 if (file != null) {
-                    if (!file.exists()) {
+                    if (file.exists()) {
+                        file.delete();
+                        file.create();
+                    } else {
                         file.create();
                     }
                     
-                    log = file.openOutputStream();
-                    
-                    if (log != null) {
-                        loggingInitialized = true;
-                    } else {
-                        file.close();
+                    if (file.exists()) {
+                        logFileInitialized = true;
                     }
                 }
             } catch (IOException ex) {
@@ -47,27 +55,45 @@ public class Debug {
         }
     }
     
-    public static void terminateLogging() {
-        if (loggingInitialized) {
-            if (log != null) {
-                try {
-                    log.close();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
+    public static void openLoggingStream() {
+        if (logging && logFileInitialized && !logStreamOpen) {
+            log = null;
             
-            if (file != null) {
-                try {
-                    file.close();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+            try {
+                log = file.openOutputStream();
+                
+                if (log != null) {
+                    logStreamOpen = true;
                 }
+            } catch (IOException ex) {
+                printException(ex);
             }
-            
-            loggingInitialized = false;
         }
     }
+    
+    public static void closeLoggingStream() {
+        if (logging && logFileInitialized && logStreamOpen) {
+            try {
+                log.close();
+            } catch (IOException ex) {
+                printException(ex);
+            }
+        }
+    }
+    
+//    public static void terminateLogging() {
+//        if (logging && logFileInitialized) {
+//            if (file != null) {
+//                try {
+//                    file.close();
+//                } catch (IOException ex) {
+//                    ex.printStackTrace();
+//                }
+//            }
+//            
+//            logFileInitialized = false;
+//        }
+//    }
     
     public static void enable() {
         print = true;
@@ -85,7 +111,7 @@ public class Debug {
     public static void println(String s) {
         String timeStampString = null;
         
-        if (loggingInitialized) {
+        if (logging && logStreamOpen) {
             timeStampString = String.valueOf(System.currentTimeMillis()) + '|';
             
             try {
