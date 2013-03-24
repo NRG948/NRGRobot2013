@@ -2,25 +2,27 @@ package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 /**
  *
  * @author Sean + Charles
  */
-public class SetPositionCommand extends Command{
+public class SetPositionCommand extends Command {
     
-    private double DesiredxPos = 0;
-    private double DesiredyPos = 0;
+    private final double x;
+    private final double y;
     
-    public SetPositionCommand(double a, double b) {
-        DesiredxPos = a;
-        DesiredyPos = b;
+    public SetPositionCommand(double x, double y) {
+        this.x = x;
+        this.y = y;
     }
 
     protected void initialize() {
     }
 
     protected void execute() {
-        Robot.positionTracker.setPosition(DesiredxPos, DesiredyPos);
+        Debug.println("[SetPositionCommand] setting current position to (" + x + "," + y + ")");
+        Robot.positionTracker.setPosition(x, y);
     }
 
     protected boolean isFinished() {
