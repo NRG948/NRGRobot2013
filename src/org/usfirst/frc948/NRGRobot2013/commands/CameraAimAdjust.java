@@ -29,8 +29,9 @@ public class CameraAimAdjust extends PIDCommand {
     }
 
     public CameraAimAdjust(double maxPower, double absoluteTolerance) {
-        super(TurnCommand.kDefaultP, TurnCommand.kDefaultI, TurnCommand.kDefaultD);
+        super(TurnCommand.kDefaultP, TurnCommand.kDefaultI, TurnCommand.kDefaultD, 0.5);
         requires(Robot.drive);
+        
         this.maxPower = MathHelper.clamp(maxPower, 0.0, 1.0);
         this.getPIDController().setAbsoluteTolerance(absoluteTolerance);
     }
