@@ -14,10 +14,6 @@ import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
  */
 public class CameraAimAdjust extends PIDCommand {
 
-    public static final double kDefaultP = 0.05;
-    public static final double kDefaultI = 0.001;
-    public static final double kDefaultD = 0.1;
-    
     public static final double DEFAULT_DEGREES_TOLERANCE = 2.0;
     public static final int REQUIRED_CYCLES_ON_TARGET = 3;
     
@@ -32,16 +28,16 @@ public class CameraAimAdjust extends PIDCommand {
     }
 
     public CameraAimAdjust(double maxPower, double absoluteTolerance) {
-        super(kDefaultP, kDefaultI, kDefaultD);
+        super(TurnCommand.kDefaultP, TurnCommand.kDefaultI, TurnCommand.kDefaultD);
         requires(Robot.drive);
         this.maxPower = MathHelper.clamp(maxPower, 0.0, 1.0);
         this.getPIDController().setAbsoluteTolerance(absoluteTolerance);
     }
 
     protected void initialize() {
-        double p = Preferences.getInstance().getDouble(PreferenceKeys.TURN_P, kDefaultP);
-        double i = Preferences.getInstance().getDouble(PreferenceKeys.TURN_I, kDefaultI);
-        double d = Preferences.getInstance().getDouble(PreferenceKeys.TURN_D, kDefaultD);
+        double p = Preferences.getInstance().getDouble(PreferenceKeys.TURN_P, TurnCommand.kDefaultP);
+        double i = Preferences.getInstance().getDouble(PreferenceKeys.TURN_I, TurnCommand.kDefaultI);
+        double d = Preferences.getInstance().getDouble(PreferenceKeys.TURN_D, TurnCommand.kDefaultD);
 
         this.getPIDController().setPID(p, i, d);
 
