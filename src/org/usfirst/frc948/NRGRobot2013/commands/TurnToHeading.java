@@ -1,10 +1,12 @@
 package org.usfirst.frc948.NRGRobot2013.commands;
 
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
+import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 
 /**
  *
@@ -45,6 +47,12 @@ public class TurnToHeading extends PIDCommand {
     }
 
     protected void initialize() {
+        double p = Preferences.getInstance().getDouble(PreferenceKeys.TURN_P, TurnCommand.kDefaultP);
+        double i = Preferences.getInstance().getDouble(PreferenceKeys.TURN_I, TurnCommand.kDefaultI);
+        double d = Preferences.getInstance().getDouble(PreferenceKeys.TURN_D, TurnCommand.kDefaultD);
+
+        this.getPIDController().setPID(p, i, d);
+
         double turnAngle = desiredHeading - MathHelper.normalizeAngle(Robot.drive.getDesiredHeading());
         
         if (turnAngle > 180) {
@@ -67,7 +75,12 @@ public class TurnToHeading extends PIDCommand {
         setSetpoint(Robot.drive.getDesiredHeading());
         consecutiveCyclesOnTarget = 0;
         
-        Debug.println("[TurnToHeading] to " + Robot.drive.getDesiredHeading() + " degrees (" + desiredHeading + ") from " + RobotMap.drivegyro.getAngle() + ", maxL: " + maxLeftPower + " maxR:" + maxRightPower);
+        Debug.println("[TurnToHeading] to " + Robot.drive.getDesiredHeading() + " degrees" +
+                " (" + desiredHeading + ") from " + RobotMap.drivegyro.getAngle() + " |" +
+                " P:" + p +
+                " I:" + i +
+                " D:" + d +
+                " | maxL: " + maxLeftPower + " maxR:" + maxRightPower);
     }
 
     protected void execute() {
