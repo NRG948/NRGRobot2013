@@ -17,6 +17,7 @@ public class ShootAtMinRPM extends CommandGroup {
         addSequential(new SetShooterOverRev(0.85));
         addSequential(new WaitForFrisbee());
         addSequential(new WaitForStartingRPM(rpm - 50));
+        addSequential(new WaitForAutoShootSwitch());
         addSequential(new SetShooterOverRev(1.4));
         addSequential(new WaitForMinRPM(rpm));
         addSequential(new ReleaseFrisbeeCommand());
