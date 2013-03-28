@@ -30,7 +30,7 @@ public class CameraAimAdjust extends PIDCommand {
     }
 
     public CameraAimAdjust(double maxPower, double absoluteTolerance) {
-        super(TurnCommand.kDefaultP, TurnCommand.kDefaultI, TurnCommand.kDefaultD, 0.5);
+        super(TurnCommand.kDefaultP, TurnCommand.kDefaultI, TurnCommand.kDefaultD, 0.3);
         requires(Robot.drive);
         
         this.maxPower = MathHelper.clamp(maxPower, 0.0, 1.0);
@@ -66,7 +66,7 @@ public class CameraAimAdjust extends PIDCommand {
     protected boolean isFinished() {
         if (this.getPIDController().onTarget()) {
             consecutiveCyclesOnTarget++;
-            Debug.println("[CameraAimAdjust] On target (" + consecutiveCyclesOnTarget + "/" + REQUIRED_CYCLES_ON_TARGET);
+            Debug.println("[CameraAimAdjust] On target: " + consecutiveCyclesOnTarget + "/" + REQUIRED_CYCLES_ON_TARGET);
         } else {
             consecutiveCyclesOnTarget = 0;
         }
@@ -74,7 +74,7 @@ public class CameraAimAdjust extends PIDCommand {
     }
 
     protected void end() {
-        Debug.println("[CameraAimAdjust] end()");
+//        Debug.println("[CameraAimAdjust] end()");
         Robot.drive.rawStop();
     }
 
