@@ -51,6 +51,8 @@ public class Camera extends Subsystem {
     }
 
     public double getNormalizedCenterOfMass() throws NIVisionException {
+        Debug.println("[Camera] getNormalizedCenterOfMass() called");
+        
         try {
             axisImage = axisCamera.getImage();
         } catch (AxisCameraException ex) {
@@ -92,6 +94,12 @@ public class Camera extends Subsystem {
                 targetTable.putNumber("height", r.boundingRectHeight);
                 
                 axisImage.free();
+                thresholdImage.free();
+                bigObjectsImage.free();
+                convexHullImage.free();
+                filteredImage.free();
+                
+                Debug.println("[Camera] getNormalizedCenterOfMass() exiting");
                 
                 return r.center_mass_x_normalized;
             }
@@ -99,6 +107,14 @@ public class Camera extends Subsystem {
         
         NetworkTable targetTable = NetworkTable.getTable("VisionTarget");
         targetTable.putBoolean("hasTarget", false);
+        
+        axisImage.free();
+        thresholdImage.free();
+        bigObjectsImage.free();
+        convexHullImage.free();
+        filteredImage.free();
+        
+        Debug.println("[Camera] getNormalizedCenterOfMass() exiting (no target found)");
         
         return CameraAimAdjust.TARGET_CENTER;
     }
