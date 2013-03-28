@@ -159,7 +159,7 @@ public class OI2 implements IOperatorInterface {
         btnClimbEngage.whenPressed(new TiltCommand(true));
         btnClimbEngage.whenReleased(new TiltCommand(false));
        // btnClimbUp.whileHeld(new ClimbCommand(Climber.Direction.kUp));
-        btnClimbUp.whileHeld(new CameraAimAdjust(0.5));
+        btnClimbUp.whileHeld(new CameraAimAdjust(1.0, 1.0));
         btnShootMid.whileHeld(new ShootAtMinRPM(2500));
         btnShootTower3pt.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_CLOSE_3PT));
         btnShootFeeder3pt.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_FAR_3PT));
