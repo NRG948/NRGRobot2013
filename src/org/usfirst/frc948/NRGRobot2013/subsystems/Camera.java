@@ -70,8 +70,7 @@ public class Camera extends Subsystem {
             boolean checkHigh = IsWithinTolerance(aspect, highAspect, TOL);
             if(checkHigh) {
                 return r.center_mass_x_normalized;
-            }
-            
+            }            
         }
         return outOfRange;
     }

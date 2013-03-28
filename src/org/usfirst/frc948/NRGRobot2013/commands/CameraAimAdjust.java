@@ -1,11 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.usfirst.frc948.NRGRobot2013.commands;
 
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.image.NIVisionException;
 import org.usfirst.frc948.NRGRobot2013.Robot;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
@@ -18,7 +15,6 @@ import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
 public class CameraAimAdjust extends PIDCommand {
 
     double headingCenterOfMassRatio = 30; //assuming the field of vision allows 30 degrees on either side of center
-    public static final double kInitialP = 0.015;
     public static final double kDefaultP = 0.05;
     public static final double kDefaultI = 0.001;
     public static final double kDefaultD = 0.1;
@@ -31,8 +27,6 @@ public class CameraAimAdjust extends PIDCommand {
     private final double maxPower;
     private double pidOutput;
     private int consecutiveCyclesOnTarget;
-    
-    
 
     public CameraAimAdjust(double power) {
         this(power, DEFAULT_DEGREES_TOLERANCE);
@@ -46,7 +40,6 @@ public class CameraAimAdjust extends PIDCommand {
     }
 
     protected void initialize() {
-
         double p = Preferences.getInstance().getDouble(PreferenceKeys.TURN_P, kDefaultP);
         double i = Preferences.getInstance().getDouble(PreferenceKeys.TURN_I, kDefaultI);
         double d = Preferences.getInstance().getDouble(PreferenceKeys.TURN_D, kDefaultD);
@@ -88,9 +81,9 @@ public class CameraAimAdjust extends PIDCommand {
 
     protected double returnPIDInput() {
         try {
-            return Robot.camera.getNormalizedCenterOfMass() * headingCenterOfMassRatio;
-        } catch (Exception e) {
-            return TARGET_HEADING;
+            return Robot.camera.getNormalizedCenterOfMass() * headingCenterOfMassRatio; 
+        } catch (NIVisionException ex) {
+            return TARGET_HEADING; //If not getting a reading from the camera, stop running
         }
     }
 
