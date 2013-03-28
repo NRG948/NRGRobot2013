@@ -258,4 +258,8 @@ public class OI implements IOperatorInterface {
         return !getDigital(FULL_AUTONOMOUS_SWITCH_CHANNEL);
     }
 
+    public boolean autoShootEnabled() {
+        return true;
+    }
+
 }

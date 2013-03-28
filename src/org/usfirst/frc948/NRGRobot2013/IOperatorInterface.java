@@ -38,4 +38,6 @@ public interface IOperatorInterface {
     
     boolean isFullAutonomous();
     
+    boolean autoShootEnabled();
+    
 }
