@@ -132,8 +132,6 @@ public class OI2 implements IOperatorInterface {
     
     private Button shootButton = new DigitalIOButton(MANUAL_SHOOT);
     
-    private Button autoShoot = new NRGDigitalIOButton(AUTO_SHOOT, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
-    
     private Button btnShootMid = new NRGDigitalIOButton(SHOOTING_POSITION_MID_FIELD, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
     private Button btnShootTower3pt = new NRGDigitalIOButton(SHOOTING_POSITION_TOWER_3PT, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
     private Button btnShootFeeder3pt = new NRGDigitalIOButton(SHOOTING_POSITION_FEEDER_3PT, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
@@ -141,6 +139,8 @@ public class OI2 implements IOperatorInterface {
     
     private double shootTrim = 0.0;
     private double shootTrimRPM = 0.0;
+    
+    private boolean autoShootEnabled = false;
     
     public OI2() {
         leftJoyBtn6.whenPressed(new ResetSensorsCommand());
@@ -252,6 +252,8 @@ public class OI2 implements IOperatorInterface {
         double trimFine = shootTrim * SHOOT_TRIM_MAX_RPM;
         
         shootTrimRPM = trimCenter + trimFine;
+        
+        autoShootEnabled = getDigital(AUTO_SHOOT);
     }
     
     public double getShootTrimPower() {
@@ -297,7 +299,7 @@ public class OI2 implements IOperatorInterface {
     }
 
     public boolean autoShootEnabled() {
-        return autoShoot.get();
+        return autoShootEnabled;
     }
     
 }
