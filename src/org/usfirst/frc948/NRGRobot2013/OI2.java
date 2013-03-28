@@ -104,15 +104,15 @@ public class OI2 implements IOperatorInterface {
     
     
     private Button leftJoyBtn1 = new JoystickButton(leftJoystick, 1),
-                   leftJoyBtn2 = new JoystickButton(leftJoystick, 2),
-                   leftJoyBtn3 = new JoystickButton(leftJoystick, 3),
-                   leftJoyBtn4 = new JoystickButton(leftJoystick, 4),
-                   leftJoyBtn5 = new JoystickButton(leftJoystick, 5),
+//                   leftJoyBtn2 = new JoystickButton(leftJoystick, 2),
+//                   leftJoyBtn3 = new JoystickButton(leftJoystick, 3),
+//                   leftJoyBtn4 = new JoystickButton(leftJoystick, 4),
+//                   leftJoyBtn5 = new JoystickButton(leftJoystick, 5),
                    leftJoyBtn6 = new JoystickButton(leftJoystick, 6),
                    leftJoyBtn7 = new JoystickButton(leftJoystick, 7),
-                   leftJoyBtn8 = new JoystickButton(leftJoystick, 8),
-                   leftJoyBtn9 = new JoystickButton(leftJoystick, 9),
-                   leftJoyBtn10 = new JoystickButton(leftJoystick, 10),
+//                   leftJoyBtn8 = new JoystickButton(leftJoystick, 8),
+//                   leftJoyBtn9 = new JoystickButton(leftJoystick, 9),
+//                   leftJoyBtn10 = new JoystickButton(leftJoystick, 10),
                    leftJoyBtn11 = new JoystickButton(leftJoystick, 11);
 
     private Button rightJoyBtn1 = new JoystickButton(rightJoystick, 1),
@@ -120,10 +120,10 @@ public class OI2 implements IOperatorInterface {
                    rightJoyBtn3 = new JoystickButton(rightJoystick, 3),
                    rightJoyBtn4 = new JoystickButton(rightJoystick, 4),
                    rightJoyBtn5 = new JoystickButton(rightJoystick, 5),
-                   rightJoyBtn6 = new JoystickButton(rightJoystick, 6),
-                   rightJoyBtn7 = new JoystickButton(rightJoystick, 7),
-                   rightJoyBtn8 = new JoystickButton(rightJoystick, 8),
-                   rightJoyBtn9 = new JoystickButton(rightJoystick, 9),
+//                   rightJoyBtn6 = new JoystickButton(rightJoystick, 6),
+//                   rightJoyBtn7 = new JoystickButton(rightJoystick, 7),
+//                   rightJoyBtn8 = new JoystickButton(rightJoystick, 8),
+//                   rightJoyBtn9 = new JoystickButton(rightJoystick, 9),
                    rightJoyBtn10 = new JoystickButton(rightJoystick, 10),
                    rightJoyBtn11 = new JoystickButton(rightJoystick, 11);
     
@@ -140,6 +140,7 @@ public class OI2 implements IOperatorInterface {
     private double shootTrim = 0.0;
     private double shootTrimRPM = 0.0;
     
+    private boolean fullAutoEnabled = false;
     private boolean autoShootEnabled = false;
     
     public OI2() {
@@ -164,7 +165,7 @@ public class OI2 implements IOperatorInterface {
        // btnClimbUp.whileHeld(new ClimbCommand(Climber.Direction.kUp));
         btnClimbUp.whileHeld(new CameraAimAdjust(1.0, 1.0));
         
-        btnShootMid.whileHeld(new ShootAtMinRPM(2500));
+        btnShootMid.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_MID_COURT));
         btnShootTower3pt.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_CLOSE_3PT));
         btnShootFeeder3pt.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_FAR_3PT));
         btnShootFeeder2pt.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_FAR_2PT));
@@ -253,6 +254,7 @@ public class OI2 implements IOperatorInterface {
         
         shootTrimRPM = trimCenter + trimFine;
         
+        fullAutoEnabled = getDigital(PRESET_FULL_AUTONOMOUS_ENABLE);
         autoShootEnabled = getDigital(AUTO_SHOOT);
     }
     
@@ -295,7 +297,7 @@ public class OI2 implements IOperatorInterface {
     }
     
     public boolean isFullAutonomous() {
-        return getDigital(PRESET_FULL_AUTONOMOUS_ENABLE);
+        return fullAutoEnabled;
     }
 
     public boolean autoShootEnabled() {
