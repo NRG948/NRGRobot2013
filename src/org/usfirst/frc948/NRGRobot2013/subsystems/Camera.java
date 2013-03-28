@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.image.CriteriaCollection;
 import edu.wpi.first.wpilibj.image.NIVision.MeasurementType;
 import edu.wpi.first.wpilibj.image.NIVisionException;
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
-import org.usfirst.frc948.NRGRobot2013.commands.SetCameraTilt;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 
 /**
@@ -18,28 +17,27 @@ import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
  * @author Sean
  */
 public class Camera extends Subsystem {
-    
+
     public static final double SERVO_SET_SHOOT = 0.69;
     public static final double SERVO_SET_CLIMB = 0.00;
-
     public static AxisCamera axisCamera;          // the axis camera object (connected to the switch)
-    ColorImage axisImage;
-    CriteriaCollection cc;      // the criteria for doing the particle filter operation   // create the criteria for the particle filter
+    private ColorImage axisImage;
+    private CriteriaCollection cc;      // the criteria for doing the particle filter operation   // create the criteria for the particle filter
     public static Servo servo = RobotMap.cameraServo;
     public static double servoAngle;
-    final static double downAngle = 0d;
-    final static double uprightAngle = 30d;
-    final static double cosOfTen = 0.985;
-    final double highAspect = (62.0 / 20.0) *cosOfTen;
-    final double middleAspect = 62.0 / 29.0;
-    final double lowAspect = 37.0 / 32.0;
-    final int TOL = 15;
-    final double IMAGEWIDTH = 320.0;
-    final double TANGENT = Math.tan((43.5 / 180.0 * Math.PI));
-    final static double outOfRange = 2;
+    
+    private final static double downAngle = 0d;
+    private final static double uprightAngle = 30d;
+    private final static double cosOfTen = 0.985;
+    private final double highAspect = (62.0 / 20.0) * cosOfTen;
+    private final double middleAspect = 62.0 / 29.0;
+    private final double lowAspect = 37.0 / 32.0;
+    private final int TOL = 15;
+    private final double IMAGEWIDTH = 320.0;
+    private final double TANGENT = Math.tan((43.5 / 180.0 * Math.PI));
+    private final static double outOfRange = 2;
 
     protected void initDefaultCommand() {
-//        this.setDefaultCommand(new SetCameraTilt());
     }
 
     public Camera() {
@@ -57,23 +55,29 @@ public class Camera extends Subsystem {
             Debug.println("[Camera]: Get Image Failed" + e);
         }
     }
+
     public double getNormalizedCenterOfMass() throws NIVisionException {
-       setImage();
+        setImage();
+        
         BinaryImage thresholdImage = axisImage.thresholdRGB(0, 45, 25, 255, 0, 47);   // keep only green objects
-       BinaryImage bigObjectsImage = thresholdImage.removeSmallObjects(false, 2);  // remove small artifacts
+        BinaryImage bigObjectsImage = thresholdImage.removeSmallObjects(false, 2);  // remove small artifacts
         BinaryImage convexHullImage = bigObjectsImage.convexHull(false);          // fill in occluded rectangles
         BinaryImage filteredImage = convexHullImage.particleFilter(cc);           // find filled in rectangles
         ParticleAnalysisReport[] reports = filteredImage.getOrderedParticleAnalysisReports();  // get list of results
+        
         for (int i = 0; i < reports.length; i++) {                                // print results
             ParticleAnalysisReport r = reports[i];
             double aspect = ((double) r.boundingRectWidth / (double) r.boundingRectHeight);
+            
             boolean checkHigh = IsWithinTolerance(aspect, highAspect, TOL);
-            if(checkHigh) {
+            if (checkHigh) {
                 return r.center_mass_x_normalized;
-            }            
+            }
         }
+        
         return outOfRange;
     }
+    
 //    public double getDistance(int targetNum, ColorImage image) throws NIVisionException {
 //        setImage();
 //        BinaryImage thresholdImage = axisImage.thresholdRGB(0, 45, 25, 255, 0, 47);   // keep only green objects
@@ -100,15 +104,6 @@ public class Camera extends Subsystem {
 //        }
 //        return -1; //no target
 //    }
-
-    public static void changeServoAngle(double desiredAngle) { //changes the angle of servo to given angle
-        servo.setAngle(desiredAngle);
-    }
-
-    public static double getServoAngle() {
-        servoAngle = servo.getAngle();
-        return servoAngle;
-    }
 
     public boolean IsWithinTolerance(double aspect, double checkingRatio, int tolerance) {
         double r = (aspect / checkingRatio) * 100;
