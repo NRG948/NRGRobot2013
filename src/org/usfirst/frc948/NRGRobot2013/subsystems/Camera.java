@@ -29,7 +29,7 @@ public class Camera extends Subsystem {
     public static Servo servo = RobotMap.cameraServo;
     public static double servoAngle;
     
-    public final static double FOV = 43.5;
+    public final static double FOV = 43.5 / 2.0;
     
     private final static double downAngle = 0d;
     private final static double uprightAngle = 30d;
@@ -99,7 +99,7 @@ public class Camera extends Subsystem {
                 convexHullImage.free();
                 filteredImage.free();
                 
-                Debug.println("[Camera] getNormalizedCenterOfMass() exiting");
+                Debug.println("[Camera] getNormalizedCenterOfMass() found CoM_X:" + r.center_mass_x_normalized);
                 
                 return r.center_mass_x_normalized;
             }
