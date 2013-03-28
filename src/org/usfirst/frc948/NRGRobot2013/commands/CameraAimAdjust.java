@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.image.NIVisionException;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.subsystems.Camera;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
 import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
@@ -13,7 +14,7 @@ import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
  * @author Stephen
  */
 public class CameraAimAdjust extends PIDCommand {
-
+    
     public static final double DEFAULT_DEGREES_TOLERANCE = 2.0;
     public static final int REQUIRED_CYCLES_ON_TARGET = 3;
     
@@ -47,7 +48,7 @@ public class CameraAimAdjust extends PIDCommand {
                 + " D:" + d
                 + " | maxPower:" + maxPower);
         
-        setSetpoint(TARGET_CENTER);
+        setSetpoint(TARGET_CENTER * Camera.FOV);
         
         consecutiveCyclesOnTarget = 0;
     }
@@ -78,11 +79,11 @@ public class CameraAimAdjust extends PIDCommand {
 
     protected double returnPIDInput() {
         try {
-            return Robot.camera.getNormalizedCenterOfMass();
+            return Robot.camera.getNormalizedCenterOfMass() * Camera.FOV;
         } catch (NIVisionException ex) {
             Debug.println("[CameraAimAdjust] caught exception from getNormalizedCenterOfMass()");
             Debug.printException(ex);
-            return TARGET_CENTER; // if not getting a reading from the camera, stop running
+            return TARGET_CENTER * Camera.FOV; // if not getting a reading from the camera, stop running
         }
     }
 
