@@ -4,12 +4,15 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
+import edu.wpi.first.wpilibj.camera.AxisCameraException;
 import edu.wpi.first.wpilibj.image.BinaryImage;
 import edu.wpi.first.wpilibj.image.ColorImage;
 import edu.wpi.first.wpilibj.image.CriteriaCollection;
 import edu.wpi.first.wpilibj.image.NIVision.MeasurementType;
 import edu.wpi.first.wpilibj.image.NIVisionException;
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import org.usfirst.frc948.NRGRobot2013.commands.CameraAimAdjust;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 
 /**
@@ -35,7 +38,6 @@ public class Camera extends Subsystem {
     private final int TOL = 15;
     private final double IMAGEWIDTH = 320.0;
     private final double TANGENT = Math.tan((43.5 / 180.0 * Math.PI));
-    private final static double outOfRange = 2;
 
     protected void initDefaultCommand() {
     }
@@ -46,20 +48,20 @@ public class Camera extends Subsystem {
 //        cc.addCriteria(MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 40, 400, false);
     }
 
-    public void setImage() {
+    public double getNormalizedCenterOfMass() throws NIVisionException {
         try {
             axisImage = axisCamera.getImage();
+        } catch (AxisCameraException ex) {
+            Debug.println("[Camera] setImage() caught exception (no image available)");
+            Debug.printException(ex);
+            return CameraAimAdjust.TARGET_CENTER;
         } catch (NIVisionException ex) {
-            ex.printStackTrace();
-        } catch (Exception e) {
-            Debug.println("[Camera]: Get Image Failed" + e);
+            Debug.println("[Camera] setImage() caught exception (creating image)");
+            Debug.printException(ex);
+            return CameraAimAdjust.TARGET_CENTER;
         }
-    }
-
-    public double getNormalizedCenterOfMass() throws NIVisionException {
-        setImage();
         
-        BinaryImage thresholdImage = axisImage.thresholdRGB(0, 45, 25, 255, 0, 47);   // keep only green objects
+        BinaryImage thresholdImage = axisImage.thresholdRGB(0, 100, 200, 255, 200, 255);   // keep only green objects
         BinaryImage bigObjectsImage = thresholdImage.removeSmallObjects(false, 2);  // remove small artifacts
         BinaryImage convexHullImage = bigObjectsImage.convexHull(false);          // fill in occluded rectangles
         BinaryImage filteredImage = convexHullImage.particleFilter(cc);           // find filled in rectangles
@@ -70,12 +72,33 @@ public class Camera extends Subsystem {
             double aspect = ((double) r.boundingRectWidth / (double) r.boundingRectHeight);
             
             boolean checkHigh = IsWithinTolerance(aspect, highAspect, TOL);
-            if (checkHigh) {
+            if (checkHigh && r.boundingRectWidth >= 40) {
+                NetworkTable targetTable = NetworkTable.getTable("VisionTarget");
+                
+                targetTable.putBoolean("hasTarget", true);
+//                targetTable.putNumber("x1", r.boundingRectLeft);
+//                targetTable.putNumber("y1", r.boundingRectTop);
+//                targetTable.putNumber("x2", r.boundingRectLeft + r.boundingRectWidth);
+//                targetTable.putNumber("y2", r.boundingRectTop);
+//                targetTable.putNumber("x3", r.boundingRectLeft + r.boundingRectWidth);
+//                targetTable.putNumber("y3", r.boundingRectTop + r.boundingRectHeight);
+//                targetTable.putNumber("x4", r.boundingRectLeft);
+//                targetTable.putNumber("y4", r.boundingRectTop + r.boundingRectHeight);
+                targetTable.putNumber("top", r.boundingRectTop);
+                targetTable.putNumber("left", r.boundingRectLeft);
+                targetTable.putNumber("width", r.boundingRectWidth);
+                targetTable.putNumber("height", r.boundingRectHeight);
+                
+                axisImage.free();
+                
                 return r.center_mass_x_normalized;
             }
         }
         
-        return outOfRange;
+        NetworkTable targetTable = NetworkTable.getTable("VisionTarget");
+        targetTable.putBoolean("hasTarget", false);
+        
+        return CameraAimAdjust.TARGET_CENTER;
     }
     
 //    public double getDistance(int targetNum, ColorImage image) throws NIVisionException {

@@ -14,7 +14,6 @@ import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
  */
 public class CameraAimAdjust extends PIDCommand {
 
-    double headingCenterOfMassRatio = 30; //assuming the field of vision allows 30 degrees on either side of center
     public static final double kDefaultP = 0.05;
     public static final double kDefaultI = 0.001;
     public static final double kDefaultD = 0.1;
@@ -22,7 +21,7 @@ public class CameraAimAdjust extends PIDCommand {
     public static final double DEFAULT_DEGREES_TOLERANCE = 2.0;
     public static final int REQUIRED_CYCLES_ON_TARGET = 3;
     
-    public static final double TARGET_HEADING = 10; //TODO: Calibrate this value using camera readings
+    public static final double TARGET_CENTER = .15; // TODO: Calibrate this value using camera readings
     
     private final double maxPower;
     private double pidOutput;
@@ -51,7 +50,9 @@ public class CameraAimAdjust extends PIDCommand {
                 + " I:" + i
                 + " D:" + d
                 + " | maxPower:" + maxPower);
-        setSetpoint(TARGET_HEADING);
+        
+        setSetpoint(TARGET_CENTER);
+        
         consecutiveCyclesOnTarget = 0;
     }
 
@@ -81,9 +82,11 @@ public class CameraAimAdjust extends PIDCommand {
 
     protected double returnPIDInput() {
         try {
-            return Robot.camera.getNormalizedCenterOfMass() * headingCenterOfMassRatio; 
+            return Robot.camera.getNormalizedCenterOfMass();
         } catch (NIVisionException ex) {
-            return TARGET_HEADING; //If not getting a reading from the camera, stop running
+            Debug.println("[CameraAimAdjust] caught exception from getNormalizedCenterOfMass()");
+            Debug.printException(ex);
+            return TARGET_CENTER; // if not getting a reading from the camera, stop running
         }
     }
 
