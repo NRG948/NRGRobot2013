@@ -29,6 +29,8 @@ public class Camera extends Subsystem {
     public static Servo servo = RobotMap.cameraServo;
     public static double servoAngle;
     
+    public final static double FOV = 43.5;
+    
     private final static double downAngle = 0d;
     private final static double uprightAngle = 30d;
     private final static double cosOfTen = 0.985;
