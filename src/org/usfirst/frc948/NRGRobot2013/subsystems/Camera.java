@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.image.NIVision.MeasurementType;
 import edu.wpi.first.wpilibj.image.NIVisionException;
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
 import org.usfirst.frc948.NRGRobot2013.commands.SetCameraTilt;
+import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 
 /**
  *
@@ -28,12 +29,14 @@ public class Camera extends Subsystem {
     public static double servoAngle;
     final static double downAngle = 0d;
     final static double uprightAngle = 30d;
-    final double highAspect = 62.0 / 20.0;
+    final static double cosOfTen = 0.985;
+    final double highAspect = (62.0 / 20.0) *cosOfTen;
     final double middleAspect = 62.0 / 29.0;
     final double lowAspect = 37.0 / 32.0;
     final int TOL = 15;
     final double IMAGEWIDTH = 320.0;
     final double TANGENT = Math.tan((43.5 / 180.0 * Math.PI));
+    final static double outOfRange = 2;
 
     protected void initDefaultCommand() {
 //        this.setDefaultCommand(new SetCameraTilt());
@@ -46,15 +49,32 @@ public class Camera extends Subsystem {
     }
 
     public void setImage() {
-//        try {
-//            axisImage = axisCamera.getImage();
-//        } catch (NIVisionException ex) {
-//            ex.printStackTrace();
-//        } catch (Exception e) {
-//            System.out.println("Get Image Failed" + e);
-//        }
+        try {
+            axisImage = axisCamera.getImage();
+        } catch (NIVisionException ex) {
+            ex.printStackTrace();
+        } catch (Exception e) {
+            Debug.println("[Camera]: Get Image Failed" + e);
+        }
     }
-
+    public double getNormalizedCenterOfMass() throws NIVisionException {
+       setImage();
+        BinaryImage thresholdImage = axisImage.thresholdRGB(0, 45, 25, 255, 0, 47);   // keep only green objects
+       BinaryImage bigObjectsImage = thresholdImage.removeSmallObjects(false, 2);  // remove small artifacts
+        BinaryImage convexHullImage = bigObjectsImage.convexHull(false);          // fill in occluded rectangles
+        BinaryImage filteredImage = convexHullImage.particleFilter(cc);           // find filled in rectangles
+        ParticleAnalysisReport[] reports = filteredImage.getOrderedParticleAnalysisReports();  // get list of results
+        for (int i = 0; i < reports.length; i++) {                                // print results
+            ParticleAnalysisReport r = reports[i];
+            double aspect = ((double) r.boundingRectWidth / (double) r.boundingRectHeight);
+            boolean checkHigh = IsWithinTolerance(aspect, highAspect, TOL);
+            if(checkHigh) {
+                return r.center_mass_x_normalized;
+            }
+            
+        }
+        return outOfRange;
+    }
 //    public double getDistance(int targetNum, ColorImage image) throws NIVisionException {
 //        setImage();
 //        BinaryImage thresholdImage = axisImage.thresholdRGB(0, 45, 25, 255, 0, 47);   // keep only green objects
