@@ -44,22 +44,22 @@ public class Climber extends Subsystem {
      * @param climbValue power to set on climb motors, positive value climbs up [-1, 1]
      */
     public void setClimberMotorPower(double climbValue) {
-        if (RobotMap.tiltPiston.get() != Relay.Value.kOff) {
-            RobotMap.climberMotor1.set(-climbValue);
-            RobotMap.climberMotor2.set(-climbValue);
-        }
+//        if (RobotMap.tiltPiston.get() != Relay.Value.kOff) {
+//            RobotMap.climberMotor1.set(-climbValue);
+//            RobotMap.climberMotor2.set(-climbValue);
+//        }
     }
 
     public void stop() {
-        RobotMap.climberMotor1.set(0);
-        RobotMap.climberMotor2.set(0);
+//        RobotMap.climberMotor1.set(0);
+//        RobotMap.climberMotor2.set(0);
     }
 
     public void activateTilt() {
-        RobotMap.tiltPiston.set(Relay.Value.kOn);
+//        RobotMap.tiltPiston.set(Relay.Value.kOn);
     }
 
     public void disengage() {
-        RobotMap.tiltPiston.set(Relay.Value.kOff);
+//        RobotMap.tiltPiston.set(Relay.Value.kOff);
     }
 }
