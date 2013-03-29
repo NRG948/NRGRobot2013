@@ -23,13 +23,14 @@ public class Camera extends Subsystem {
 
     public static final double SERVO_SET_SHOOT = 0.69;
     public static final double SERVO_SET_CLIMB = 0.00;
-    public static AxisCamera axisCamera;          // the axis camera object (connected to the switch)
+    public static AxisCamera axisCamera = RobotMap.camera;          // the axis camera object (connected to the switch)
     private ColorImage axisImage;
-    private CriteriaCollection cc;      // the criteria for doing the particle filter operation   // create the criteria for the particle filter
+    private CriteriaCollection cc;      // the criteria for doing the particle filter operation
     public static Servo servo = RobotMap.cameraServo;
     public static double servoAngle;
     
-    public final static double FOV = 43.5 / 2.0;
+    public static final double FOV = 43.5 / 2.0;
+    public static final double TARGET_CENTER = 0.15;
     
     private final static double downAngle = 0d;
     private final static double uprightAngle = 30d;
@@ -45,24 +46,26 @@ public class Camera extends Subsystem {
     }
 
     public Camera() {
-//        cc = new CriteriaCollection();      // create the criteria for the particle filter
-//        cc.addCriteria(MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 30, 400, false);
-//        cc.addCriteria(MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 40, 400, false);
+        cc = new CriteriaCollection();      // create the criteria for the particle filter
+        cc.addCriteria(MeasurementType.IMAQ_MT_AREA, 500, 65536, false);
+//        cc.addCriteria(MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 20, 400, false);
+//        cc.addCriteria(MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 12, 400, false);
     }
 
     public double getNormalizedCenterOfMass() throws NIVisionException {
-        Debug.println("[Camera] getNormalizedCenterOfMass() called");
+//        Debug.println("[Camera] getNormalizedCenterOfMass() called");
+        long start = System.currentTimeMillis();
         
         try {
             axisImage = axisCamera.getImage();
         } catch (AxisCameraException ex) {
             Debug.println("[Camera] setImage() caught exception (no image available)");
             Debug.printException(ex);
-            return CameraAimAdjust.TARGET_CENTER;
+            return TARGET_CENTER;
         } catch (NIVisionException ex) {
             Debug.println("[Camera] setImage() caught exception (creating image)");
             Debug.printException(ex);
-            return CameraAimAdjust.TARGET_CENTER;
+            return TARGET_CENTER;
         }
         
         BinaryImage thresholdImage = axisImage.thresholdRGB(0, 100, 200, 255, 200, 255);   // keep only green objects
@@ -71,23 +74,25 @@ public class Camera extends Subsystem {
         BinaryImage filteredImage = convexHullImage.particleFilter(cc);           // find filled in rectangles
         ParticleAnalysisReport[] reports = filteredImage.getOrderedParticleAnalysisReports();  // get list of results
         
+//        try {
+//            axisImage.write("file:///img/img0.png");
+//            thresholdImage.write("file:///img/img1.png");
+//            bigObjectsImage.write("file:///img/img2.png");
+//            convexHullImage.write("file:///img/img3.png");
+//            filteredImage.write("file:///img/img4.png");
+//        } catch (NIVisionException ex) {
+//            Debug.printException(ex);
+//        }
+        
         for (int i = 0; i < reports.length; i++) {                                // print results
             ParticleAnalysisReport r = reports[i];
             double aspect = ((double) r.boundingRectWidth / (double) r.boundingRectHeight);
             
             boolean checkHigh = IsWithinTolerance(aspect, highAspect, TOL);
-            if (checkHigh && r.boundingRectWidth >= 40) {
+            if (checkHigh /*&& r.boundingRectWidth >= 40*/) {
                 NetworkTable targetTable = NetworkTable.getTable("VisionTarget");
                 
                 targetTable.putBoolean("hasTarget", true);
-//                targetTable.putNumber("x1", r.boundingRectLeft);
-//                targetTable.putNumber("y1", r.boundingRectTop);
-//                targetTable.putNumber("x2", r.boundingRectLeft + r.boundingRectWidth);
-//                targetTable.putNumber("y2", r.boundingRectTop);
-//                targetTable.putNumber("x3", r.boundingRectLeft + r.boundingRectWidth);
-//                targetTable.putNumber("y3", r.boundingRectTop + r.boundingRectHeight);
-//                targetTable.putNumber("x4", r.boundingRectLeft);
-//                targetTable.putNumber("y4", r.boundingRectTop + r.boundingRectHeight);
                 targetTable.putNumber("top", r.boundingRectTop);
                 targetTable.putNumber("left", r.boundingRectLeft);
                 targetTable.putNumber("width", r.boundingRectWidth);
@@ -99,7 +104,8 @@ public class Camera extends Subsystem {
                 convexHullImage.free();
                 filteredImage.free();
                 
-                Debug.println("[Camera] getNormalizedCenterOfMass() found CoM_X:" + r.center_mass_x_normalized);
+                Debug.println("[Camera] getNormalizedCenterOfMass() found CoM_X:" + r.center_mass_x_normalized +
+                        " [" + (System.currentTimeMillis() - start) + " ms]");
                 
                 return r.center_mass_x_normalized;
             }
@@ -114,9 +120,10 @@ public class Camera extends Subsystem {
         convexHullImage.free();
         filteredImage.free();
         
-        Debug.println("[Camera] getNormalizedCenterOfMass() exiting (no target found)");
+        Debug.println("[Camera] getNormalizedCenterOfMass() exiting (no target found) [" +
+                        (System.currentTimeMillis() - start) + " ms]");
         
-        return CameraAimAdjust.TARGET_CENTER;
+        return TARGET_CENTER;
     }
     
 //    public double getDistance(int targetNum, ColorImage image) throws NIVisionException {
