@@ -16,17 +16,12 @@ import org.usfirst.frc948.NRGRobot2013.utilities.PreferenceKeys;
  */
 public class CameraAimAdjust extends PIDCommand {
     
-    public static final double DEFAULT_DEGREES_TOLERANCE = 2.0;
-    public static final int REQUIRED_CYCLES_ON_TARGET = 3;
-    
-    public static final double TARGET_CENTER = .15; // TODO: Calibrate this value using camera readings
-    
     private final double maxPower;
     private double pidOutput;
     private int consecutiveCyclesOnTarget;
 
     public CameraAimAdjust(double power) {
-        this(power, DEFAULT_DEGREES_TOLERANCE);
+        this(power, TurnCommand.DEFAULT_DEGREES_TOLERANCE);
     }
 
     public CameraAimAdjust(double maxPower, double absoluteTolerance) {
@@ -53,7 +48,7 @@ public class CameraAimAdjust extends PIDCommand {
                 + " D:" + d
                 + " | maxPower:" + maxPower);
         
-        setSetpoint(TARGET_CENTER * Camera.FOV);
+        setSetpoint(Camera.TARGET_CENTER * Camera.FOV);
         
         consecutiveCyclesOnTarget = 0;
     }
@@ -66,11 +61,11 @@ public class CameraAimAdjust extends PIDCommand {
     protected boolean isFinished() {
         if (this.getPIDController().onTarget()) {
             consecutiveCyclesOnTarget++;
-            Debug.println("[CameraAimAdjust] On target: " + consecutiveCyclesOnTarget + "/" + REQUIRED_CYCLES_ON_TARGET);
+            Debug.println("[CameraAimAdjust] On target: " + consecutiveCyclesOnTarget + "/" + TurnCommand.REQUIRED_CYCLES_ON_TARGET);
         } else {
             consecutiveCyclesOnTarget = 0;
         }
-        return consecutiveCyclesOnTarget >= REQUIRED_CYCLES_ON_TARGET;
+        return consecutiveCyclesOnTarget >= TurnCommand.REQUIRED_CYCLES_ON_TARGET;
     }
 
     protected void end() {
@@ -90,7 +85,7 @@ public class CameraAimAdjust extends PIDCommand {
         } catch (NIVisionException ex) {
             Debug.println("[CameraAimAdjust] caught exception from getNormalizedCenterOfMass()");
             Debug.printException(ex);
-            ret = TARGET_CENTER * Camera.FOV; // if not getting a reading from the camera, stop running
+            ret = Camera.TARGET_CENTER * Camera.FOV; // if not getting a reading from the camera, stop running
         }
         
         SmartDashboard.putNumber("CameraAimAdjust PIDInput", ret);
