@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.image.NIVisionException;
 import org.usfirst.frc948.NRGRobot2013.Robot;
+import org.usfirst.frc948.NRGRobot2013.RobotMap;
 import org.usfirst.frc948.NRGRobot2013.subsystems.Camera;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 import org.usfirst.frc948.NRGRobot2013.utilities.MathHelper;
@@ -32,14 +33,13 @@ public class CameraAimAdjustMomentary extends PIDCommand {
     }
 
     protected void initialize() {
+        this.getPIDController().reset();
+        
         double p = Preferences.getInstance().getDouble(PreferenceKeys.TURN_P, TurnCommand.kDefaultP);
         double i = Preferences.getInstance().getDouble(PreferenceKeys.TURN_I, TurnCommand.kDefaultI);
         double d = Preferences.getInstance().getDouble(PreferenceKeys.TURN_D, TurnCommand.kDefaultD);
 
         this.getPIDController().setPID(p, i, d);
-        
-        this.getPIDController().reset();
-        this.getPIDController().enable();
         
         double turnAngle;
         try {
@@ -49,7 +49,8 @@ public class CameraAimAdjustMomentary extends PIDCommand {
             Debug.printException(ex);
         }
         
-        Robot.drive.setDesiredHeading(Robot.drive.getDesiredHeading() + turnAngle);
+//        Robot.drive.setDesiredHeading(Robot.drive.getDesiredHeading() + turnAngle);
+        Robot.drive.setDesiredHeading(RobotMap.drivegyro.getAngle() + turnAngle);
         this.setSetpoint(Robot.drive.getDesiredHeading());
 
         Debug.println("[CameraAimAdjustMomentary] " + "turning toward target " + turnAngle + " degrees CW |"
@@ -58,6 +59,7 @@ public class CameraAimAdjustMomentary extends PIDCommand {
                 + " D:" + d
                 + " | maxPower:" + maxPower);
         
+        this.getPIDController().enable();
         consecutiveCyclesOnTarget = 0;
     }
 
