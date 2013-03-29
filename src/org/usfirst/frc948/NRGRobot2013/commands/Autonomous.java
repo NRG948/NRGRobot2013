@@ -254,7 +254,10 @@ public class Autonomous extends CommandGroup {
         }
         
         addSequential(new SetShooterMotorPower(0.0));
-        addSequential(new TurnCommand(Preferences.getInstance().getDouble(prefix + PreferenceKeys.ALIGN_TURN, 0.0), 0.7, 0.7, 5.0));
+        
+        double alignTurnAngle = Preferences.getInstance().getDouble(prefix + PreferenceKeys.ALIGN_TURN, 0.0);
+        double alignTurnPower = Math.abs(alignTurnAngle) > 180 ? 0.4 : (Math.abs(alignTurnAngle) > 50.0 ? 0.5 : 0.7);
+        addSequential(new TurnCommand(Preferences.getInstance().getDouble(prefix + PreferenceKeys.ALIGN_TURN, 0.0), alignTurnPower, alignTurnPower, 5.0));
     }
     
     private void buildMoveSequence() {
