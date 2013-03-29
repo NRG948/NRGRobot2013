@@ -17,7 +17,7 @@ public class TurnCommand extends PIDCommand {
 
     public static final double kInitialP = 0.015;
     public static final double kDefaultP = 0.05;
-    public static final double kDefaultI = 0.001;
+    public static final double kDefaultI = 0.002;
     public static final double kDefaultD = 0.1;
     
     public static final double DEFAULT_DEGREES_TOLERANCE = 2.0;
