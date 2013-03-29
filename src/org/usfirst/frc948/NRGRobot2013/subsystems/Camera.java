@@ -34,7 +34,7 @@ public class Camera extends Subsystem {
     private final double middleAspect = 62.0 / 29.0;
     private final double lowAspect = 37.0 / 32.0;
     
-    private final int ASPECT_RATIO_TOLERANCE = 15;
+    private final int ASPECT_RATIO_TOLERANCE = 20;
     private final double TANGENT = Math.tan(FOV / 180.0 * Math.PI) * 2;
 
     protected void initDefaultCommand() {
@@ -63,18 +63,18 @@ public class Camera extends Subsystem {
             return TARGET_CENTER;
         }
         
-        BinaryImage thresholdImage = axisImage.thresholdRGB(0, 100, 200, 255, 200, 255);   // keep only green objects
+        BinaryImage thresholdImage = axisImage.thresholdRGB(0, 100, 150, 255, 0, 100);   // keep only green objects
         BinaryImage bigObjectsImage = thresholdImage.removeSmallObjects(false, 2);  // remove small artifacts
         BinaryImage convexHullImage = bigObjectsImage.convexHull(false);          // fill in occluded rectangles
         BinaryImage filteredImage = convexHullImage.particleFilter(cc);           // find filled in rectangles
         ParticleAnalysisReport[] reports = filteredImage.getOrderedParticleAnalysisReports();  // get list of results
         
 //        try {
-//            axisImage.write("file:///img/img0.png");
-//            thresholdImage.write("file:///img/img1.png");
-//            bigObjectsImage.write("file:///img/img2.png");
-//            convexHullImage.write("file:///img/img3.png");
-//            filteredImage.write("file:///img/img4.png");
+//            axisImage.write("/img/img0.png");
+//            thresholdImage.write("/img/img1.png");
+//            bigObjectsImage.write("/img/img2.png");
+//            convexHullImage.write("/img/img3.png");
+//            filteredImage.write("/img/img4.png");
 //        } catch (NIVisionException ex) {
 //            Debug.printException(ex);
 //        }

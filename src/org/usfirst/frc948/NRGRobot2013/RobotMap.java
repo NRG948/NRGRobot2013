@@ -133,6 +133,7 @@ public class RobotMap {
     LiveWindow.addSensor("DiscMagazine", "IRSensor", IRSensor);
     
         camera = AxisCamera.getInstance();
-        camera.writeWhiteBalance(AxisCamera.WhiteBalanceT.fixedIndoor);
+        camera.writeExposureControl(AxisCamera.ExposureT.flickerfree60);
+        camera.writeWhiteBalance(AxisCamera.WhiteBalanceT.fixedOutdoor1);
     }
 }
