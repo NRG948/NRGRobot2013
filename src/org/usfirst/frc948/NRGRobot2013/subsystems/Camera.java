@@ -2,7 +2,6 @@ package org.usfirst.frc948.NRGRobot2013.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc948.NRGRobot2013.RobotMap;
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
 import edu.wpi.first.wpilibj.camera.AxisCameraException;
 import edu.wpi.first.wpilibj.image.BinaryImage;
@@ -12,7 +11,6 @@ import edu.wpi.first.wpilibj.image.NIVision.MeasurementType;
 import edu.wpi.first.wpilibj.image.NIVisionException;
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import org.usfirst.frc948.NRGRobot2013.commands.CameraAimAdjust;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 
 /**
@@ -23,23 +21,21 @@ public class Camera extends Subsystem {
 
     public static final double SERVO_SET_SHOOT = 0.69;
     public static final double SERVO_SET_CLIMB = 0.00;
-    public static AxisCamera axisCamera = RobotMap.camera;          // the axis camera object (connected to the switch)
+    
+    private AxisCamera axisCamera = RobotMap.camera;          // the axis camera object (connected to the switch)
     private ColorImage axisImage;
-    private CriteriaCollection cc;      // the criteria for doing the particle filter operation
-    public static Servo servo = RobotMap.cameraServo;
-    public static double servoAngle;
+    
+    private final CriteriaCollection cc;      // the criteria for doing the particle filter operation
     
     public static final double FOV = 43.5 / 2.0;
     public static final double TARGET_CENTER = 0.15;
     
-    private final static double downAngle = 0d;
-    private final static double uprightAngle = 30d;
     private final static double cosOfTen = 0.985;
     private final double highAspect = (62.0 / 20.0) * cosOfTen;
     private final double middleAspect = 62.0 / 29.0;
     private final double lowAspect = 37.0 / 32.0;
-    private final int TOL = 15;
-    private final double IMAGEWIDTH = 320.0;
+    
+    private final int ASPECT_RATIO_TOLERANCE = 15;
     private final double TANGENT = Math.tan((43.5 / 180.0 * Math.PI));
 
     protected void initDefaultCommand() {
@@ -88,7 +84,7 @@ public class Camera extends Subsystem {
             ParticleAnalysisReport r = reports[i];
             double aspect = ((double) r.boundingRectWidth / (double) r.boundingRectHeight);
             
-            boolean checkHigh = IsWithinTolerance(aspect, highAspect, TOL);
+            boolean checkHigh = IsWithinTolerance(aspect, highAspect, ASPECT_RATIO_TOLERANCE);
             if (checkHigh /*&& r.boundingRectWidth >= 40*/) {
                 NetworkTable targetTable = NetworkTable.getTable("VisionTarget");
                 
@@ -140,13 +136,13 @@ public class Camera extends Subsystem {
 //            boolean checkMiddle = IsWithinTolerance(aspect, middleAspect, TOL);
 //            boolean checkLow = IsWithinTolerance(aspect, lowAspect, TOL);
 //            if (checkHigh && targetNum == 1) {
-//                double distance = (5.16667 * (IMAGEWIDTH / r.boundingRectWidth)) / TANGENT;
+//                double distance = (5.16667 * (r.imageWidth / r.boundingRectWidth)) / TANGENT;
 //                return (distance);
 //            } else if (checkMiddle && targetNum == 2) {
-//                double distance = (5.16667 * (IMAGEWIDTH / r.boundingRectWidth)) / TANGENT;
+//                double distance = (5.16667 * (r.imageWidth / r.boundingRectWidth)) / TANGENT;
 //                return (distance);
 //            } else if (checkLow && targetNum == 3) {
-//                double distance = (3.08333 * (IMAGEWIDTH / r.boundingRectWidth)) / TANGENT;
+//                double distance = (3.08333 * (r.imageWidth / r.boundingRectWidth)) / TANGENT;
 //                return (distance);
 //            }
 //        }
