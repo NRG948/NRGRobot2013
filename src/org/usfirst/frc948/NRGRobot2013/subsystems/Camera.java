@@ -35,7 +35,7 @@ public class Camera extends Subsystem {
     private final double lowAspect = 37.0 / 32.0;
     
     private final int ASPECT_RATIO_TOLERANCE = 15;
-    private final double TANGENT = Math.tan((43.5 / 180.0 * Math.PI));
+    private final double TANGENT = Math.tan(FOV / 180.0 * Math.PI) * 2;
 
     protected void initDefaultCommand() {
     }
