@@ -30,8 +30,7 @@ public class Camera extends Subsystem {
     public static final double FOV = 43.5 / 2.0;
     public static final double TARGET_CENTER = 0.15;
     
-    private final static double cosOfTen = 0.985;
-    private final double highAspect = (62.0 / 20.0) * cosOfTen;
+    private final double highAspect = 62.0 / 20.0;
     private final double middleAspect = 62.0 / 29.0;
     private final double lowAspect = 37.0 / 32.0;
     
