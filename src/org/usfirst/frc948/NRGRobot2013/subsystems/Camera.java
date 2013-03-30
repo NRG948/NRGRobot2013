@@ -64,8 +64,9 @@ public class Camera extends Subsystem {
         }
         
         BinaryImage thresholdImage = axisImage.thresholdRGB(0, 100, 150, 255, 0, 100);   // keep only green objects
-        BinaryImage bigObjectsImage = thresholdImage.removeSmallObjects(false, 2);  // remove small artifacts
-        BinaryImage convexHullImage = bigObjectsImage.convexHull(false);          // fill in occluded rectangles
+//        BinaryImage bigObjectsImage = thresholdImage.removeSmallObjects(false, 2);  // remove small artifacts
+//        BinaryImage convexHullImage = bigObjectsImage.convexHull(false);          // fill in occluded rectangles
+        BinaryImage convexHullImage = thresholdImage.convexHull(false);          // fill in occluded rectangles
         BinaryImage filteredImage = convexHullImage.particleFilter(cc);           // find filled in rectangles
         ParticleAnalysisReport[] reports = filteredImage.getOrderedParticleAnalysisReports();  // get list of results
         
@@ -95,7 +96,7 @@ public class Camera extends Subsystem {
                 
                 axisImage.free();
                 thresholdImage.free();
-                bigObjectsImage.free();
+//                bigObjectsImage.free();
                 convexHullImage.free();
                 filteredImage.free();
                 
@@ -111,7 +112,7 @@ public class Camera extends Subsystem {
         
         axisImage.free();
         thresholdImage.free();
-        bigObjectsImage.free();
+//        bigObjectsImage.free();
         convexHullImage.free();
         filteredImage.free();
         
