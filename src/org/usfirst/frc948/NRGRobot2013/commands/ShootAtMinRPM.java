@@ -4,13 +4,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
 
 /**
- * 
+ *
  * @author irving
  */
 public class ShootAtMinRPM extends CommandGroup {
-    
+
     private double rpm;
-    
+
     public ShootAtMinRPM(double rpm) {
         this.rpm = rpm;
         addSequential(new SetShooterMotorPowerFromRPM(rpm));
@@ -23,12 +23,9 @@ public class ShootAtMinRPM extends CommandGroup {
         addSequential(new ReleaseFrisbeeCommand());
         addSequential(new Delay(100));
     }
-    
+
     public void initialize() {
         Debug.println("[ShootAtMinRPM] initializing with RPM=" + rpm);
     }
     
-    public void interrupted() {
-        (new SetShooterMotorPower(0)).execute();
-    }
 }
