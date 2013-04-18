@@ -112,8 +112,7 @@ public class MathHelper {
      * @param gyroHeading The current value of the gyro.
      * @return heading+n*360 where n is chosen such that the result is within 180 degrees of gyroHeading.
      */
-    public static double nearestEquivalentHeading(double heading, double gyroHeading)
-    {
+    public static double nearestEquivalentHeading(double heading, double gyroHeading) {
         double deltaAngle = (heading - gyroHeading) % 360;
         if (deltaAngle > 180) {
             deltaAngle -= 360;
@@ -122,4 +121,5 @@ public class MathHelper {
         }
         return gyroHeading + deltaAngle;
     }
+    
 }

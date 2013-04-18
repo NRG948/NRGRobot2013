@@ -43,8 +43,6 @@ public class Camera extends Subsystem {
     public Camera() {
         cc = new CriteriaCollection();      // create the criteria for the particle filter
         cc.addCriteria(MeasurementType.IMAQ_MT_AREA, 500, 65536, false);
-//        cc.addCriteria(MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 20, 400, false);
-//        cc.addCriteria(MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 12, 400, false);
     }
 
     public double getNormalizedCenterOfMass() throws NIVisionException {
@@ -64,8 +62,6 @@ public class Camera extends Subsystem {
         }
         
         BinaryImage thresholdImage = axisImage.thresholdRGB(0, 100, 150, 255, 0, 100);   // keep only green objects
-//        BinaryImage bigObjectsImage = thresholdImage.removeSmallObjects(false, 2);  // remove small artifacts
-//        BinaryImage convexHullImage = bigObjectsImage.convexHull(false);          // fill in occluded rectangles
         BinaryImage convexHullImage = thresholdImage.convexHull(false);          // fill in occluded rectangles
         BinaryImage filteredImage = convexHullImage.particleFilter(cc);           // find filled in rectangles
         ParticleAnalysisReport[] reports = filteredImage.getOrderedParticleAnalysisReports();  // get list of results
@@ -85,7 +81,7 @@ public class Camera extends Subsystem {
             double aspect = ((double) r.boundingRectWidth / (double) r.boundingRectHeight);
             
             boolean checkHigh = IsWithinTolerance(aspect, highAspect, ASPECT_RATIO_TOLERANCE);
-            if (checkHigh /*&& r.boundingRectWidth >= 40*/) {
+            if (checkHigh) {
                 NetworkTable targetTable = NetworkTable.getTable("VisionTarget");
                 
                 targetTable.putBoolean("hasTarget", true);
@@ -96,7 +92,6 @@ public class Camera extends Subsystem {
                 
                 axisImage.free();
                 thresholdImage.free();
-//                bigObjectsImage.free();
                 convexHullImage.free();
                 filteredImage.free();
                 
@@ -112,7 +107,6 @@ public class Camera extends Subsystem {
         
         axisImage.free();
         thresholdImage.free();
-//        bigObjectsImage.free();
         convexHullImage.free();
         filteredImage.free();
         
