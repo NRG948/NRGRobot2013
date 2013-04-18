@@ -19,7 +19,8 @@ public class DriveToXY extends Command {
     private long startTime;
     private final double MIN_START_POWER = 0.3;         // Approximate power needed to get a stationary robot moving
     private final double ACCEL_LIMIT_PER_MSEC = 0.001;
-    private final double DRIVEXY_TOLERANCE = 1.0/12.0;  // How close we're trying to get to target x,y (in feet)
+    private final double DRIVEXY_NEAR_TOLERANCE = 3.0 / 12.0;  // How close we're trying to get to target x,y (in feet)
+    private final double DRIVEXY_OVERSHOOT_TOLERANCE = 0.1 / 12.0;
     private final double SLOWDOWN_DISTANCE = 2.5;       // Start slowing down at this many feet before the endpoint
 
     public DriveToXY(double x, double y) {
@@ -77,7 +78,7 @@ public class DriveToXY extends Command {
 
     protected boolean isFinished() {
         // Finish the command if we're very close to target position, or if we overshot the target and are moving away.
-        boolean finished = (distanceToGo <= DRIVEXY_TOLERANCE) || (distanceToGo < 1.0 && distanceToGo > prevDistanceToGo + DRIVEXY_TOLERANCE/4);
+        boolean finished = (distanceToGo <= DRIVEXY_NEAR_TOLERANCE) || (distanceToGo < 1.0 && distanceToGo > prevDistanceToGo + DRIVEXY_OVERSHOOT_TOLERANCE);
         prevDistanceToGo = distanceToGo;
         if (finished) {
             double x = MathHelper.round(Robot.positionTracker.getX(),2);
