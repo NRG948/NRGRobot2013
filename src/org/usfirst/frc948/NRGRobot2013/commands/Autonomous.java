@@ -13,21 +13,15 @@ import org.usfirst.frc948.NRGRobot2013.utilities.Debug;
  */
 public class Autonomous extends CommandGroup {
 
-    // WHY ARE NESTED CLASSES SO FUN
-    // also why don't we have enums
     public static class ShooterMode {
 
         private static final int kTimer_val = 0;
         private static final int kEncoder_val = 1;
         
-        /**
-         * mode: no encoder available, run autonomous on time delay alone
-         */
+        // runs autonomous on timer only (failsafe for encoder breaking)
         public static final ShooterMode kTimer = new ShooterMode(ShooterMode.kTimer_val);
         
-        /**
-         * mode: no PID available, run autonomous on raw motor power and RPM sensor
-         */
+        // runs autonomous on RPM encoder
         public static final ShooterMode kEncoder = new ShooterMode(ShooterMode.kEncoder_val);
         
         public final int mode;
@@ -100,10 +94,6 @@ public class Autonomous extends CommandGroup {
     // constants for min-RPM autonomous
     private static final int MINIMUM_DELAY = 600;
     
-    // constants for autonomous driving
-    private static final double DEFAULT_TURN_SPEED = 0.3;
-    private static final double DEFAULT_SPEED = 0.5;
-    
     private final ShooterMode mode;
     private final StartingPosition start;
     private final TargetPosition destination;
@@ -156,9 +146,9 @@ public class Autonomous extends CommandGroup {
     
     public static void initPreferences() {
         double[][] defaults = {
-            {  7.92, 34.83,   9.0, 2.0, 2670.0, -90.0, 23.0, 29.50, 0.00, 23.5, 8.50, 21.5, 6.50,  0.01 },  // left
+            {  7.92, 34.55,   9.0, 2.0, 2670.0, -90.0, 23.0, 29.50, 0.00, 23.5, 8.50, 21.5, 6.50,  0.01 },  // left
             { 14.50, 35.83,   0.0, 2.0, 2825.0, -50.0, 23.0, 29.50, 0.00, 23.5, 8.50, 21.5, 6.50, -9.00 },  // center
-            { 19.08, 34.83, -20.0, 2.0, 2670.0,   0.0, 23.0, 29.50, 0.00, 23.5, 8.50, 21.5, 6.50,  0.01 }   // right
+            { 19.08, 34.55, -20.0, 2.0, 2670.0,   0.0, 23.0, 29.50, 0.00, 23.5, 8.50, 21.5, 6.50,  0.01 }   // right
         };
         
         String[] keys = PreferenceKeys.array;
@@ -225,7 +215,7 @@ public class Autonomous extends CommandGroup {
             }
         }
         
-        addSequential(new DriveStraightDistance(-DEFAULT_SPEED, Preferences.getInstance().getDouble(prefix + PreferenceKeys.INTIAL_DISTANCE, 0.0)));
+        addSequential(new DriveStraightDistance(-0.5, Preferences.getInstance().getDouble(prefix + PreferenceKeys.INTIAL_DISTANCE, 0.0)));
         
         double shootTurn = Preferences.getInstance().getDouble(prefix + PreferenceKeys.SHOOT_TURN, 0.0);
         
@@ -271,20 +261,15 @@ public class Autonomous extends CommandGroup {
     
     public CommandGroup buildPostAutonomous() {
         CommandGroup postAutonomous = new CommandGroup() {
-            public void initialize() {
-                Debug.println("[PostAutonomous] initialize()");
-            }
-            
-            public void end() {
-                Debug.println("[PostAutonomous] end()");
-            }
+            public void initialize() { Debug.println("[PostAutonomous] initialize()"); }
+            public void end() { Debug.println("[PostAutonomous] end()"); }
         };
         
         if (destination.position == TargetPosition.kNone_val) {
             return postAutonomous;
         }
         
-        // rough turn so that DriveToXY doesn't drive in wide arc
+        // rough turn so that DriveToXY doesn't have to drive in wide arc
         postAutonomous.addSequential(new TurnToHeading(0.0, 0.6, 0.6, 10.0));
         
         if (destination.position == TargetPosition.kOutside_val) {
