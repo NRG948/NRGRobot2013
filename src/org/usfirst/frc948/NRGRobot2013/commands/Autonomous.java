@@ -113,7 +113,7 @@ public class Autonomous extends CommandGroup {
         public static final String ALIGN_TURN = "PostShootTurn";
         public static final String DEST_X = "PostShootX";
         public static final String DEST_Y = "PostShootY";
-        public static final String FINAL_TURN = "FinalTurn";
+        public static final String FINAL_HEADING = "FinalHeading";
         public static final String OUTSIDE_X = "FinalPos1X";
         public static final String OUTSIDE_Y = "FinalPos1Y";
         public static final String INSIDE_X = "FinalPos2X";
@@ -135,7 +135,7 @@ public class Autonomous extends CommandGroup {
             ALIGN_TURN,
             DEST_X,
             DEST_Y,
-            FINAL_TURN,
+            FINAL_HEADING,
             OUTSIDE_X,
             OUTSIDE_Y,
             INSIDE_X,
@@ -256,7 +256,7 @@ public class Autonomous extends CommandGroup {
         }
         
         addSequential(new DriveToXY(-0.6, Preferences.getInstance().getDouble(prefix + PreferenceKeys.DEST_X, 0.0), Preferences.getInstance().getDouble(prefix + PreferenceKeys.DEST_Y, 0.0)));
-        addSequential(new TurnToHeading(0));
+        addSequential(new TurnToHeading(Preferences.getInstance().getDouble(prefix + PreferenceKeys.FINAL_HEADING, 0.0)));
     }
     
     public CommandGroup buildPostAutonomous() {
