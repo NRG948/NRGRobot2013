@@ -273,11 +273,11 @@ public class Autonomous extends CommandGroup {
         postAutonomous.addSequential(new TurnToHeading(0.0, 0.6, 0.6, 10.0));
         
         if (destination.position == TargetPosition.kOutside_val) {
-            postAutonomous.addSequential(new DriveToXY(-0.7,
+            postAutonomous.addSequential(new DriveToXY(-0.75,
                     Preferences.getInstance().getDouble(prefix + PreferenceKeys.OUTSIDE_X, 0.0),
                     Preferences.getInstance().getDouble(prefix + PreferenceKeys.OUTSIDE_Y, 0.0)));
         } else if (destination.position == TargetPosition.kInside_val) {
-            postAutonomous.addSequential(new DriveToXY(-0.7,
+            postAutonomous.addSequential(new DriveToXY(-0.75,
                     Preferences.getInstance().getDouble(prefix + PreferenceKeys.INSIDE_X, 0.0),
                     Preferences.getInstance().getDouble(prefix + PreferenceKeys.INSIDE_Y, 0.0)));
         }
