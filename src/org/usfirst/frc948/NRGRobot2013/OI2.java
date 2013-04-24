@@ -151,11 +151,13 @@ public class OI2 implements IOperatorInterface {
         
         shootButton.whenPressed(new ReleaseFrisbeeCommand());
         
-        rightJoyBtn2.whenPressed(new SetCameraTilt(Camera.SERVO_SET_CLIMB));
-        rightJoyBtn3.whenPressed(new SetCameraTilt(Camera.SERVO_SET_SHOOT));
+        rightJoyBtn3.whenPressed(new ToggleExtender());
         
-        rightJoyBtn4.whileHeld(new SetCameraTilt(-1, 0.0075));
-        rightJoyBtn5.whileHeld(new SetCameraTilt( 1, 0.0075));
+//        rightJoyBtn2.whenPressed(new SetCameraTilt(Camera.SERVO_SET_CLIMB));
+//        rightJoyBtn3.whenPressed(new SetCameraTilt(Camera.SERVO_SET_SHOOT));
+//        
+//        rightJoyBtn4.whileHeld(new SetCameraTilt(-1, 0.0075));
+//        rightJoyBtn5.whileHeld(new SetCameraTilt( 1, 0.0075));
         
         rightJoyBtn10.whenPressed(new AddShooterTrim(-SHOOT_TRIM_CENTER_INCREMENT));
         rightJoyBtn11.whenPressed(new AddShooterTrim(SHOOT_TRIM_CENTER_INCREMENT));

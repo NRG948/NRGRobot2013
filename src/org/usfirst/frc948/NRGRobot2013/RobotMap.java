@@ -49,6 +49,9 @@ public class RobotMap {
     
     public static AxisCamera camera;
     
+    public static Servo extenderServo1;
+    public static Servo extenderServo2;
+    
     public static final double DEFAULT_GYRO_SENSITIVITY = 0.00685;
     
     public static final boolean CompetitionRobot = true;   // ROBOT1: set true for Competition robot, false for practice bot
@@ -133,7 +136,13 @@ public class RobotMap {
     LiveWindow.addSensor("DiscMagazine", "IRSensor", IRSensor);
     
         camera = AxisCamera.getInstance();
+        // TODO: REPLACE THESE WITH THE PROPER SETTINGS ONCE WE HAVE ACCESS TO
+        //   M1013 CAMERA AGAIN
         camera.writeExposureControl(AxisCamera.ExposureT.flickerfree60);
         camera.writeWhiteBalance(AxisCamera.WhiteBalanceT.fixedOutdoor1);
+        
+        // TODO: FILL IN PROPER CHANNEL AFTER SERVOS ARE WIRED
+        extenderServo1 = new Servo(0);
+        extenderServo2 = new Servo(0);
     }
 }
