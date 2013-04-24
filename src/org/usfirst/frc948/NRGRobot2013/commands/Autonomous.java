@@ -114,6 +114,17 @@ public class Autonomous extends CommandGroup {
         public static final String INTIAL_DISTANCE = "Distance";
         public static final String SHOOT_RPM = "MinRPM";
         public static final String ALIGN_TURN = "PostShootTurn";
+        public static final String ALIGN_TURN_LEFT = "PostShootTurnL";
+        public static final String ALIGN_TURN_CENTER = "PostShootTurnC";
+        public static final String ALIGN_TURN_RIGHT = "PostShootTurnR";
+        
+        /*
+        public static final String TARGET_PREFIX_BEHIND = "TargB";
+        public static final String TARGET_PREFIX_CENTER = "TargC";
+        public static final String TARGET_PREFIX_INSIDE = "TargI";
+        public static final String TARGET_PREFIX_OUTSIDE = "TargO";
+        //*/
+        
         public static final String DEST_X = "PostShootX";
         public static final String DEST_Y = "PostShootY";
         public static final String FINAL_HEADING = "FinalHeading";
@@ -123,13 +134,13 @@ public class Autonomous extends CommandGroup {
         public static final String INSIDE_Y = "FinalPos2Y";
         public static final String SHOOT_TURN = "ShootTurn";
         
-        public static final String[] prefixes = {
+        public static final String[] startingPrefixes = {
             STARTING_PREFIX_LEFT,
             STARTING_PREFIX_CENTER,
             STARTING_PREFIX_RIGHT
         };
         
-        public static final String[] array = {
+        public static final String[] startingParameters = {
             INITIAL_X,
             INITIAL_Y,
             INITIAL_TURN,
@@ -143,19 +154,35 @@ public class Autonomous extends CommandGroup {
             OUTSIDE_Y,
             INSIDE_X,
             INSIDE_Y,
-            SHOOT_TURN
+            SHOOT_TURN,
+            ALIGN_TURN_LEFT,
+            ALIGN_TURN_CENTER,
+            ALIGN_TURN_RIGHT
         };
+        
+        /* 
+        public static final String[] targetPrefixes = {
+            TARGET_PREFIX_BEHIND,
+            TARGET_PREFIX_CENTER,
+            TARGET_PREFIX_INSIDE,
+            TARGET_PREFIX_OUTSIDE
+        };
+        
+        public static final String[] targetParameters = {
+            
+        };
+        //*/
     }
     
     public static void initPreferences() {
         double[][] defaults = {
-            {  7.92, 34.55,   9.0, 2.0, 2670.0, -90.0, 23.0, 29.50, 0.00, 23.5, 8.50, 21.5, 6.50,  0.01 },  // left
-            { 14.50, 35.83,   0.0, 2.0, 2825.0, -50.0, 23.0, 29.50, 0.00, 23.5, 8.50, 21.5, 6.50, -9.00 },  // center
-            { 19.08, 34.55, -20.0, 2.0, 2670.0,   0.0, 23.0, 29.50, 0.00, 23.5, 8.50, 21.5, 6.50,  0.01 }   // right
+            {  7.92, 34.55,   9.0, 2.0, 2670.0, -90.0, 23.0, 29.50, 0.00, 23.5, 8.50, 21.5, 6.50,  0.01,   0.0, -50.0, -90.0 },  // left
+            { 14.50, 35.83,   0.0, 2.0, 2825.0, -50.0, 23.0, 29.50, 0.00, 23.5, 8.50, 21.5, 6.50, -9.00,  45.0,   0.0, -45.0 },  // center
+            { 19.08, 34.55, -20.0, 2.0, 2670.0,   0.0, 23.0, 29.50, 0.00, 23.5, 8.50, 21.5, 6.50,  0.01, 100.0,  60.0,   0.0 }   // right
         };
         
-        String[] keys = PreferenceKeys.array;
-        String[] prefixes = PreferenceKeys.prefixes;
+        String[] keys = PreferenceKeys.startingParameters;
+        String[] prefixes = PreferenceKeys.startingPrefixes;
         
         for (int i = 0; i < prefixes.length; i++) {
             for (int j = 0; j < keys.length; j++) {
@@ -248,7 +275,18 @@ public class Autonomous extends CommandGroup {
         
         addSequential(new SetShooterMotorPower(0.0));
         
-        double alignTurnAngle = Preferences.getInstance().getDouble(prefix + PreferenceKeys.ALIGN_TURN, 0.0);
+        if (destination.position == TargetPosition.kNone_val) {
+            return;
+        }
+        
+        String alignTurnKey = PreferenceKeys.ALIGN_TURN_RIGHT;
+        if (destination.position == TargetPosition.kBehind_val) {
+            alignTurnKey = PreferenceKeys.ALIGN_TURN_LEFT;
+        } else if (destination.position == TargetPosition.kCenter_val) {
+            alignTurnKey = PreferenceKeys.ALIGN_TURN_CENTER;
+        }
+        
+        double alignTurnAngle = Preferences.getInstance().getDouble(prefix + alignTurnKey, 0.0);
         double alignTurnPower = Math.abs(alignTurnAngle) > 180 ? 0.4 : (Math.abs(alignTurnAngle) > 50.0 ? 0.5 : 0.7);
         addSequential(new TurnCommand(Preferences.getInstance().getDouble(prefix + PreferenceKeys.ALIGN_TURN, 0.0), alignTurnPower, alignTurnPower, 5.0));
     }
