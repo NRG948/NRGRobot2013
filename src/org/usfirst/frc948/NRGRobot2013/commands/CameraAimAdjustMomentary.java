@@ -41,15 +41,8 @@ public class CameraAimAdjustMomentary extends PIDCommand {
 
         this.getPIDController().setPID(p, i, d);
         
-        double turnAngle;
-        try {
-            turnAngle = Camera.FOV * (Robot.camera.getNormalizedCenterOfMass() - Camera.TARGET_CENTER);
-        } catch (NIVisionException ex) {
-            turnAngle = 0;
-            Debug.printException(ex);
-        }
+        double turnAngle = Camera.FOV * (Robot.camera.calculateNormalizedCenterOfMass() - Camera.TARGET_CENTER);
         
-//        Robot.drive.setDesiredHeading(Robot.drive.getDesiredHeading() + turnAngle);
         Robot.drive.setDesiredHeading(RobotMap.drivegyro.getAngle() + turnAngle);
         this.setSetpoint(Robot.drive.getDesiredHeading());
 

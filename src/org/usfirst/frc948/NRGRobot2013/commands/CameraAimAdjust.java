@@ -78,15 +78,7 @@ public class CameraAimAdjust extends PIDCommand {
     }
 
     protected double returnPIDInput() {
-        double ret;
-        
-        try {
-            ret = Robot.camera.getNormalizedCenterOfMass() * Camera.FOV;
-        } catch (NIVisionException ex) {
-            Debug.println("[CameraAimAdjust] caught exception from getNormalizedCenterOfMass()");
-            Debug.printException(ex);
-            ret = Camera.TARGET_CENTER * Camera.FOV; // if not getting a reading from the camera, stop running
-        }
+        double ret = Camera.FOV * Robot.camera.calculateNormalizedCenterOfMass();
         
         SmartDashboard.putNumber("CameraAimAdjust PIDInput", ret);
         
