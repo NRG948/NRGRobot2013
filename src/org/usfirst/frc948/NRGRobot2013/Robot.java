@@ -108,10 +108,7 @@ public class Robot extends IterativeRobot {
         }
         
         Autonomous.StartingPosition startingPosition = oi.getAutonomousStartingPosition();
-        Autonomous.TargetPosition targetPosition = Autonomous.TargetPosition.kNone;
-        if (oi.isFullAutonomous()) {
-            targetPosition = oi.getAutonomousTargetPosition();
-        }
+        Autonomous.TargetPosition targetPosition = oi.getAutonomousTargetPosition();
 
         autonomousCommand = new Autonomous(Autonomous.ShooterMode.kEncoder, startingPosition, targetPosition);
         fullAutonomousCommand = ((Autonomous) autonomousCommand).buildPostAutonomous();
@@ -239,6 +236,6 @@ public class Robot extends IterativeRobot {
 //        SmartDashboard.putData("Camera Subsystem", camera);
         
         SmartDashboard.putNumber("shooter RPM", RobotMap.shooterQuadrature.getRPM());
-//        SmartDashboard.putNumber("average RPM", RobotMap.shooterQuadrature.averageRPM());
+        SmartDashboard.putNumber("average RPM", RobotMap.shooterQuadrature.averageRPM());
     }
 }

@@ -284,17 +284,19 @@ public class OI2 implements IOperatorInterface {
     }
 
     public Autonomous.TargetPosition getAutonomousTargetPosition() {
-        boolean channel1 = getDigital(AUTONOMOUS_DRIVE_SWITCH_CHANNEL_1);
-        boolean channel2 = getDigital(AUTONOMOUS_DRIVE_SWITCH_CHANNEL_2);
-        
-        if (!channel1 && !channel2) {
-            return Autonomous.TargetPosition.kOutside;
-        } else if (channel1 && !channel2) {
-            return Autonomous.TargetPosition.kInside;
-        } else if (!channel1 && channel2) {
-            return Autonomous.TargetPosition.kCenter;
-        } else if (channel1 && channel2) {
-            return Autonomous.TargetPosition.kBehind;
+        if (getDigital(PRESET_FULL_AUTONOMOUS_ENABLE)) {
+            boolean channel1 = getDigital(AUTONOMOUS_DRIVE_SWITCH_CHANNEL_1);
+            boolean channel2 = getDigital(AUTONOMOUS_DRIVE_SWITCH_CHANNEL_2);
+
+            if (!channel1 && !channel2) {
+                return Autonomous.TargetPosition.kOutside;
+            } else if (channel1 && !channel2) {
+                return Autonomous.TargetPosition.kInside;
+            } else if (!channel1 && channel2) {
+                return Autonomous.TargetPosition.kCenter;
+            } else if (channel1 && channel2) {
+                return Autonomous.TargetPosition.kBehind;
+            }
         }
         
         return Autonomous.TargetPosition.kNone;
