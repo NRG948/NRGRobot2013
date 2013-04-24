@@ -292,7 +292,9 @@ public class OI2 implements IOperatorInterface {
         } else if (channel1 && !channel2) {
             return Autonomous.TargetPosition.kInside;
         } else if (!channel1 && channel2) {
-            return Autonomous.TargetPosition.kLeft;
+            return Autonomous.TargetPosition.kCenter;
+        } else if (channel1 && channel2) {
+            return Autonomous.TargetPosition.kBehind;
         }
         
         return Autonomous.TargetPosition.kNone;

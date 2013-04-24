@@ -64,12 +64,14 @@ public class Autonomous extends CommandGroup {
         private static final int kNone_val = 0;
         private static final int kOutside_val = 1;
         private static final int kInside_val = 2;
-        private static final int kLeft_val = 3;
+        private static final int kCenter_val = 3;
+        private static final int kBehind_val = 4;
         
         public static final TargetPosition kNone = new TargetPosition(kNone_val);
         public static final TargetPosition kOutside = new TargetPosition(kOutside_val);
         public static final TargetPosition kInside = new TargetPosition(kInside_val);
-        public static final TargetPosition kLeft = new TargetPosition(kLeft_val);
+        public static final TargetPosition kCenter = new TargetPosition(kCenter_val);
+        public static final TargetPosition kBehind = new TargetPosition(kBehind_val);
         
         public final int position;
         
@@ -79,9 +81,10 @@ public class Autonomous extends CommandGroup {
         
         public String toString() {
             switch(position) {
-                case kOutside_val: return "OUTSIDE";
-                case kInside_val: return "CENTER";
-                case kLeft_val: return "LEFT";
+                case kOutside_val: return "R_OUTSIDE";
+                case kInside_val: return "R_INSIDE";
+                case kCenter_val: return "CENTER";
+                case kBehind_val: return "BEHIND";
                 default: return "NONE";
             }
         }
@@ -101,9 +104,9 @@ public class Autonomous extends CommandGroup {
     private final String prefix;
     
     public static class PreferenceKeys {
-        public static final String PREFIX_LEFT = "AutoL";
-        public static final String PREFIX_CENTER = "AutoC";
-        public static final String PREFIX_RIGHT = "AutoR";
+        public static final String STARTING_PREFIX_LEFT = "AutoL";
+        public static final String STARTING_PREFIX_CENTER = "AutoC";
+        public static final String STARTING_PREFIX_RIGHT = "AutoR";
         
         public static final String INITIAL_X = "InitialX";
         public static final String INITIAL_Y = "InitialY";
@@ -121,9 +124,9 @@ public class Autonomous extends CommandGroup {
         public static final String SHOOT_TURN = "ShootTurn";
         
         public static final String[] prefixes = {
-            PREFIX_LEFT,
-            PREFIX_CENTER,
-            PREFIX_RIGHT
+            STARTING_PREFIX_LEFT,
+            STARTING_PREFIX_CENTER,
+            STARTING_PREFIX_RIGHT
         };
         
         public static final String[] array = {
@@ -167,11 +170,11 @@ public class Autonomous extends CommandGroup {
         this.destination = destination;
         
         if (start.position == StartingPosition.kLeft_val) {
-            prefix = PreferenceKeys.PREFIX_LEFT;
+            prefix = PreferenceKeys.STARTING_PREFIX_LEFT;
         } else if (start.position == StartingPosition.kRight_val) {
-            prefix = PreferenceKeys.PREFIX_RIGHT;
+            prefix = PreferenceKeys.STARTING_PREFIX_RIGHT;
         } else {
-            prefix = PreferenceKeys.PREFIX_CENTER;
+            prefix = PreferenceKeys.STARTING_PREFIX_CENTER;
         }
         
         Debug.println("[Autonomous] building sequence " + mode + " " + start + " " + destination);

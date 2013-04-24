@@ -102,21 +102,22 @@ public class Robot extends IterativeRobot {
         
         Debug.println("[Robot] autonomousInit()");
         
-//        RobotMap.drivegyro.reset();
-        
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
             while (autonomousCommand.isRunning()) {}  // wait for cancel to finish
         }
         
         Autonomous.StartingPosition startingPosition = oi.getAutonomousStartingPosition();
-        Autonomous.TargetPosition targetPosition = oi.getAutonomousTargetPosition();
-
-        if (startingPosition != null) {
-            autonomousCommand = new Autonomous(Autonomous.ShooterMode.kEncoder, startingPosition, targetPosition);
-            fullAutonomousCommand = ((Autonomous) autonomousCommand).buildPostAutonomous();
-            autonomousCommand.start();
+        Autonomous.TargetPosition targetPosition = Autonomous.TargetPosition.kNone;
+        if (oi.isFullAutonomous()) {
+            targetPosition = oi.getAutonomousTargetPosition();
         }
+
+        autonomousCommand = new Autonomous(Autonomous.ShooterMode.kEncoder, startingPosition, targetPosition);
+        fullAutonomousCommand = ((Autonomous) autonomousCommand).buildPostAutonomous();
+        autonomousCommand.start();
+        
+        wasDisabled = false;
     }
 
     /**
