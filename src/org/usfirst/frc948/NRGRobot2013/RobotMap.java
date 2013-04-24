@@ -140,8 +140,8 @@ public class RobotMap {
         camera = AxisCamera.getInstance();
         // TODO: REPLACE THESE WITH THE PROPER SETTINGS ONCE WE HAVE ACCESS TO
         //   M1013 CAMERA AGAIN
-        camera.writeExposureControl(AxisCamera.ExposureT.flickerfree60);
-        camera.writeWhiteBalance(AxisCamera.WhiteBalanceT.fixedOutdoor1);
+//        camera.writeExposureControl(AxisCamera.ExposureT.flickerfree60);
+//        camera.writeWhiteBalance(AxisCamera.WhiteBalanceT.fixedOutdoor1);
         
         // TODO: FILL IN PROPER CHANNEL AFTER SERVOS ARE WIRED
         extenderServo1 = new Servo(0);
