@@ -28,7 +28,7 @@ public class CameraAimAdjustMomentary extends PIDCommand {
         super(TurnCommand.kDefaultP, TurnCommand.kDefaultI, TurnCommand.kDefaultD, 0.3);
         requires(Robot.drive);
         
-        this.maxPower = MathHelper.clamp(maxPower, 0.0, 0.6);
+        this.maxPower = MathHelper.clamp(maxPower, 0.0, 1.0);
         this.getPIDController().setAbsoluteTolerance(absoluteTolerance);
     }
 

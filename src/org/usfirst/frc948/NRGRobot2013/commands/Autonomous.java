@@ -175,7 +175,7 @@ public class Autonomous extends CommandGroup {
         double[][] targetDefaults = {
             {  4.0, 29.50, 0.0,  4.5, 8.50  },  // down left side and behind pyramid
             { 13.5, 29.50, 0.0, 13.5, 29.50 },  // go to center and block frisbees
-            { 21.0, 29.50, 0.0, 21.5, 6.50  },  // down right side and close to pyramid
+            { 21.0, 29.50, 0.0, 21.0, 6.50  },  // down right side and close to pyramid
             { 23.0, 29.50, 0.0, 23.5, 8.50  }   // down right side and close to wall
         };
         
