@@ -245,6 +245,63 @@ public class Autonomous extends CommandGroup {
         
         addSequential(new SetShooterMotorPower(1.0));
         
+        // If the new autonomous is having problems with the basic shooting and
+        // it can't be fixed in time for qualification, just switch to this
+        // hard-coded failsafe by uncommenting this next section and commenting
+        // out the section after.
+        
+        /*
+        if (start.position == StartingPosition.kRight_val) {
+            // RIGHT
+            addSequential(new TurnCommand(-20.0, 0.0, 1.0));
+            addSequential(new DriveStraightDistance(-0.5, 2.0));
+            addSequential(new TurnCommand(0.01, 0.6, 0.6, 1.0));
+            addSequential(new WaitForMinRPM(2670.0));
+            addSequential(new ReleaseFrisbeeCommand());
+            addSequential(new Delay(MINIMUM_DELAY));
+            addSequential(new WaitForMinRPM(2670.0));
+            addSequential(new ReleaseFrisbeeCommand());
+            addSequential(new Delay(MINIMUM_DELAY));
+            addSequential(new WaitForMinRPM(2670.0));
+            addSequential(new ReleaseFrisbeeCommand());
+            addSequential(new Delay(MINIMUM_DELAY));
+            addSequential(new WaitForMinRPM(2670.0));
+            addSequential(new ReleaseFrisbeeCommand());
+        } else if (start.position == StartingPosition.kCenter_val) {
+            // CENTER
+            addSequential(new DriveStraightDistance(-0.5, 2.0));
+            addSequential(new TurnCommand(-9.0, 0.6, 0.6, 1.0));
+            addSequential(new WaitForMinRPM(2825.0));
+            addSequential(new ReleaseFrisbeeCommand());
+            addSequential(new Delay(MINIMUM_DELAY));
+            addSequential(new WaitForMinRPM(2825.0));
+            addSequential(new ReleaseFrisbeeCommand());
+            addSequential(new Delay(MINIMUM_DELAY));
+            addSequential(new WaitForMinRPM(2825.0));
+            addSequential(new ReleaseFrisbeeCommand());
+            addSequential(new Delay(MINIMUM_DELAY));
+            addSequential(new WaitForMinRPM(2825.0));
+            addSequential(new ReleaseFrisbeeCommand());
+        } else if (start.position == StartingPosition.kLeft_val) {
+            // LEFT
+            addSequential(new TurnCommand(9.0, 1.0, 0.0));
+            addSequential(new DriveStraightDistance(-0.5, 2.0));
+            addSequential(new TurnCommand(0.01, 0.6, 0.6, 1.0));
+            addSequential(new WaitForMinRPM(2670.0));
+            addSequential(new ReleaseFrisbeeCommand());
+            addSequential(new Delay(MINIMUM_DELAY));
+            addSequential(new WaitForMinRPM(2670.0));
+            addSequential(new ReleaseFrisbeeCommand());
+            addSequential(new Delay(MINIMUM_DELAY));
+            addSequential(new WaitForMinRPM(2670.0));
+            addSequential(new ReleaseFrisbeeCommand());
+            addSequential(new Delay(MINIMUM_DELAY));
+            addSequential(new WaitForMinRPM(2670.0));
+            addSequential(new ReleaseFrisbeeCommand());
+        }
+        //*/
+        
+        //*
         double initialTurnAngle = Preferences.getInstance().getDouble(startingPrefix + PreferenceKeys.INITIAL_TURN, 0.0);
         
         if (initialTurnAngle != 0) {
@@ -284,6 +341,7 @@ public class Autonomous extends CommandGroup {
             addSequential(new WaitForMinRPM(minRPM));
             addSequential(new ReleaseFrisbeeCommand());
         }
+        //*/
         
         addSequential(new SetShooterMotorPower(0.0));
         
