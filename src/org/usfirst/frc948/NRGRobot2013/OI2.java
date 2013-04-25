@@ -162,7 +162,7 @@ public class OI2 implements IOperatorInterface {
         btnClimbEngage.whenPressed(new TiltCommand(true));
         btnClimbEngage.whenReleased(new TiltCommand(false));
         
-        btnClimbUp.whileHeld(new CameraAimAdjustMomentary(0.6, 0.5));
+        btnClimbUp.whenPressed(new CameraAimAdjustMomentary(0.6, 0.5));
         
         btnShootMid.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_MID_COURT));
         btnShootTower3pt.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_CLOSE_3PT));
@@ -252,6 +252,7 @@ public class OI2 implements IOperatorInterface {
         double trimFine = shootTrim * SHOOT_TRIM_MAX_RPM;
         
         shootTrimRPM = trimCenter + trimFine;
+        SmartDashboard.putNumber("TrimRPM", getShootTrimRPM());
         
         fullAutoEnabled = getDigital(PRESET_FULL_AUTONOMOUS_ENABLE);
         autoShootEnabled = getDigital(AUTO_SHOOT);

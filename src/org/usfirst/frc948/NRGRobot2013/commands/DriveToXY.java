@@ -19,7 +19,7 @@ public class DriveToXY extends Command {
     private long startTime;
     private final double MIN_START_POWER = 0.3;         // Approximate power needed to get a stationary robot moving
     private final double ACCEL_LIMIT_PER_MSEC = 0.001;
-    private final double DRIVEXY_NEAR_TOLERANCE = 3.0 / 12.0;  // How close we're trying to get to target x,y (in feet)
+    private final double DRIVEXY_NEAR_TOLERANCE = 14.0 / 12.0;  // How close we're trying to get to target x,y (in feet)
     private final double DRIVEXY_OVERSHOOT_TOLERANCE = 0.1 / 12.0;
     private final double SLOWDOWN_DISTANCE = 2.5;       // Start slowing down at this many feet before the endpoint
 

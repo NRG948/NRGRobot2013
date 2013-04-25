@@ -169,7 +169,7 @@ public class Autonomous extends CommandGroup {
         double[][] startingDefaults = {
             {  7.92, 34.55,   9.0, 2.0,  0.01, 2670.0,   0.0, -50.0, -90.0 },  // left
             { 14.50, 35.83,   0.0, 2.0, -9.00, 2825.0,  45.0,   0.0, -45.0 },  // center
-            { 19.08, 34.55, -20.0, 2.0,  0.01, 2670.0, 100.0,  60.0,   0.0 }   // right
+            { 19.08, 34.55, -22.0, 2.0,  0.01, 2670.0, 100.0,  60.0,   0.0 }   // right
         };
         
         double[][] targetDefaults = {
@@ -340,9 +340,9 @@ public class Autonomous extends CommandGroup {
             //If destination is center, then we don't shoot a 4th time to save time 
             //Otherwise we do shoot in case of misfire
             if (destination.position != TargetPosition.kCenter_val) {
-            addSequential(new Delay(MINIMUM_DELAY));
-            addSequential(new WaitForMinRPM(minRPM));
-            addSequential(new ReleaseFrisbeeCommand());
+                addSequential(new Delay(MINIMUM_DELAY));
+                addSequential(new WaitForMinRPM(minRPM));
+                addSequential(new ReleaseFrisbeeCommand());
             }
         }
         //*/
