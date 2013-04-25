@@ -299,9 +299,8 @@ public class Autonomous extends CommandGroup {
             addSequential(new WaitForMinRPM(2670.0));
             addSequential(new ReleaseFrisbeeCommand());
         }
+       
         //*/
-        
-        //*
         double initialTurnAngle = Preferences.getInstance().getDouble(startingPrefix + PreferenceKeys.INITIAL_TURN, 0.0);
         
         if (initialTurnAngle != 0) {
@@ -337,9 +336,14 @@ public class Autonomous extends CommandGroup {
             addSequential(new Delay(MINIMUM_DELAY));
             addSequential(new WaitForMinRPM(minRPM));
             addSequential(new ReleaseFrisbeeCommand());
+            //Trying to get to center of field as fast as possible so we can block 7-disc auto
+            //If destination is center, then we don't shoot a 4th time to save time 
+            //Otherwise we do shoot in case of misfire
+            if (destination.position != TargetPosition.kCenter_val) {
             addSequential(new Delay(MINIMUM_DELAY));
             addSequential(new WaitForMinRPM(minRPM));
             addSequential(new ReleaseFrisbeeCommand());
+            }
         }
         //*/
         
@@ -365,7 +369,21 @@ public class Autonomous extends CommandGroup {
         if (destination.position == TargetPosition.kNone_val) {
             return;
         }
-        
+        //hardcore safe
+//        if(destination.position == TargetPosition.kBehind_val) {
+//            addSequential(new DriveToXY(-0.6, 4.0, 29.50));
+//            addSequential(new TurnToHeading(0));
+//        } else if(destination.position == TargetPosition.kCenter_val) {
+//            addSequential(new DriveToXY(-0.6,13.5,29.5));
+//            addSequential(new TurnToHeading(0));
+//        } else if(destination.position == TargetPosition.kInside_val) {
+//            addSequential(new DriveToXY(-0.6,21.0,29.5));
+//            addSequential(new TurnToHeading(0));
+//        } else if(destination.position == TargetPosition.kOutside_val) {
+//            addSequential(new DriveToXY(-0.6,23.0,29.5));
+//            addSequential(new TurnToHeading(0));
+//        }
+//        
         addSequential(new DriveToXY(-0.6, Preferences.getInstance().getDouble(targetPrefix + PreferenceKeys.INITIAL_DEST_X, 0.0), Preferences.getInstance().getDouble(targetPrefix + PreferenceKeys.INITIAL_DEST_Y, 0.0)));
         addSequential(new TurnToHeading(Preferences.getInstance().getDouble(targetPrefix + PreferenceKeys.AUTO_END_HEADING, 0.0)));
     }

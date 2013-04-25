@@ -78,7 +78,7 @@ public class DriveToXY extends Command {
 
     protected boolean isFinished() {
         // Finish the command if we're very close to target position, or if we overshot the target and are moving away.
-        boolean finished = (distanceToGo <= DRIVEXY_NEAR_TOLERANCE) || (distanceToGo < 1.0 && distanceToGo > prevDistanceToGo + DRIVEXY_OVERSHOOT_TOLERANCE);
+        boolean finished = (distanceToGo <= DRIVEXY_NEAR_TOLERANCE) || (/*distanceToGo < 1.0 &&*/ distanceToGo > prevDistanceToGo + DRIVEXY_OVERSHOOT_TOLERANCE);
         prevDistanceToGo = distanceToGo;
         if (finished) {
             double x = MathHelper.round(Robot.positionTracker.getX(),2);

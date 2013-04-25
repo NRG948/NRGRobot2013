@@ -12,8 +12,8 @@ public class Extender extends Subsystem {
     private static final double SERVO1_STORE = 1.0;
     private static final double SERVO2_STORE = 0.0;
     
-    private static final double SERVO1_EXTEND = 0.35;
-    private static final double SERVO2_EXTEND = 0.65;
+    private static final double SERVO1_EXTEND = 0.45;
+    private static final double SERVO2_EXTEND = 0.6;
     
     private boolean isDown = false;
     

@@ -144,7 +144,7 @@ public class RobotMap {
 //        camera.writeWhiteBalance(AxisCamera.WhiteBalanceT.fixedOutdoor1);
         
         // TODO: FILL IN PROPER CHANNEL AFTER SERVOS ARE WIRED
-        extenderServo1 = new Servo(0);
-        extenderServo2 = new Servo(0);
+        extenderServo1 = new Servo(6);
+        extenderServo2 = new Servo(9);
     }
 }
