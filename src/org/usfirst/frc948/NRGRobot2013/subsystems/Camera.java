@@ -64,6 +64,7 @@ public class Camera extends Subsystem {
     private boolean tableWritten = true;
     
     private boolean writeImageFilesOnUpdate = false;
+    private int imageSet = 0;
     
     private ParticleAnalysisReport[] reports;
     private GoalType[] reportType;
@@ -133,10 +134,13 @@ public class Camera extends Subsystem {
         
         if (writeImageFilesOnUpdate) {
             try {
-                axisImage.write("/img/img0.png");
-                thresholdImage.write("/img/img1.png");
-                convexHullImage.write("/img/img2.png");
-                filteredImage.write("/img/img3.png");
+                String prefix = "/img/img_set" + imageSet + "_";
+                String extension = ".png";
+                axisImage.write(prefix + "0" + extension);
+                thresholdImage.write(prefix + "1" + extension);
+                convexHullImage.write(prefix + "2" + extension);
+                filteredImage.write(prefix + "3" + extension);
+                imageSet++;
             } catch (NIVisionException ex) {
                 Debug.println("[Camera] analyzeImage() caught exception (write image files)");
                 Debug.printException(ex);
