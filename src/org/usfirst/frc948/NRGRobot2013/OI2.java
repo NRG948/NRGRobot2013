@@ -121,7 +121,7 @@ public class OI2 implements IOperatorInterface {
 //                   rightJoyBtn4 = new JoystickButton(rightJoystick, 4),
 //                   rightJoyBtn5 = new JoystickButton(rightJoystick, 5),
                    rightJoyBtn6 = new JoystickButton(rightJoystick, 6),
-//                   rightJoyBtn7 = new JoystickButton(rightJoystick, 7),
+                   rightJoyBtn7 = new JoystickButton(rightJoystick, 7),
 //                   rightJoyBtn8 = new JoystickButton(rightJoystick, 8),
 //                   rightJoyBtn9 = new JoystickButton(rightJoystick, 9),
                    rightJoyBtn10 = new JoystickButton(rightJoystick, 10),
@@ -154,6 +154,7 @@ public class OI2 implements IOperatorInterface {
         rightJoyBtn3.whenPressed(new ToggleExtender());
         
         rightJoyBtn6.whenPressed(new ToggleCameraWrite());
+        rightJoyBtn7.whenPressed(new CameraImageAnalyze());
         
         rightJoyBtn10.whenPressed(new AddShooterTrim(-SHOOT_TRIM_CENTER_INCREMENT));
         rightJoyBtn11.whenPressed(new AddShooterTrim(SHOOT_TRIM_CENTER_INCREMENT));
