@@ -116,11 +116,11 @@ public class OI2 implements IOperatorInterface {
                    leftJoyBtn11 = new JoystickButton(leftJoystick, 11);
 
     private Button rightJoyBtn1 = new JoystickButton(rightJoystick, 1),
-                   rightJoyBtn2 = new JoystickButton(rightJoystick, 2),
+//                   rightJoyBtn2 = new JoystickButton(rightJoystick, 2),
                    rightJoyBtn3 = new JoystickButton(rightJoystick, 3),
-                   rightJoyBtn4 = new JoystickButton(rightJoystick, 4),
-                   rightJoyBtn5 = new JoystickButton(rightJoystick, 5),
-//                   rightJoyBtn6 = new JoystickButton(rightJoystick, 6),
+//                   rightJoyBtn4 = new JoystickButton(rightJoystick, 4),
+//                   rightJoyBtn5 = new JoystickButton(rightJoystick, 5),
+                   rightJoyBtn6 = new JoystickButton(rightJoystick, 6),
 //                   rightJoyBtn7 = new JoystickButton(rightJoystick, 7),
 //                   rightJoyBtn8 = new JoystickButton(rightJoystick, 8),
 //                   rightJoyBtn9 = new JoystickButton(rightJoystick, 9),
@@ -153,11 +153,7 @@ public class OI2 implements IOperatorInterface {
         
         rightJoyBtn3.whenPressed(new ToggleExtender());
         
-//        rightJoyBtn2.whenPressed(new SetCameraTilt(Camera.SERVO_SET_CLIMB));
-//        rightJoyBtn3.whenPressed(new SetCameraTilt(Camera.SERVO_SET_SHOOT));
-//        
-//        rightJoyBtn4.whileHeld(new SetCameraTilt(-1, 0.0075));
-//        rightJoyBtn5.whileHeld(new SetCameraTilt( 1, 0.0075));
+        rightJoyBtn6.whenPressed(new ToggleCameraWrite());
         
         rightJoyBtn10.whenPressed(new AddShooterTrim(-SHOOT_TRIM_CENTER_INCREMENT));
         rightJoyBtn11.whenPressed(new AddShooterTrim(SHOOT_TRIM_CENTER_INCREMENT));
