@@ -51,8 +51,8 @@ public class RobotMap {
     
     public static AxisCamera camera;
     
-    public static Servo extenderServo1;
-    public static Servo extenderServo2;
+    public static Servo extenderServoLeft;
+    public static Servo extenderServoRight;
     
     public static final double DEFAULT_GYRO_SENSITIVITY = 0.00685;
     
@@ -144,7 +144,7 @@ public class RobotMap {
 //        camera.writeWhiteBalance(AxisCamera.WhiteBalanceT.fixedOutdoor1);
         
         // TODO: FILL IN PROPER CHANNEL AFTER SERVOS ARE WIRED
-        extenderServo1 = new Servo(6);
-        extenderServo2 = new Servo(9);
+        extenderServoLeft = new Servo(6);
+        extenderServoRight = new Servo(9);
     }
 }
