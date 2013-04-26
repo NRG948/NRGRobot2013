@@ -97,11 +97,13 @@ public class OI2 implements IOperatorInterface {
     private static final int SHOOTING_POSITION_FEEDER_3PT = 12;
     private static final int SHOOTING_POSITION_FEEDER_2PT = 5;
     
-    private static final int CLIMBER_DEPLOY = 11;
+//    private static final int CLIMBER_DEPLOY = 11;
     
     private static final int VISION_AIM = 6;
     
     private static final int MANUAL_SHOOT = 4;
+    
+    private static final int DEBUG_TOGGLE = 15;
     
     private Button leftJoyBtn1 = new JoystickButton(leftJoystick, 1),
 //                   leftJoyBtn2 = new JoystickButton(leftJoystick, 2),
@@ -127,7 +129,7 @@ public class OI2 implements IOperatorInterface {
                    rightJoyBtn10 = new JoystickButton(rightJoystick, 10),
                    rightJoyBtn11 = new JoystickButton(rightJoystick, 11);
     
-    private Button btnClimbEngage =  new NRGDigitalIOButton(CLIMBER_DEPLOY, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
+//    private Button btnClimbEngage =  new NRGDigitalIOButton(CLIMBER_DEPLOY, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
     
     private Button btnVisionAim = new NRGDigitalIOButton(VISION_AIM, NRGDigitalIOButton.ACTIVE_STATE_FALSE);
     
@@ -137,6 +139,8 @@ public class OI2 implements IOperatorInterface {
     private Button btnShootTower3pt = new NRGDigitalIOButton(SHOOTING_POSITION_TOWER_3PT, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
     private Button btnShootFeeder3pt = new NRGDigitalIOButton(SHOOTING_POSITION_FEEDER_3PT, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
     private Button btnShootFeeder2pt = new NRGDigitalIOButton(SHOOTING_POSITION_FEEDER_2PT, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
+    
+    private Button btnDebugToggle = new NRGDigitalIOButton(DEBUG_TOGGLE, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
     
     private double shootTrim = 0.0;
     private double shootTrimRPM = 0.0;
@@ -160,8 +164,8 @@ public class OI2 implements IOperatorInterface {
         rightJoyBtn10.whenPressed(new AddShooterTrim(-SHOOT_TRIM_CENTER_INCREMENT));
         rightJoyBtn11.whenPressed(new AddShooterTrim(SHOOT_TRIM_CENTER_INCREMENT));
                 
-        btnClimbEngage.whenPressed(new TiltCommand(true));
-        btnClimbEngage.whenReleased(new TiltCommand(false));
+//        btnClimbEngage.whenPressed(new TiltCommand(true));
+//        btnClimbEngage.whenReleased(new TiltCommand(false));
         
         btnVisionAim.whenPressed(new CameraAimAdjustMomentary(0.5, 1.5));
         btnVisionAim.whenReleased(new DriveInterrupt());
@@ -170,6 +174,9 @@ public class OI2 implements IOperatorInterface {
         btnShootTower3pt.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_CLOSE_3PT));
         btnShootFeeder3pt.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_FAR_3PT));
         btnShootFeeder2pt.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_FAR_2PT));
+        
+        btnDebugToggle.whenPressed(new SetDebug(true));
+        btnDebugToggle.whenReleased(new SetDebug(false));
         
 //        SmartDashboard.putData("Turn 15 CW (0.3)", new TurnCommand(15, 0.3));
 //        SmartDashboard.putData("Turn 90 CW (0.3)", new TurnCommand(90, 0.3));
