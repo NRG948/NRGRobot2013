@@ -75,6 +75,7 @@ public class Debug {
         if (logging && logFileInitialized && logStreamOpen) {
             try {
                 log.close();
+                logStreamOpen = false;
             } catch (IOException ex) {
                 printException(ex);
             }
