@@ -140,8 +140,6 @@ public class OI2 implements IOperatorInterface {
     private Button btnShootFeeder3pt = new NRGDigitalIOButton(SHOOTING_POSITION_FEEDER_3PT, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
     private Button btnShootFeeder2pt = new NRGDigitalIOButton(SHOOTING_POSITION_FEEDER_2PT, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
     
-    private Button btnDebugToggle = new NRGDigitalIOButton(DEBUG_TOGGLE, NRGDigitalIOButton.ACTIVE_STATE_TRUE);
-    
     private double shootTrim = 0.0;
     private double shootTrimRPM = 0.0;
     
@@ -174,9 +172,6 @@ public class OI2 implements IOperatorInterface {
         btnShootTower3pt.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_CLOSE_3PT));
         btnShootFeeder3pt.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_FAR_3PT));
         btnShootFeeder2pt.whileHeld(new ShootAtMinRPM(Shooter.MIN_RPM_FAR_2PT));
-        
-        btnDebugToggle.whenPressed(new SetDebug(true));
-        btnDebugToggle.whenReleased(new SetDebug(false));
         
 //        SmartDashboard.putData("Turn 15 CW (0.3)", new TurnCommand(15, 0.3));
 //        SmartDashboard.putData("Turn 90 CW (0.3)", new TurnCommand(90, 0.3));
@@ -263,6 +258,12 @@ public class OI2 implements IOperatorInterface {
         
         fullAutoEnabled = getDigital(FULL_AUTO_SWITCH);
         autoShootEnabled = getDigital(AUTO_SHOOT);
+        
+        if (getDigital(DEBUG_TOGGLE)) {
+            Debug.enable();
+        } else {
+            Debug.disable();
+        }
     }
     
     public double getShootTrimPower() {
