@@ -49,7 +49,8 @@ public class Camera extends Subsystem {
     private final CriteriaCollection cc = initParticleFilter();
     
     public static final double FOV = 67.0 / 2.0;
-    public static final double TARGET_CENTER = 0.08;
+    public static final double TARGET_CENTER = 0.20;
+    
     private final double ASPECT_RATIO_HIGH = 62.0 / 20.0; // 3.10
     private final double ASPECT_RATIO_MID = 62.0 / 29.0;  // 2.14
     private final double ASPECT_RATIO_LOW = 37.0 / 32.0;  // 1.17
@@ -257,6 +258,8 @@ public class Camera extends Subsystem {
         if (table == null) {
             System.out.println("[Camera] writeTable() passed null table");
         } else {
+            table.putNumber("targetCenter", TARGET_CENTER);
+            
             if (updated && !tableWritten) {
                 for (int i = 0; i < reports.length; i++) {
                     String prefix = "box" + i;
