@@ -237,5 +237,6 @@ public class Robot extends IterativeRobot {
         
         SmartDashboard.putNumber("shooter RPM", RobotMap.shooterQuadrature.getRPM());
         SmartDashboard.putNumber("average RPM", RobotMap.shooterQuadrature.averageRPM());
+        SmartDashboard.putNumber("TrimRPM", oi.getShootTrimRPM());
     }
 }

@@ -254,7 +254,6 @@ public class OI2 implements IOperatorInterface {
         double trimFine = shootTrim * SHOOT_TRIM_MAX_RPM;
         
         shootTrimRPM = trimCenter + trimFine;
-        SmartDashboard.putNumber("TrimRPM", getShootTrimRPM());
         
         fullAutoEnabled = getDigital(FULL_AUTO_SWITCH);
         autoShootEnabled = getDigital(AUTO_SHOOT);
