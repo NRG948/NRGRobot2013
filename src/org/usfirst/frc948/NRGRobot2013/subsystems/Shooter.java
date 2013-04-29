@@ -14,7 +14,7 @@ public class Shooter extends Subsystem {
     public static final double MIN_RPM_FAR_3PT = 2400;  // inside +20
     public static final double MIN_RPM_FAR_2PT = 2300;  // inside +20
     
-    public static final double MIN_RPM_MID_COURT = 2280;
+    public static final double MIN_RPM_MID_COURT = 2300;
 
     public static final double DEFAULT_OVER_REV = 1.54;
     public static final long SHOOT_DELAY_TIME = 3000;
