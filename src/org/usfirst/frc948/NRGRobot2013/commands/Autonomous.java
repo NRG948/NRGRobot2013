@@ -167,16 +167,16 @@ public class Autonomous extends CommandGroup {
     
     public static void initPreferences() {
         double[][] startingDefaults = {
-            {  7.92, 34.55,   9.0, 2.0,  0.01, 2660.0,   0.0, -50.0, -90.0 },  // left
+            {  7.92, 34.55,  11.0, 2.0,  0.01, 2650.0,   0.0, -50.0, -90.0 },  // left
             { 14.50, 35.83,   0.0, 2.0, -9.00, 2790.0,  63.0,   0.0, -45.0 },  // center
             { 19.08, 34.55, -22.0, 2.0,  0.01, 2650.0, 100.0,  60.0,   0.0 }   // right
         };
         
         double[][] targetDefaults = {
-            {  4.0, 29.50, 0.0,  4.5, 8.50  },  // down left side and behind pyramid
-            { 13.5, 29.50, 0.0, 13.5, 29.50 },  // go to center and block frisbees
-            { 21.0, 29.50, 0.0, 21.0, 6.50  },  // down right side and close to pyramid
-            { 23.0, 29.50, 0.0, 23.5, 8.50  }   // down right side and close to wall
+            {  4.0, 30.00, 0.0,  5.0, 8.50  },  // down left side and behind pyramid
+            { 13.5, 30.00, 0.0, 13.5, 29.50 },  // go to center and block frisbees
+            { 21.0, 30.00, 0.0, 21.0, 6.50  },  // down right side and close to pyramid
+            { 23.0, 30.00, 0.0, 23.5, 8.50  }   // down right side and close to wall
         };
         
         for (int i = 0; i < PreferenceKeys.startingPrefixes.length; i++) {
